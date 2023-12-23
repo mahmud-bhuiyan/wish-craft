@@ -1,50 +1,37 @@
+import { AiTwotoneLock } from "react-icons/ai";
+import { MdOutlineMarkEmailRead } from "react-icons/md";
+
 const LoginForm = () => {
   return (
     <>
       <form>
-        <div>
-          <label
-            htmlFor="email"
-            className="block mb-2 text-sm text-gray-600 dark:text-gray-200"
-          >
-            Email Address
-          </label>
+        <div className="relative flex items-center mt-8">
+          <span className="absolute p-3">
+            <MdOutlineMarkEmailRead className="text-xl md:text-2xl" />
+          </span>
+
           <input
             type="email"
-            name="email"
-            id="email"
-            placeholder="example@example.com"
-            className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-slate-100 border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+            className="block w-full py-3 text-gray-700 bg-slate-100 border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+            placeholder="Email address"
           />
         </div>
 
-        <div className="mt-6">
-          <div className="flex justify-between mb-2">
-            <label
-              htmlFor="password"
-              className="text-sm text-gray-600 dark:text-gray-200"
-            >
-              Password
-            </label>
-            <a
-              href="#"
-              className="text-sm text-gray-400 focus:text-blue-500 hover:text-blue-500 hover:underline"
-            >
-              Forgot password?
-            </a>
-          </div>
+        <div className="relative flex items-center mt-4">
+          <span className="absolute p-3">
+            <AiTwotoneLock className="text-xl md:text-2xl " />
+          </span>
+
           <input
             type="password"
-            name="password"
-            id="password"
-            placeholder="Your Password"
-            className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-slate-100 border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+            className="block w-full px-10 py-3 text-gray-700 bg-slate-100 border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+            placeholder="Password"
           />
         </div>
 
         <div className="mt-6">
           <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50">
-            Sign in
+            Login
           </button>
         </div>
       </form>
