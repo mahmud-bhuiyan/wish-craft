@@ -1,10 +1,16 @@
 import { Link } from "react-router-dom";
-import { logo } from "../assets/images/images";
-import SocialLogin from "../components/Auth/SocialLogin";
-import RegisterForm from "../components/Auth/RegisterForm";
 import { Helmet } from "react-helmet-async";
+import { toast } from "react-toastify";
+import { logo } from "../assets/images/images";
+import CustomAuthForm from "../components/Auth/CustomAuthForm";
+import SocialLogin from "../components/Auth/SocialLogin";
 
 const Register = () => {
+  const handleRegister = (data) => {
+    console.log("Registering with:", data);
+    toast.success("Registering successful");
+  };
+
   return (
     <>
       <Helmet>
@@ -48,13 +54,16 @@ const Register = () => {
 
               <div className="mt-8">
                 {/* custom Register form */}
-                <RegisterForm />
+                <CustomAuthForm
+                  buttonText="Register"
+                  onSubmit={handleRegister}
+                />
 
                 {/* Social Login */}
                 <SocialLogin />
 
                 <p className="mt-6 text-sm text-center text-gray-400">
-                  Don&lsquo;t have an account yet?{" "}
+                  Do you have an account?{" "}
                   <Link
                     to="/auth/login"
                     className="text-blue-500 focus:outline-none focus:underline hover:underline"

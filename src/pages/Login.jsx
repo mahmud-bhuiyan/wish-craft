@@ -1,10 +1,16 @@
 import { Link } from "react-router-dom";
-import { logo } from "../assets/images/images";
-import LoginForm from "../components/Auth/LoginForm";
-import SocialLogin from "../components/Auth/SocialLogin";
 import { Helmet } from "react-helmet-async";
+import { toast } from "react-toastify";
+import { logo } from "../assets/images/images";
+import CustomAuthForm from "../components/Auth/CustomAuthForm";
+import SocialLogin from "../components/Auth/SocialLogin";
 
 const Login = () => {
+  const handleLogin = (data) => {
+    console.log("Logging in with:", data);
+    toast.success("Login successful");
+  };
+
   return (
     <>
       <Helmet>
@@ -48,7 +54,7 @@ const Login = () => {
 
               <div className="mt-8">
                 {/* custom login form */}
-                <LoginForm />
+                <CustomAuthForm buttonText="Login" onSubmit={handleLogin} />
 
                 {/* Social Login */}
                 <SocialLogin />
