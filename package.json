@@ -1,5 +1,5 @@
 {
-  "name": "mrb_mern_auth",
+  "name": "mrb_mern_firebase_auth",
   "private": true,
   "version": "0.0.0",
   "type": "module",
