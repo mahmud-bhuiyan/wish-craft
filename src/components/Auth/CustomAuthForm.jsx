@@ -10,6 +10,7 @@ const CustomAuthForm = ({ buttonText, onSubmit }) => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    reset,
   } = useForm();
 
   const handleFormSubmit = (data) => {
@@ -20,6 +21,7 @@ const CustomAuthForm = ({ buttonText, onSubmit }) => {
 
     if (onSubmit) {
       onSubmit(data);
+      reset();
     }
   };
 

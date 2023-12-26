@@ -75,12 +75,9 @@ const Navbar = () => {
               >
                 Your profile
               </Link>
-              <button
-                onClick={handleLogOut}
-                className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform hover:bg-gray-100"
-              >
-                Sign Out
-              </button>
+              <div className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform hover:bg-gray-100">
+                <button onClick={handleLogOut}>Sign Out</button>
+              </div>
             </div>
           </div>
         </div>

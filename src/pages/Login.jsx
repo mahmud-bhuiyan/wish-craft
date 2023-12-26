@@ -1,13 +1,18 @@
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { logo } from "../assets/images/images";
 import CustomAuthForm from "../components/Auth/CustomAuthForm";
 import SocialLogin from "../components/Auth/SocialLogin";
-import { useContext } from "react";
 import { AuthContext } from "../context/AuthContextProvider";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const { loginUser } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   const handleLogin = (data) => {
     // extracting data from Login form
@@ -17,11 +22,13 @@ const Login = () => {
     loginUser(email, password)
       .then((result) => {
         const user = result.user;
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
+        toast.error(errorMessage);
       });
   };
 
