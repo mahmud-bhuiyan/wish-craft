@@ -1,14 +1,30 @@
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { toast } from "react-toastify";
 import { logo } from "../assets/images/images";
 import CustomAuthForm from "../components/Auth/CustomAuthForm";
 import SocialLogin from "../components/Auth/SocialLogin";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContextProvider";
 
 const Register = () => {
+  const { createUser } = useContext(AuthContext);
+
   const handleRegister = (data) => {
-    console.log("Registering with:", data);
-    toast.success("Registering successful");
+    // extracting data from Register form
+    const { name, email, password, confirmPassword } = data;
+    console.log(name, email, password, confirmPassword);
+
+    // register with firebase
+    createUser(email, password)
+      .then((result) => {
+        const loggedUser = result.user;
+        console.log(loggedUser);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
   };
 
   return (
