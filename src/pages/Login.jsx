@@ -1,14 +1,28 @@
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { toast } from "react-toastify";
 import { logo } from "../assets/images/images";
 import CustomAuthForm from "../components/Auth/CustomAuthForm";
 import SocialLogin from "../components/Auth/SocialLogin";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContextProvider";
 
 const Login = () => {
+  const { loginUser } = useContext(AuthContext);
+
   const handleLogin = (data) => {
-    console.log("Logging in with:", data);
-    toast.success("Login successful");
+    // extracting data from Login form
+    const { email, password } = data;
+
+    // login with firebase
+    loginUser(email, password)
+      .then((result) => {
+        const user = result.user;
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
+      });
   };
 
   return (
