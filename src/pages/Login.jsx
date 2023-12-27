@@ -21,8 +21,9 @@ const Login = () => {
     // login with firebase
     loginUser(email, password)
       .then((result) => {
-        const user = result.user;
-        navigate(from, { replace: true });
+        if (result.user.email) {
+          navigate(from, { replace: true });
+        }
       })
       .catch((error) => {
         const errorCode = error.code;

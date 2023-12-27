@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { logo } from "../assets/images/images";
 import CustomAuthForm from "../components/Auth/CustomAuthForm";
@@ -7,7 +7,8 @@ import { useContext } from "react";
 import { AuthContext } from "../context/AuthContextProvider";
 
 const Register = () => {
-  const { createUser } = useContext(AuthContext);
+  const { createUser, updateUserProfile } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleRegister = (data) => {
     // extracting data from Register form
@@ -17,8 +18,15 @@ const Register = () => {
     // register with firebase
     createUser(email, password)
       .then((result) => {
-        const loggedUser = result.user;
-        console.log(loggedUser);
+        if (result.user.email) {
+          updateUserProfile(name, data?.photo)
+            .then(() => {
+              navigate("/");
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        }
       })
       .catch((error) => {
         const errorCode = error.code;

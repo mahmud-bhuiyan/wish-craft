@@ -34,7 +34,7 @@ const Navbar = () => {
                 {/* Dropdown toggle button */}
                 <button
                   onClick={() => setProfileDropdownOpen(!isProfileDropdownOpen)}
-                  className="relative z-10 block px-1 text-gray-700 bg-white border border-transparent rounded-md  focus:border-blue-500 focus:ring-opacity-40 focus:ring-blue-300 focus:ring focus:outline-none"
+                  className="relative z-10 block  p-1 sm:px-2 text-gray-700 bg-white border border-transparent rounded-md  focus:border-blue-500 focus:ring-opacity-40 focus:ring-blue-300 focus:ring focus:outline-none"
                 >
                   <div className="flex items-center gap-2">
                     <h3 className="text-gray-700 text-sm">Mahmud</h3>
