@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+import { error } from "../assets/images/images";
 
 const ErrorPage = () => {
   return (
@@ -7,11 +8,19 @@ const ErrorPage = () => {
       <Helmet>
         <title>Page Not Found</title>
       </Helmet>
+
       <div className="min-h-screen min-w-screen flex justify-center items-center">
         <div className="text-center">
-          <h1 className="mb-4 text-6xl font-semibold text-blue-400">404</h1>
-          <p className="mb-4 text-lg text-gray-600">
-            Oops! Looks like you are lost.
+          <img
+            className="w-full max-w-lg md:mx-auto"
+            src={error}
+            alt="error image"
+          />
+          <h1 className="mt-3 text-2xl font-semibold text-gray-800 dark:text-white md:text-3xl capitalize">
+            Page not found
+          </h1>
+          <p className="mt-4 mb-6 text-gray-500 dark:text-gray-400">
+            Sorry, the page you are looking for doesn&lsquo;t exist.
           </p>
           <div className="animate-bounce">
             <svg
@@ -31,7 +40,7 @@ const ErrorPage = () => {
           <p className="mt-4 text-gray-600">
             Let us get you back{" "}
             <Link to="/" className="text-blue-500 font-bold">
-              home
+              Home
             </Link>
             .
           </p>
