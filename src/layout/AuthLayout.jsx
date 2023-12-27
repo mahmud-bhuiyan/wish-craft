@@ -3,8 +3,8 @@ import Footer from "../components/Footer";
 
 const AuthLayout = () => {
   return (
-    <div>
-      <div className="container h-screen mx-auto">
+    <div className="flex flex-col min-h-screen">
+      <div className="flex-1 container mx-auto">
         <Outlet />
       </div>
       <Footer />

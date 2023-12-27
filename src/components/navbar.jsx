@@ -82,7 +82,7 @@ const Navbar = () => {
               className="absolute right-0 z-20 w-40 py-2 mt-2 origin-top-right bg-white rounded-md shadow-xl"
             >
               <Link
-                to="/"
+                to="/users/profile"
                 className="block w-full py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform hover:bg-gray-100 text-center"
               >
                 Your profile

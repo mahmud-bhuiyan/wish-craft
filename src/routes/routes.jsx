@@ -6,6 +6,8 @@ import ErrorPage from "../pages/ErrorPage";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import PublicRoute from "./PublicRoute";
+import PrivateRoute from "./PrivateRoute";
+import UserProfilePage from "../pages/UserProfilePage";
 
 export const router = createBrowserRouter([
   {
@@ -16,6 +18,14 @@ export const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+      },
+      {
+        path: "/users/profile",
+        element: (
+          <PrivateRoute>
+            <UserProfilePage />
+          </PrivateRoute>
+        ),
       },
     ],
   },
