@@ -4,12 +4,17 @@ import { FiUnlock, FiUser } from "react-icons/fi";
 import { MdOutlineMarkEmailRead } from "react-icons/md";
 import CustomInputField from "./CustomInputField";
 import CustomPasswordField from "./CustomPasswordField";
+import CustomFormButton from "./CustomFormButton";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContextProvider";
 
 const CustomAuthForm = ({ buttonText, onSubmit }) => {
+  const { loading } = useContext(AuthContext);
+
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     reset,
   } = useForm();
 
@@ -70,13 +75,7 @@ const CustomAuthForm = ({ buttonText, onSubmit }) => {
       )}
 
       <div className="mt-6">
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50"
-        >
-          {buttonText}
-        </button>
+        <CustomFormButton buttonText={buttonText} loading={loading} />
       </div>
     </form>
   );
