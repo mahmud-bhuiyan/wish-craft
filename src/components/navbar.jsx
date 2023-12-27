@@ -24,7 +24,8 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="relative bg-[#EEF5FF] shadow">
+    <nav className="bg-[#200E3A] shadow fixed top-0 w-full z-50">
+      {/* <nav className="relative bg-[#200E3A] shadow"> */}
       <div className="container p-2 mx-auto">
         <div className="flex items-center justify-between">
           <Link to="/">
