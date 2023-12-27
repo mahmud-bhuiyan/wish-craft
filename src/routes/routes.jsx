@@ -21,24 +21,20 @@ export const router = createBrowserRouter([
   },
   {
     path: "/auth",
-    element: <AuthLayout />,
+    element: (
+      <PublicRoute>
+        <AuthLayout />
+      </PublicRoute>
+    ),
     errorElement: <ErrorPage />,
     children: [
       {
         path: "login",
-        element: (
-          <PublicRoute>
-            <Login />
-          </PublicRoute>
-        ),
+        element: <Login />,
       },
       {
         path: "register",
-        element: (
-          <PublicRoute>
-            <Register />
-          </PublicRoute>
-        ),
+        element: <Register />,
       },
     ],
   },

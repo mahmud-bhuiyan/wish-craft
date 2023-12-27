@@ -1,38 +1,39 @@
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { logo } from "../assets/images/images";
 import CustomAuthForm from "../components/Auth/CustomAuthForm";
 import SocialLogin from "../components/Auth/SocialLogin";
-import { useContext } from "react";
 import { AuthContext } from "../context/AuthContextProvider";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const { createUser, updateUserProfile } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [formSubmit, setFormSubmit] = useState(false);
 
-  const handleRegister = (data) => {
+  const handleRegister = async (data) => {
     // extracting data from Register form
     const { name, email, password, confirmPassword } = data;
     console.log(name, email, password, confirmPassword);
 
-    // register with firebase
-    createUser(email, password)
-      .then((result) => {
-        if (result.user.email) {
-          updateUserProfile(name, data?.photo)
-            .then(() => {
-              navigate("/");
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        }
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-      });
+    try {
+      setFormSubmit(true);
+
+      // register with firebase
+      const result = await createUser(email, password);
+
+      if (result.user.email) {
+        await updateUserProfile(name, data?.photo);
+        navigate("/");
+        toast.success("User register successful.");
+      }
+    } catch (error) {
+      console.log(error.code, error.message);
+      toast.error("Something went wrong!");
+    } finally {
+      setFormSubmit(false);
+    }
   };
 
   return (
@@ -81,6 +82,7 @@ const Register = () => {
                 <CustomAuthForm
                   buttonText="Register"
                   onSubmit={handleRegister}
+                  formSubmit={formSubmit}
                 />
 
                 {/* Social Login */}

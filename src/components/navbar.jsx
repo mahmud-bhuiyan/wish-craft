@@ -42,11 +42,19 @@ const Navbar = () => {
                   <div className="flex items-center gap-2">
                     <h3 className="text-gray-700 text-sm">{firstName}</h3>
                     <div className="w-8 h-8 overflow-hidden border-2 border-gray-400 rounded-full">
-                      <img
-                        src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80"
-                        className="object-cover w-full h-full"
-                        alt="Avatar"
-                      />
+                      {user && user.photoURL ? (
+                        <img
+                          src={user.photoURL}
+                          className="object-cover w-full h-full"
+                          alt="user photo"
+                        />
+                      ) : (
+                        <img
+                          src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80"
+                          className="object-cover w-full h-full"
+                          alt="Avatar"
+                        />
+                      )}
                     </div>
                   </div>
                 </button>

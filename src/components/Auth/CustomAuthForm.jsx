@@ -5,12 +5,8 @@ import { MdOutlineMarkEmailRead } from "react-icons/md";
 import CustomInputField from "./CustomInputField";
 import CustomPasswordField from "./CustomPasswordField";
 import CustomFormButton from "./CustomFormButton";
-import { useContext } from "react";
-import { AuthContext } from "../../context/AuthContextProvider";
 
-const CustomAuthForm = ({ buttonText, onSubmit }) => {
-  const { loading } = useContext(AuthContext);
-
+const CustomAuthForm = ({ buttonText, formSubmit, onSubmit }) => {
   const {
     register,
     handleSubmit,
@@ -75,7 +71,7 @@ const CustomAuthForm = ({ buttonText, onSubmit }) => {
       )}
 
       <div className="mt-6">
-        <CustomFormButton buttonText={buttonText} loading={loading} />
+        <CustomFormButton buttonText={buttonText} loading={formSubmit} />
       </div>
     </form>
   );

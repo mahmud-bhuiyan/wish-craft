@@ -1,11 +1,11 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { toast } from "react-toastify";
 import { logo } from "../assets/images/images";
 import CustomAuthForm from "../components/Auth/CustomAuthForm";
 import SocialLogin from "../components/Auth/SocialLogin";
 import { AuthContext } from "../context/AuthContextProvider";
-import { toast } from "react-toastify";
 
 const Login = () => {
   const { loginUser } = useContext(AuthContext);
@@ -13,24 +13,28 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
+  const [formSubmit, setFormSubmit] = useState(false);
 
-  const handleLogin = (data) => {
-    // extracting data from Login form
-    const { email, password } = data;
+  const handleLogin = async (data) => {
+    try {
+      setFormSubmit(true);
 
-    // login with firebase
-    loginUser(email, password)
-      .then((result) => {
-        if (result.user.email) {
-          navigate(from, { replace: true });
-        }
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-        toast.error(errorMessage);
-      });
+      // extracting data from Login form
+      const { email, password } = data;
+
+      // login with firebase using async/await
+      const result = await loginUser(email, password);
+
+      if (result.user.email) {
+        navigate(from, { replace: true });
+        toast.success("User login successful.");
+      }
+    } catch (error) {
+      console.log(error.code, error.message);
+      toast.error("Something went wrong!");
+    } finally {
+      setFormSubmit(false);
+    }
   };
 
   return (
@@ -76,7 +80,11 @@ const Login = () => {
 
               <div className="mt-8">
                 {/* custom login form */}
-                <CustomAuthForm buttonText="Login" onSubmit={handleLogin} />
+                <CustomAuthForm
+                  buttonText="Login"
+                  onSubmit={handleLogin}
+                  formSubmit={formSubmit}
+                />
 
                 {/* Social Login */}
                 <SocialLogin />
