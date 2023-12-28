@@ -1,9 +1,19 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContextProvider";
+import UpdateUserDetailsModal from "../components/User/UpdateUserDetailsModal";
 
 const UserProfilePage = () => {
   const { user } = useContext(AuthContext);
-  console.log(user);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+
+  const openUpdateModal = () => {
+    setIsUpdateModalOpen(true);
+  };
+
+  const closeUpdateModal = () => {
+    setIsUpdateModalOpen(false);
+  };
+
   return (
     <section className="bg-white dark:bg-gray-900">
       <div className="relative flex">
@@ -12,7 +22,7 @@ const UserProfilePage = () => {
 
         <div className="container flex flex-col justify-center w-full min-h-screen px-2 py-10 mx-auto lg:absolute lg:inset-x-0">
           <h1 className="text-2xl font-semibold text-gray-800 capitalize lg:text-3xl dark:text-white">
-            Hello <span className="text-blue-500">{user?.displayName}</span>
+            Welcome, <span className="text-blue-500">{user?.displayName}</span>
           </h1>
 
           <div className="mt-10 lg:mt-20 lg:flex lg:items-center">
@@ -41,11 +51,14 @@ const UserProfilePage = () => {
               </p>
 
               <div className="grid gap-4">
-                <button className="w-full sm:w-1/2 lg:w-full px-4 py-2 tracking-wide text-white transition-colors duration-300 transform bg-blue-400 rounded-lg hover:bg-blue-500 focus:outline-none focus:bg-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 mt-4">
+                <button
+                  onClick={openUpdateModal}
+                  className="w-full sm:w-1/3 lg:w-full px-4 py-2 tracking-wide text-white transition-colors duration-300 transform bg-blue-400 rounded-lg hover:bg-blue-500 focus:outline-none focus:bg-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 mt-4"
+                >
                   Update Details
                 </button>
 
-                <button className="w-full sm:w-1/2 lg:w-full  px-4 py-2 tracking-wide text-white transition-colors duration-300 transform bg-sky-300 rounded-lg hover:bg-sky-400 focus:outline-none focus:bg-sky-400 focus:ring focus:ring-sky-300 focus:ring-opacity-50">
+                <button className="w-full sm:w-1/3 lg:w-full px-4 py-2 tracking-wide text-white transition-colors duration-300 transform bg-sky-300 rounded-lg hover:bg-sky-400 focus:outline-none focus:bg-sky-400 focus:ring focus:ring-sky-300 focus:ring-opacity-50">
                   Update Password
                 </button>
               </div>
@@ -53,6 +66,13 @@ const UserProfilePage = () => {
           </div>
         </div>
       </div>
+
+      {/* Update User Details Modal */}
+      <UpdateUserDetailsModal
+        isOpen={isUpdateModalOpen}
+        onClose={closeUpdateModal}
+        user={user}
+      />
     </section>
   );
 };
