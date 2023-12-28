@@ -64,7 +64,7 @@ const UpdateUserDetailsModal = ({ isOpen, onClose, user }) => {
 
   return (
     <div
-      className={`fixed inset-0 z-10 overflow-y-auto ${
+      className={`fixed inset-0 z-10 overflow-y-auto p-2 ${
         isOpen ? "block" : "hidden"
       }`}
     >
@@ -77,6 +77,18 @@ const UpdateUserDetailsModal = ({ isOpen, onClose, user }) => {
             Update User Details
           </h3>
 
+          <div className="relative mt-4">
+            <span className="absolute p-3">
+              <MdOutlineMarkEmailRead className="text-2xl" />
+            </span>
+            <input
+              className="block w-full py-3 bg-sky-100 border rounded-lg px-11"
+              {...register("email")}
+              disabled
+              value={user.email}
+            />
+          </div>
+
           <CustomInputField
             type="text"
             name="displayName"
@@ -86,6 +98,7 @@ const UpdateUserDetailsModal = ({ isOpen, onClose, user }) => {
             icon={FiUser}
           />
 
+          {/* 
           <CustomInputField
             type="email"
             name="email"
@@ -93,9 +106,9 @@ const UpdateUserDetailsModal = ({ isOpen, onClose, user }) => {
             register={register}
             errors={errors}
             icon={MdOutlineMarkEmailRead}
-          />
+          /> */}
 
-          <div className="flex justify-end flex-wrap mt-4">
+          <div className="flex justify-center flex-wrap mt-6">
             <button
               type="button"
               onClick={handleCancel}

@@ -14,6 +14,7 @@ const UpdateUserPasswordModal = ({ isOpen, onClose }) => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
   const updatePassword = async (data) => {
@@ -33,6 +34,7 @@ const UpdateUserPasswordModal = ({ isOpen, onClose }) => {
 
       onClose();
       setUpdateClicked(false);
+      reset();
       toast.success("Password updated successfully.");
     } catch (error) {
       console.error("Error updating password:", error);
@@ -43,11 +45,12 @@ const UpdateUserPasswordModal = ({ isOpen, onClose }) => {
 
   const handleCancel = () => {
     onClose();
+    reset();
   };
 
   return (
     <div
-      className={`fixed inset-0 z-10 overflow-y-auto ${
+      className={`fixed inset-0 z-10 overflow-y-auto p-2 ${
         isOpen ? "block" : "hidden"
       }`}
     >
@@ -60,13 +63,13 @@ const UpdateUserPasswordModal = ({ isOpen, onClose }) => {
             Update Password
           </h3>
 
-          <CustomPasswordField
+          {/* <CustomPasswordField
             name="password"
             placeholder="Enter current password"
             register={register}
             errors={errors}
             icon={FiUnlock}
-          />
+          /> */}
 
           <CustomPasswordField
             name="newPassword"
@@ -84,7 +87,7 @@ const UpdateUserPasswordModal = ({ isOpen, onClose }) => {
             icon={FiUnlock}
           />
 
-          <div className="flex justify-end flex-wrap mt-4">
+          <div className="flex justify-center flex-wrap mt-6">
             <button
               type="button"
               onClick={handleCancel}

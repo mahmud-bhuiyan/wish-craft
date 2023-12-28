@@ -28,17 +28,17 @@ const UserProfilePage = () => {
   return (
     <section className="bg-white dark:bg-gray-900">
       <div className="relative flex">
-        <div className="min-h-screen lg:w-1/3"></div>
+        <div className="h-[90%] lg:w-1/4"></div>
         <div className="hidden w-3/4 min-h-screen bg-gray-100 dark:bg-gray-800 lg:block"></div>
 
-        <div className="container flex flex-col justify-center w-full min-h-screen px-2 py-10 mx-auto lg:absolute lg:inset-x-0">
+        <div className="container flex flex-col justify-center w-full mx-auto p-2 md:p-4 lg:absolute lg:inset-x-0">
           <h1 className="text-2xl font-semibold text-gray-800 capitalize lg:text-3xl dark:text-white">
             Welcome, <span className="text-blue-500">{user?.displayName}</span>
           </h1>
 
-          <div className="mt-10 lg:mt-20 lg:flex lg:items-center">
+          <div className="mt-8 md:mt-12 lg:flex lg:items-center">
             <img
-              className="object-cover object-center w-full lg:w-[32rem] rounded-lg h-96"
+              className="object-cover object-center w-full lg:w-[26rem] rounded-lg h-60"
               src={user?.photoURL}
               alt={user?.displayName}
             />
