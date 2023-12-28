@@ -1,9 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import CustomButton from "../CustomButton";
-import CustomModalInputField from "./CustomModalInputField";
-import { AuthContext } from "../../context/AuthContextProvider";
 import { toast } from "react-toastify";
+import { FiUser } from "react-icons/fi";
+import { MdOutlineMarkEmailRead } from "react-icons/md";
+import CustomInputField from "../Auth/CustomInputField";
+import CustomButton from "../CustomButton";
+import { AuthContext } from "../../context/AuthContextProvider";
 
 const UpdateUserDetailsModal = ({ isOpen, onClose, user }) => {
   const { updateUserEmail, updateUserProfile } = useContext(AuthContext);
@@ -25,7 +27,7 @@ const UpdateUserDetailsModal = ({ isOpen, onClose, user }) => {
   }, [user, setValue]);
 
   const updateUserDetails = async (data) => {
-    const { displayName, email, photo } = data;
+    const { displayName, email } = data;
 
     // Check if both displayName and email are unchanged
     if (user.displayName === displayName && user.email === email) {
@@ -39,7 +41,7 @@ const UpdateUserDetailsModal = ({ isOpen, onClose, user }) => {
       setUpdateClicked(true);
 
       if (displayName) {
-        await updateUserProfile(displayName, data?.photo);
+        await updateUserProfile(displayName);
       }
 
       if (email) {
@@ -47,11 +49,12 @@ const UpdateUserDetailsModal = ({ isOpen, onClose, user }) => {
       }
 
       onClose();
-      setUpdateClicked(false);
       toast.success("User updated successful.");
     } catch (error) {
       console.error("Error updating user details:", error);
       toast.error("An error occurred");
+    } finally {
+      setUpdateClicked(false);
     }
   };
 
@@ -73,31 +76,26 @@ const UpdateUserDetailsModal = ({ isOpen, onClose, user }) => {
           <h3 className="text-xl font-bold mb-4 text-center underline">
             Update User Details
           </h3>
-          <CustomModalInputField
-            label="Name"
+
+          <CustomInputField
+            type="text"
             name="displayName"
-            type="text"
+            placeholder="Enter your Name"
             register={register}
             errors={errors}
+            icon={FiUser}
           />
 
-          {/* TODO: photo update */}
-          {/* <CustomModalInputField
-            label="Photo URL"
-            name="photoURL"
-            type="text"
-            register={register}
-            errors={errors}
-          /> */}
-
-          <CustomModalInputField
-            label="Email"
-            name="email"
+          <CustomInputField
             type="email"
+            name="email"
+            placeholder="Enter your Name"
             register={register}
             errors={errors}
+            icon={MdOutlineMarkEmailRead}
           />
-          <div className="flex justify-end flex-wrap">
+
+          <div className="flex justify-end flex-wrap mt-4">
             <button
               type="button"
               onClick={handleCancel}
@@ -106,7 +104,7 @@ const UpdateUserDetailsModal = ({ isOpen, onClose, user }) => {
               Cancel
             </button>
             <CustomButton
-              buttonText="Submit"
+              buttonText="Update"
               loading={updateClicked}
               color="blue"
             />

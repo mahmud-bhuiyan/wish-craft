@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
   updateEmail,
+  updatePassword,
   updateProfile,
 } from "firebase/auth";
 import app from "../services/firebase/firebase.config";
@@ -34,6 +35,11 @@ const AuthContextProvider = ({ children }) => {
   // update users email
   const updateUserEmail = (email) => {
     return updateEmail(auth.currentUser, email);
+  };
+
+  // update users password
+  const updateUserPassword = (password) => {
+    return updatePassword(auth.currentUser, password);
   };
 
   // login user
@@ -65,6 +71,7 @@ const AuthContextProvider = ({ children }) => {
     loginUser,
     logoutUser,
     updateUserEmail,
+    updateUserPassword,
     updateUserProfile,
     user,
   };

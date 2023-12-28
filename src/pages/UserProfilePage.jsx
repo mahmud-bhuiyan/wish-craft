@@ -1,10 +1,13 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContextProvider";
 import UpdateUserDetailsModal from "../components/User/UpdateUserDetailsModal";
+import UpdateUserPasswordModal from "../components/User/UpdateUserPasswordModal";
 
 const UserProfilePage = () => {
   const { user } = useContext(AuthContext);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+  const [isPasswordUpdateModalOpen, setIsPasswordUpdateModalOpen] =
+    useState(false);
 
   const openUpdateModal = () => {
     setIsUpdateModalOpen(true);
@@ -12,6 +15,14 @@ const UserProfilePage = () => {
 
   const closeUpdateModal = () => {
     setIsUpdateModalOpen(false);
+  };
+
+  const openPasswordUpdateModal = () => {
+    setIsPasswordUpdateModalOpen(true);
+  };
+
+  const closePasswordUpdateModal = () => {
+    setIsPasswordUpdateModalOpen(false);
   };
 
   return (
@@ -58,7 +69,10 @@ const UserProfilePage = () => {
                   Update Details
                 </button>
 
-                <button className="w-full sm:w-1/3 lg:w-full px-4 py-2 tracking-wide text-white transition-colors duration-300 transform bg-sky-300 rounded-lg hover:bg-sky-400 focus:outline-none focus:bg-sky-400 focus:ring focus:ring-sky-300 focus:ring-opacity-50">
+                <button
+                  onClick={openPasswordUpdateModal}
+                  className="w-full sm:w-1/3 lg:w-full px-4 py-2 tracking-wide text-white transition-colors duration-300 transform bg-sky-300 rounded-lg hover:bg-sky-400 focus:outline-none focus:bg-sky-400 focus:ring focus:ring-sky-300 focus:ring-opacity-50"
+                >
                   Update Password
                 </button>
               </div>
@@ -72,6 +86,11 @@ const UserProfilePage = () => {
         isOpen={isUpdateModalOpen}
         onClose={closeUpdateModal}
         user={user}
+      />
+
+      <UpdateUserPasswordModal
+        isOpen={isPasswordUpdateModalOpen}
+        onClose={closePasswordUpdateModal}
       />
     </section>
   );
