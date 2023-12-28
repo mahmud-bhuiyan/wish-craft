@@ -1,9 +1,14 @@
-import { useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import CustomButton from "../CustomButton";
 import CustomModalInputField from "./CustomModalInputField";
+import { AuthContext } from "../../context/AuthContextProvider";
+import { toast } from "react-toastify";
 
 const UpdateUserDetailsModal = ({ isOpen, onClose, user }) => {
+  const { updateUserEmail, updateUserProfile } = useContext(AuthContext);
+  const [updateClicked, setUpdateClicked] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -20,8 +25,34 @@ const UpdateUserDetailsModal = ({ isOpen, onClose, user }) => {
   }, [user, setValue]);
 
   const updateUserDetails = async (data) => {
-    console.log(data);
-    onClose();
+    const { displayName, email, photo } = data;
+
+    // Check if both displayName and email are unchanged
+    if (user.displayName === displayName && user.email === email) {
+      // If unchanged, display toast message and return
+      toast.info("Nothing to update.");
+      onClose();
+      return;
+    }
+
+    try {
+      setUpdateClicked(true);
+
+      if (displayName) {
+        await updateUserProfile(displayName, data?.photo);
+      }
+
+      if (email) {
+        await updateUserEmail(email);
+      }
+
+      onClose();
+      setUpdateClicked(false);
+      toast.success("User updated successful.");
+    } catch (error) {
+      console.error("Error updating user details:", error);
+      toast.error("An error occurred");
+    }
   };
 
   const handleCancel = () => {
@@ -74,7 +105,11 @@ const UpdateUserDetailsModal = ({ isOpen, onClose, user }) => {
             >
               Cancel
             </button>
-            <CustomButton buttonText="Submit" loading={false} color="blue" />
+            <CustomButton
+              buttonText="Submit"
+              loading={updateClicked}
+              color="blue"
+            />
           </div>
         </div>
       </form>

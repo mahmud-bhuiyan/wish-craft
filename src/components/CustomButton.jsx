@@ -1,17 +1,14 @@
 import { ThreeDots } from "react-loader-spinner";
 
 const CustomButton = ({ buttonText, loading, color }) => {
-  const buttonClass = `px-4 md:px-10 py-2 tracking-wide text-white transition-colors duration-300 transform rounded-lg ${
-    loading
-      ? "bg-gray-500 cursor-not-allowed"
-      : `bg-${color}-500 hover:bg-${color}-400 focus:bg-${color}-400 focus:ring focus:ring-${color}-300 focus:ring-opacity-50`
+  const buttonClass = `px-4 md:px-10 py-2 tracking-wide text-white transition-colors duration-300 transform rounded-lg bg-${color}-500 hover:bg-${color}-400 focus:bg-${color}-400 focus:ring focus:ring-${color}-300 focus:ring-opacity-50 ${
+    loading ? "cursor-not-allowed" : ``
   }`;
 
   return (
     <button type="submit" disabled={loading} className={buttonClass}>
       {loading ? (
         <span className="flex gap-2 justify-center align-middle">
-          Submitting
           <ThreeDots
             visible={true}
             height="25"
