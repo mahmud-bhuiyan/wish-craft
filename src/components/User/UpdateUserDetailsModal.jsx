@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import CustomButton from "../CustomButton";
+import CustomModalInputField from "./CustomModalInputField";
 
 const UpdateUserDetailsModal = ({ isOpen, onClose, user }) => {
   const {
@@ -38,52 +39,33 @@ const UpdateUserDetailsModal = ({ isOpen, onClose, user }) => {
         className="flex items-center justify-center min-h-screen max-w-96 mx-auto"
       >
         <div className="bg-white w-full p-8 rounded-md drop-shadow-2xl">
-          <h3 className="text-lg font-medium mb-4">Update User Details</h3>
+          <h3 className="text-xl font-bold mb-4 text-center underline">
+            Update User Details
+          </h3>
+          <CustomModalInputField
+            label="Name"
+            name="displayName"
+            type="text"
+            register={register}
+            errors={errors}
+          />
 
-          <div className="mb-4">
-            <label
-              htmlFor="displayName"
-              className="block text-sm font-medium text-gray-600"
-            >
-              Name
-            </label>
-            <input
-              {...register("displayName")}
-              type="text"
-              className="mt-1 p-2 border rounded-md w-full"
-            />
-            {errors.displayName && (
-              <span className="text-red-500 text-sm">
-                {errors.displayName.message}
-              </span>
-            )}
-          </div>
+          {/* TODO: photo update */}
+          {/* <CustomModalInputField
+            label="Photo URL"
+            name="photoURL"
+            type="text"
+            register={register}
+            errors={errors}
+          /> */}
 
-          <div className="mb-4">
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-600"
-            >
-              Email
-            </label>
-            <input
-              {...register("email", {
-                required: "Email is required",
-                pattern: {
-                  value: /^\S+@\S+$/i,
-                  message: "Invalid email address",
-                },
-              })}
-              type="email"
-              className="mt-1 p-2 border rounded-md w-full"
-            />
-            {errors.email && (
-              <span className="text-red-500 text-sm">
-                {errors.email.message}
-              </span>
-            )}
-          </div>
-
+          <CustomModalInputField
+            label="Email"
+            name="email"
+            type="email"
+            register={register}
+            errors={errors}
+          />
           <div className="flex justify-end flex-wrap">
             <button
               type="button"
