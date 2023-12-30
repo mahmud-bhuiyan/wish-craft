@@ -1,3 +1,8 @@
-# mrb_mern_firebase_auth
+# SJI-feature-request-board
 
-This template provides a minimum auth setup for mern project using firebase.
+### Author: Md. Mahmudur Rahman Bhuiyan
+
+## Main Features
+
+- A fully functional feature request board where users can create, comment, and vote on feature requests.
+- The board should be configurable by an admin from the backend.
