@@ -13,6 +13,7 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
+  
   const [formSubmit, setFormSubmit] = useState(false);
 
   const handleLogin = async (data) => {
@@ -70,9 +71,12 @@ const Login = () => {
           <div className="flex items-center w-full max-w-md px-6 mx-auto md:w-2/5">
             <div className="flex-1">
               <div className="text-center">
-                <Link to="/" className="flex justify-center mx-auto">
-                  <img className="w-auto h-9" src={logo} alt="logo" />
-                </Link>
+                <div className="flex justify-center mx-auto">
+                  <Link to="/">
+                    <img className="w-auto h-9" src={logo} alt="logo" />
+                  </Link>
+                </div>
+
                 <p className="mt-3 text-gray-500 dark:text-gray-300 capitalize">
                   Sign in to access your account
                 </p>
