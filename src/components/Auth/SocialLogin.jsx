@@ -1,7 +1,8 @@
 import { useContext } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { AuthContext } from "../../context/AuthContextProvider";
-import { useLocation, useNavigate } from "react-router-dom";
+import { signInWithGoogle } from "../../services/apis/User";
 
 const SocialLogin = () => {
   const { googleSignIn } = useContext(AuthContext);
@@ -10,12 +11,29 @@ const SocialLogin = () => {
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
-  const handleGoogleSignIn = () => {
-    googleSignIn().then((result) => {
+  // Function to handle Google Sign-In and store data in MongoDB
+  const handleGoogleSignIn = async () => {
+    try {
+      // Trigger Google Sign-In
+      const result = await googleSignIn();
+
+      // Get the user information from the authentication result
       const loggedInUser = result.user;
-      console.log(loggedInUser);
+
+      const userData = {
+        name: loggedInUser.displayName,
+        email: loggedInUser.email,
+        photoURL: loggedInUser.photoURL,
+      };
+
+      // Send user data to MongoDB
+      await signInWithGoogle(userData);
+
+      // Navigate back to the previous or home page
       navigate(from, { replace: true });
-    });
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   return (

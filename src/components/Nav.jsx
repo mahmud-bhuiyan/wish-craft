@@ -4,7 +4,7 @@ import { BiLogIn } from "react-icons/bi";
 import { logo } from "../assets/images/images";
 import { AuthContext } from "../context/AuthContextProvider";
 
-const Navbar = () => {
+const Nav = () => {
   const [isProfileDropdownOpen, setProfileDropdownOpen] = useState(false);
 
   const { user, logoutUser } = useContext(AuthContext);
@@ -22,7 +22,7 @@ const Navbar = () => {
         console.log(error.message);
       });
   };
-
+  
   return (
     <nav className="bg-[#200E3A] shadow fixed top-0 w-full z-50">
       {/* <nav className="relative bg-[#200E3A] shadow"> */}
@@ -107,4 +107,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Nav;
