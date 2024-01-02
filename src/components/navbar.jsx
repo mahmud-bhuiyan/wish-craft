@@ -9,14 +9,14 @@ const Navbar = () => {
 
   const { user, logoutUser } = useContext(AuthContext);
 
-  const userName = user?.displayName;
-  const firstName = userName ? userName.split(" ")[0] : "user";
+  // Extracting the first name from the user's display name
+  const firstName = user ? user.displayName.split(" ")[0] : "user";
 
   // logout user using firebase
   const handleLogOut = () => {
     logoutUser()
       .then(() => {
-        console.log("Sign-out successful");
+        // console.log("Sign-out successful");
       })
       .catch((error) => {
         console.log(error.message);
@@ -29,7 +29,11 @@ const Navbar = () => {
       <div className="container p-2 mx-auto">
         <div className="flex items-center justify-between">
           <Link to="/">
-            <img className="w-auto h-6 sm:h-7" src={logo} alt="Logo" />
+            <img
+              className="w-auto h-6 sm:h-7 bg-white rounded-full"
+              src={logo}
+              alt="Logo"
+            />
           </Link>
 
           <div className="relative inline-block">
@@ -41,6 +45,7 @@ const Navbar = () => {
                   className="relative z-10 block  p-1 sm:px-2 text-gray-700 bg-white border border-transparent rounded-md  focus:border-blue-500 focus:ring-opacity-40 focus:ring-blue-300 focus:ring focus:outline-none"
                 >
                   <div className="flex items-center gap-2">
+                    {/* Displaying the first name */}
                     <h3 className="text-gray-700 text-sm">{firstName}</h3>
                     <div className="w-8 h-8 overflow-hidden border-2 border-gray-400 rounded-full">
                       {user && user.photoURL ? (
@@ -62,6 +67,7 @@ const Navbar = () => {
               </>
             ) : (
               <>
+                {/* Redirecting to the login page for non-logged-in users */}
                 <Link
                   to="/auth/login"
                   className="relative z-10 block p-1 sm:px-2  bg-[#86B6F6] border-2 hover:border-slate-500 rounded-md hover:text-white text-slate-600"

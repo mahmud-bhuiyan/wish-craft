@@ -1,4 +1,5 @@
+import authPageBG from "./auth.png";
 import error from "./error.png";
-import logo from "./m-logo.png";
+import logo from "./WishCraft.png";
 
-export { error, logo };
+export { authPageBG, error, logo };

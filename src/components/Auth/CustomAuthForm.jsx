@@ -6,7 +6,7 @@ import CustomInputField from "./CustomInputField";
 import CustomPasswordField from "./CustomPasswordField";
 import CustomFormButton from "./CustomFormButton";
 
-const CustomAuthForm = ({ buttonText, formSubmit, onSubmit }) => {
+const CustomAuthForm = ({ buttonText, formReset, formSubmit, onSubmit }) => {
   const {
     register,
     handleSubmit,
@@ -16,12 +16,15 @@ const CustomAuthForm = ({ buttonText, formSubmit, onSubmit }) => {
 
   const handleFormSubmit = (data) => {
     if (!isLogin && data.password !== data.confirmPassword) {
-      toast.error("Passwords do not match");
+      toast.warning("Passwords do not match");
       return;
     }
 
     if (onSubmit) {
       onSubmit(data);
+    }
+
+    if (formReset) {
       reset();
     }
   };

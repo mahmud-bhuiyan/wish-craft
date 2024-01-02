@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { toast } from "react-toastify";
-import { logo } from "../assets/images/images";
+import { authPageBG, logo } from "../assets/images/images";
 import CustomAuthForm from "../components/Auth/CustomAuthForm";
 import SocialLogin from "../components/Auth/SocialLogin";
 import { AuthContext } from "../context/AuthContextProvider";
@@ -13,7 +13,7 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-  
+
   const [formSubmit, setFormSubmit] = useState(false);
 
   const handleLogin = async (data) => {
@@ -49,8 +49,7 @@ const Login = () => {
           <div
             className="hidden bg-cover md:block md:w-3/5"
             style={{
-              backgroundImage:
-                "url(https://images.unsplash.com/photo-1616763355603-9755a640a287?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80)",
+              backgroundImage: `url(${authPageBG})`,
             }}
           >
             <div className="flex items-center justify-center text-center h-full px-20 bg-gray-900 bg-opacity-40">
