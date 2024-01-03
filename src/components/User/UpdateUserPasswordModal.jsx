@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import CustomPasswordField from "../Auth/CustomPasswordField";
 import { FiUnlock } from "react-icons/fi";
 import { AuthContext } from "../../context/AuthContextProvider";
+import { passwordUpdate } from "../../services/apis/User";
 
 const UpdateUserPasswordModal = ({ isOpen, onClose }) => {
   const { updateUserPassword } = useContext(AuthContext);
@@ -18,19 +19,26 @@ const UpdateUserPasswordModal = ({ isOpen, onClose }) => {
   } = useForm();
 
   const updatePassword = async (data) => {
-    const { password, newPassword, confirmPassword } = data;
+    const passwordData = {
+      newPassword: data.newPassword,
+      confirmPassword: data.confirmPassword,
+    };
 
     try {
       setUpdateClicked(true);
 
       // Check if new password and confirm password match
-      if (newPassword !== confirmPassword) {
+      if (passwordData.newPassword !== passwordData.confirmPassword) {
         toast.error("New password and confirm password do not match.");
         setUpdateClicked(false);
         return;
       }
 
-      await updateUserPassword(password, newPassword);
+      // update in mongodb
+      await passwordUpdate(passwordData);
+
+      // update in firebase
+      await updateUserPassword(passwordData.newPassword);
 
       onClose();
       setUpdateClicked(false);
@@ -63,14 +71,6 @@ const UpdateUserPasswordModal = ({ isOpen, onClose }) => {
             Update Password
           </h3>
 
-          {/* <CustomPasswordField
-            name="password"
-            placeholder="Enter current password"
-            register={register}
-            errors={errors}
-            icon={FiUnlock}
-          /> */}
-
           <CustomPasswordField
             name="newPassword"
             placeholder="Enter new password"
@@ -95,11 +95,7 @@ const UpdateUserPasswordModal = ({ isOpen, onClose }) => {
             >
               Cancel
             </button>
-            <CustomButton
-              buttonText="Update"
-              loading={updateClicked}
-              color={"sky"}
-            />
+            <CustomButton buttonText="Update" loading={updateClicked} />
           </div>
         </div>
       </form>

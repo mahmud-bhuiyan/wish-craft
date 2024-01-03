@@ -100,3 +100,19 @@ export const updateUser = async (updatedUserData) => {
     throw error.response?.data?.msg;
   }
 };
+
+// =============================================
+//                 update password
+// =============================================
+export const passwordUpdate = async (passwordData) => {
+  try {
+    const response = await axiosSecureInstance.patch(
+      "/users/updatePassword",
+      passwordData
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error.response?.data?.msg);
+    throw error.response?.data?.msg;
+  }
+};

@@ -1,7 +1,7 @@
 import { ThreeDots } from "react-loader-spinner";
 
-const CustomButton = ({ buttonText, loading, color }) => {
-  const buttonClass = `px-4 md:px-10 py-2 tracking-wide text-white transition-colors duration-300 transform rounded-lg bg-${color}-500 hover:bg-${color}-400 focus:bg-${color}-400 focus:ring focus:ring-${color}-300 focus:ring-opacity-50 ${
+const CustomButton = ({ buttonText, loading }) => {
+  const buttonClass = `px-4 md:px-10 py-2 tracking-wide text-white transition-colors duration-300 transform rounded-lg bg-sky-500 hover:bg-sky-400 focus:bg-sky-400 focus:ring focus:ring-sky-300 focus:ring-opacity-50 ${
     loading ? "cursor-not-allowed" : ``
   }`;
 

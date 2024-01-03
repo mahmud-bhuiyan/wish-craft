@@ -113,7 +113,6 @@ const UpdateUserDetailsModal = ({ isOpen, onClose, user }) => {
             <CustomButton
               buttonText="Update"
               loading={updateClicked}
-              color={"sky"}
             />
           </div>
         </div>
