@@ -1,28 +1,52 @@
-import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useEffect, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { BiLogIn } from "react-icons/bi";
 import { logo } from "../assets/images/images";
 import { AuthContext } from "../context/AuthContextProvider";
+import { userLogout } from "../services/apis/User";
+import { toast } from "react-toastify";
 
 const Nav = () => {
   const [isProfileDropdownOpen, setProfileDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   const { user, logoutUser } = useContext(AuthContext);
 
   // Extracting the first name from the user's display name
-  const firstName = user ? user.displayName.split(" ")[0] : "user";
+  const firstName = user
+    ? user.displayName
+      ? user.displayName.split(" ")[0]
+      : "user"
+    : "user";
+
+  const navigate = useNavigate();
 
   // logout user using firebase
-  const handleLogOut = () => {
-    logoutUser()
-      .then(() => {
-        // console.log("Sign-out successful");
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
+  const handleLogOut = async () => {
+    try {
+      await userLogout();
+      await logoutUser();
+      navigate("/auth/login");
+    } catch (error) {
+      // console.error("Logout failed:", error);
+      toast.error(error.message || "Logout failed");
+    }
   };
-  
+
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setProfileDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [isProfileDropdownOpen]);
+
   return (
     <nav className="bg-[#200E3A] shadow fixed top-0 w-full z-50">
       {/* <nav className="relative bg-[#200E3A] shadow"> */}
@@ -81,6 +105,7 @@ const Nav = () => {
 
             {/* Dropdown menu */}
             <div
+              ref={dropdownRef}
               style={{
                 display: isProfileDropdownOpen ? "block" : "none",
               }}

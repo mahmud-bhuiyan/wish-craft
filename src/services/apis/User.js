@@ -65,3 +65,22 @@ export const userLogin = async (credentials) => {
     throw error.response?.data?.msg;
   }
 };
+
+// =============================================
+//                     logout
+// =============================================
+export const userLogout = async () => {
+  try {
+    // Simulate an asynchronous operation
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    // Clear the token from localStorage
+    localStorage.removeItem("userToken");
+
+    // Return a success status
+    return { success: true };
+  } catch (error) {
+    // console.error("Error:", error.response?.data?.msg || "Logout failed");
+    throw error.response?.data?.msg || "Logout failed";
+  }
+};
