@@ -43,3 +43,25 @@ export const signInWithGoogle = async (userData) => {
     throw error.response?.data?.msg;
   }
 };
+
+// =============================================
+//                      login
+// =============================================
+export const userLogin = async (credentials) => {
+  try {
+    const response = await axiosNonSecureInstance.post(
+      "/users/login",
+      credentials
+    );
+
+    // Store the token in localStorage
+    const { token } = response.data;
+    localStorage.setItem("userToken", token);
+
+    // console.log(response.data);
+    return response.data;
+  } catch (error) {
+    // console.error("Error:", error.response?.data?.msg);
+    throw error.response?.data?.msg;
+  }
+};

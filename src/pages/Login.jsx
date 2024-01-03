@@ -6,6 +6,8 @@ import { logo } from "../assets/images/images";
 import CustomAuthForm from "../components/Auth/CustomAuthForm";
 import SocialLogin from "../components/Auth/SocialLogin";
 import { AuthContext } from "../context/AuthContextProvider";
+import { userLogin } from "../services/apis/User";
+import handleError from "../utils/handleError";
 
 const Login = () => {
   const { loginUser } = useContext(AuthContext);
@@ -15,26 +17,59 @@ const Login = () => {
   const from = location.state?.from?.pathname || "/";
 
   const [formSubmit, setFormSubmit] = useState(false);
+  const [formReset, setFormReset] = useState(false);
 
   const handleLogin = async (data) => {
+    // Extract user data from the input
+    const userData = {
+      email: data.email,
+      password: data.password,
+    };
+
     try {
+      // Set form submission in progress flag to true
       setFormSubmit(true);
 
-      // extracting data from Login form
-      const { email, password } = data;
+      // Step 1: Login user to MongoDB
+      const response = await loginUserUsingMongoDB(userData);
 
-      // login with firebase using async/await
-      const result = await loginUser(email, password);
-
-      if (result.user.email) {
-        navigate(from, { replace: true });
-        toast.success("User login successful.");
+      // Check if MongoDB login was successful
+      if (response.user.email) {
+        // Step 2: login user to Firebase authentication
+        await loginUserUsingFirebase(userData.email, userData.password);
       }
+      // Step 3: Redirect to the home page and show success message
+      navigate(from, { replace: true });
+      toast.success(response.message);
+      setFormReset(true);
     } catch (error) {
-      console.log(error.code, error.message);
-      toast.error("Something went wrong!");
+      // console.log(error.code, error.message);
+      toast.error(error.message);
     } finally {
       setFormSubmit(false);
+    }
+  };
+
+  // Function to login user to MongoDB
+  const loginUserUsingMongoDB = async (userData) => {
+    try {
+      // Perform MongoDB login User here
+      const response = await userLogin(userData);
+      return response;
+    } catch (error) {
+      throw new Error(`${handleError(error)}`);
+    }
+  };
+
+  // Function to login user to Firebase authentication
+  const loginUserUsingFirebase = async (email, password) => {
+    try {
+      // Perform Firebase login here
+      const result = await loginUser(email, password);
+      return result;
+    } catch (error) {
+      console.log(`Firebase login error: ${handleError(error)}`);
+      throw new Error(`${handleError(error)}`);
     }
   };
 
@@ -78,6 +113,7 @@ const Login = () => {
                     buttonText="Login"
                     onSubmit={handleLogin}
                     formSubmit={formSubmit}
+                    formReset={formReset}
                   />
 
                   <p className="mt-6 text-sm text-center text-gray-400">
