@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { AuthContext } from "../../context/AuthContextProvider";
 import { signInWithGoogle } from "../../services/apis/User";
+import { toast } from "react-toastify";
 
 const SocialLogin = () => {
   const { googleSignIn } = useContext(AuthContext);
@@ -27,10 +28,14 @@ const SocialLogin = () => {
       };
 
       // Send user data to MongoDB
-      await signInWithGoogle(userData);
+      const response = await signInWithGoogle(userData);
 
-      // Navigate back to the previous or home page
-      navigate(from, { replace: true });
+      // Check if MongoDB login was successful
+      if (response.user.email) {
+        // Redirect to the home page and show success message
+        navigate(from, { replace: true });
+        toast.success(response.message);
+      }
     } catch (error) {
       console.error("Error:", error);
     }

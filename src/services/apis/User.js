@@ -12,9 +12,9 @@ export const registerUser = async (userData) => {
 
     // Store the token in localStorage
     const { token } = response.data;
-    localStorage.setItem("userToken", token);
-
     // console.log(response.data);
+
+    localStorage.setItem("userToken", token);
     return response.data;
   } catch (error) {
     // console.error("MongoDB registration error:", error.response?.data?.msg);
@@ -34,9 +34,9 @@ export const signInWithGoogle = async (userData) => {
 
     // Store the token in localStorage
     const { token } = response.data;
-    localStorage.setItem("userToken", token);
-
     // console.log(response.data);
+
+    localStorage.setItem("userToken", token);
     return response.data;
   } catch (error) {
     // console.error("Google Sign-In error:", error.response?.data?.msg);
@@ -56,9 +56,9 @@ export const userLogin = async (credentials) => {
 
     // Store the token in localStorage
     const { token } = response.data;
-    localStorage.setItem("userToken", token);
-
     // console.log(response.data);
+
+    localStorage.setItem("userToken", token);
     return response.data;
   } catch (error) {
     // console.error("Error:", error.response?.data?.msg);
