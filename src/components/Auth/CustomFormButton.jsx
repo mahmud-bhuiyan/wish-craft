@@ -14,7 +14,7 @@ const CustomFormButton = ({ buttonText, loading, icon }) => {
             visible={true}
             height="25"
             width="25"
-            color="#fff"
+            color="#000000"
             radius="9"
             ariaLabel="three-dots-loading"
             wrapperStyle={{}}

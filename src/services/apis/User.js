@@ -1,4 +1,4 @@
-import { axiosNonSecureInstance } from "../../utils/axios";
+import { axiosNonSecureInstance, axiosSecureInstance } from "../../utils/axios";
 
 // =============================================
 //                    register
@@ -82,5 +82,21 @@ export const userLogout = async () => {
   } catch (error) {
     // console.error("Error:", error.response?.data?.msg || "Logout failed");
     throw error.response?.data?.msg || "Logout failed";
+  }
+};
+
+// =============================================
+//                   update user
+// =============================================
+export const updateUser = async (updatedUserData) => {
+  try {
+    const response = await axiosSecureInstance.patch(
+      "/users/update",
+      updatedUserData
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error.response?.data?.msg);
+    throw error.response?.data?.msg;
   }
 };

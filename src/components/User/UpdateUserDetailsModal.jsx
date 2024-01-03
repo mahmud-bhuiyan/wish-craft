@@ -6,9 +6,10 @@ import { MdOutlineMarkEmailRead } from "react-icons/md";
 import CustomInputField from "../Auth/CustomInputField";
 import CustomButton from "../CustomButton";
 import { AuthContext } from "../../context/AuthContextProvider";
+import { updateUser } from "../../services/apis/User";
 
 const UpdateUserDetailsModal = ({ isOpen, onClose, user }) => {
-  const { updateUserEmail, updateUserProfile } = useContext(AuthContext);
+  const { updateUserProfile } = useContext(AuthContext);
   const [updateClicked, setUpdateClicked] = useState(false);
 
   const {
@@ -27,29 +28,32 @@ const UpdateUserDetailsModal = ({ isOpen, onClose, user }) => {
   }, [user, setValue]);
 
   const updateUserDetails = async (data) => {
-    const { displayName, email } = data;
+    const userDetails = {
+      name: data.displayName,
+      email: data.email,
+    };
 
-    // Check if both displayName and email are unchanged
-    if (user.displayName === displayName && user.email === email) {
+    // Check if both displayName
+    if (user.displayName === userDetails.name) {
       // If unchanged, display toast message and return
       toast.info("Nothing to update.");
-      onClose();
       return;
     }
 
     try {
       setUpdateClicked(true);
 
-      if (displayName) {
-        await updateUserProfile(displayName);
-      }
+      if (userDetails.name) {
+        //update in firebase
+        await updateUserProfile(userDetails.name);
 
-      if (email) {
-        await updateUserEmail(email);
+        // update in mongodb
+        const response = await updateUser(userDetails);
+        if (response.user.email) {
+          onClose();
+          toast.success(response.message);
+        }
       }
-
-      onClose();
-      toast.success("User updated successful.");
     } catch (error) {
       console.error("Error updating user details:", error);
       toast.error("An error occurred");
@@ -82,7 +86,7 @@ const UpdateUserDetailsModal = ({ isOpen, onClose, user }) => {
               <MdOutlineMarkEmailRead className="text-2xl" />
             </span>
             <input
-              className="block w-full py-3 bg-sky-100 border rounded-lg px-11"
+              className="block w-full py-3 bg-sky-100  rounded-lg px-11"
               {...register("email")}
               disabled
               value={user.email}
@@ -98,16 +102,6 @@ const UpdateUserDetailsModal = ({ isOpen, onClose, user }) => {
             icon={FiUser}
           />
 
-          {/* 
-          <CustomInputField
-            type="email"
-            name="email"
-            placeholder="Enter your Name"
-            register={register}
-            errors={errors}
-            icon={MdOutlineMarkEmailRead}
-          /> */}
-
           <div className="flex justify-center flex-wrap mt-6">
             <button
               type="button"
@@ -119,7 +113,7 @@ const UpdateUserDetailsModal = ({ isOpen, onClose, user }) => {
             <CustomButton
               buttonText="Update"
               loading={updateClicked}
-              color="blue"
+              color={"sky"}
             />
           </div>
         </div>

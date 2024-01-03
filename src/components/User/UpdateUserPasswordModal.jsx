@@ -98,7 +98,7 @@ const UpdateUserPasswordModal = ({ isOpen, onClose }) => {
             <CustomButton
               buttonText="Update"
               loading={updateClicked}
-              color="blue"
+              color={"sky"}
             />
           </div>
         </div>
