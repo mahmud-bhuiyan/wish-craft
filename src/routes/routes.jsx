@@ -20,6 +20,10 @@ export const router = createBrowserRouter([
         element: <Home />,
       },
       {
+        path: "/feature-requests/create",
+        element: <Home />,
+      },
+      {
         path: "/users/profile",
         element: (
           <PrivateRoute>

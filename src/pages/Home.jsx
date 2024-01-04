@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet-async";
+import FeatureRequestList from "../components/FeatureRequest/FeatureRequestList";
 
 const Home = () => {
   return (
@@ -6,7 +7,7 @@ const Home = () => {
       <Helmet>
         <title>Home</title>
       </Helmet>
-      <h1 className="text-3xl font-bold">This is Homepage</h1>
+      <FeatureRequestList />
     </div>
   );
 };
