@@ -1,6 +1,6 @@
 import { ThreeDots } from "react-loader-spinner";
 
-const CustomFormButton = ({ buttonText, loading, icon }) => {
+const CustomFormButton = ({ buttonText, loading }) => {
   return (
     <button
       type="submit"
@@ -22,10 +22,7 @@ const CustomFormButton = ({ buttonText, loading, icon }) => {
           />
         </span>
       ) : (
-        <>
-          {icon && <span className="mr-2">{icon}</span>}
-          {buttonText}
-        </>
+        <>{buttonText}</>
       )}
     </button>
   );

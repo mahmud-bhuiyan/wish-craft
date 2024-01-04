@@ -5,6 +5,8 @@ import { logo } from "../assets/images/images";
 import { AuthContext } from "../context/AuthContextProvider";
 import { userLogout } from "../services/apis/User";
 import { toast } from "react-toastify";
+import { FaUserCog } from "react-icons/fa";
+import { MdOutlineLogout } from "react-icons/md";
 
 const Nav = () => {
   const [isProfileDropdownOpen, setProfileDropdownOpen] = useState(false);
@@ -48,8 +50,7 @@ const Nav = () => {
   }, [isProfileDropdownOpen]);
 
   return (
-    <nav className="bg-[#200E3A] shadow fixed top-0 w-full z-50">
-      {/* <nav className="relative bg-[#200E3A] shadow"> */}
+    <nav className="bg-[#402F3F] shadow fixed top-0 w-full z-50">
       <div className="container p-2 mx-auto">
         <div className="flex items-center justify-between">
           <Link to="/">
@@ -66,11 +67,11 @@ const Nav = () => {
                 {/* Dropdown toggle button */}
                 <button
                   onClick={() => setProfileDropdownOpen(!isProfileDropdownOpen)}
-                  className="relative z-10 block  p-1 sm:px-2 text-gray-700 bg-white border border-transparent rounded-md  focus:border-blue-500 focus:ring-opacity-40 focus:ring-blue-300 focus:ring focus:outline-none"
+                  className="relative z-10 block p-1 sm:px-2 bg-[#241A24] border-2 hover:border-slate-500 rounded-md text-[#A99FA8] hover:text-white"
                 >
                   <div className="flex items-center gap-2">
                     {/* Displaying the first name */}
-                    <h3 className="text-gray-700 text-sm">{firstName}</h3>
+                    <h3 className="text-sm">{firstName}</h3>
                     <div className="w-8 h-8 overflow-hidden border-2 border-gray-400 rounded-full">
                       {user && user.photoURL ? (
                         <img
@@ -94,7 +95,7 @@ const Nav = () => {
                 {/* Redirecting to the login page for non-logged-in users */}
                 <Link
                   to="/auth/login"
-                  className="relative z-10 block p-1 sm:px-2  bg-[#86B6F6] border-2 hover:border-slate-500 rounded-md hover:text-white text-slate-600"
+                  className="relative z-10 block p-1 sm:px-2  bg-[#241A24] border-2 hover:border-slate-500 rounded-md text-[#A99FA8] hover:text-white"
                 >
                   <span className="flex items-center gap-1 sm:gap-2 font-semibold">
                     Login <BiLogIn className="text-xl" />
@@ -110,20 +111,23 @@ const Nav = () => {
                 display: isProfileDropdownOpen ? "block" : "none",
               }}
               onClick={() => setProfileDropdownOpen(false)}
-              className="absolute right-0 z-20 w-40 py-2 mt-2 origin-top-right bg-white rounded-md shadow-xl"
+              className="absolute right-0 z-20 w-36 py-2 mt-2 origin-top-right bg-white rounded-md shadow-xl"
             >
-              <Link
-                to="/users/profile"
-                className="block w-full py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform hover:bg-gray-100 text-center"
-              >
-                Your profile
-              </Link>
-              <button
-                onClick={handleLogOut}
-                className="block w-full py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform hover:bg-gray-100"
-              >
-                Sign Out
-              </button>
+              <div className="block w-full py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform hover:bg-gray-100 text-center">
+                <Link
+                  to="/users/profile"
+                  className="flex gap-2 justify-center align-middle"
+                >
+                  <FaUserCog className="text-lg pt-1" />
+                  Your profile
+                </Link>
+              </div>
+              <div className="block w-full py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform hover:bg-gray-100 text-center">
+                <div className="flex gap-2 justify-center align-middle">
+                  <MdOutlineLogout className="text-lg mt-1" />
+                  <button onClick={handleLogOut}>Sign Out</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
