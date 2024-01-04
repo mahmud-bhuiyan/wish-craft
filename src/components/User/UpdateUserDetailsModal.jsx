@@ -3,8 +3,8 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { FiUser } from "react-icons/fi";
 import { MdOutlineMarkEmailRead } from "react-icons/md";
-import CustomInputField from "../Auth/CustomInputField";
-import CustomButton from "../CustomButton";
+import CustomInputField from "../CustomComponents/CustomInputField";
+import CustomButton from "../CustomComponents/CustomButton";
 import { AuthContext } from "../../context/AuthContextProvider";
 import { updateUser } from "../../services/apis/User";
 
@@ -110,10 +110,7 @@ const UpdateUserDetailsModal = ({ isOpen, onClose, user }) => {
             >
               Cancel
             </button>
-            <CustomButton
-              buttonText="Update"
-              loading={updateClicked}
-            />
+            <CustomButton buttonText="Update" loading={updateClicked} />
           </div>
         </div>
       </form>

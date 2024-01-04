@@ -1,11 +1,16 @@
 import { ThreeDots } from "react-loader-spinner";
 
-const CustomFormButton = ({ buttonText, loading }) => {
+const CustomFormButton = ({ buttonText, loading, color }) => {
+  const buttonColor =
+    color === "custom"
+      ? "bg-[#402F3F] text-[#F0F0F0]"
+      : "bg-green-100 text-gray-800";
+
   return (
     <button
       type="submit"
       disabled={loading}
-      className="w-full font-semibold shadow-sm rounded-lg py-2 bg-green-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
+      className={`w-full font-semibold shadow-sm rounded-lg py-2 ${buttonColor} flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline`}
     >
       {loading ? (
         <span className="flex gap-2 justify-center align-middle">

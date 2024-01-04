@@ -6,8 +6,8 @@ const HeroSection = () => {
 
   return (
     <>
-      <div className="mt-12 pt-6 bg-[#332532] shadow text-white">
-        <div className="container px-2 pt-8 pb-2 mx-auto">
+      <div className="mt-10 pt-6 bg-[#332532] shadow text-white">
+        <div className="max-w-screen-xl mx-auto px-2 pt-8 pb-2">
           <div className="mb-4">
             <h3 className="text-3xl font-semibold mb-2">
               Feature Request Board

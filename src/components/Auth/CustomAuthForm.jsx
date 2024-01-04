@@ -2,9 +2,9 @@ import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { FiUnlock, FiUser } from "react-icons/fi";
 import { MdOutlineMarkEmailRead } from "react-icons/md";
-import CustomInputField from "./CustomInputField";
-import CustomPasswordField from "./CustomPasswordField";
-import CustomFormButton from "./CustomFormButton";
+import CustomInputField from "../CustomComponents/CustomInputField";
+import CustomPasswordField from "../CustomComponents/CustomPasswordField";
+import CustomFormButton from "../CustomComponents/CustomFormButton";
 
 const CustomAuthForm = ({ buttonText, formReset, formSubmit, onSubmit }) => {
   const {

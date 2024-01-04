@@ -9,6 +9,7 @@ const CustomButton = ({ buttonText, loading }) => {
     <button type="submit" disabled={loading} className={buttonClass}>
       {loading ? (
         <span className="flex gap-2 justify-center align-middle">
+          Submitting
           <ThreeDots
             visible={true}
             height="25"

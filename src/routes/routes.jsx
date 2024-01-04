@@ -8,6 +8,7 @@ import Register from "../pages/Register";
 import PublicRoute from "./PublicRoute";
 import PrivateRoute from "./PrivateRoute";
 import UserProfilePage from "../pages/UserProfilePage";
+import CreateFeatureRequest from "../components/Feature/CreateFeatureRequest";
 
 export const router = createBrowserRouter([
   {
@@ -21,7 +22,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/feature-requests/create",
-        element: <Home />,
+        element: (
+          <PrivateRoute>
+            <CreateFeatureRequest />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/users/profile",

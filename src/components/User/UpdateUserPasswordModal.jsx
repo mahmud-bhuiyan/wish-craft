@@ -1,11 +1,11 @@
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import CustomButton from "../CustomButton";
 import { toast } from "react-toastify";
-import CustomPasswordField from "../Auth/CustomPasswordField";
 import { FiUnlock } from "react-icons/fi";
 import { AuthContext } from "../../context/AuthContextProvider";
 import { passwordUpdate } from "../../services/apis/User";
+import CustomPasswordField from "../CustomComponents/CustomPasswordField";
+import CustomButton from "../CustomComponents/CustomButton";
 
 const UpdateUserPasswordModal = ({ isOpen, onClose }) => {
   const { updateUserPassword } = useContext(AuthContext);

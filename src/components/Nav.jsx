@@ -51,7 +51,7 @@ const Nav = () => {
 
   return (
     <nav className="bg-[#402F3F] shadow fixed top-0 w-full z-50">
-      <div className="container p-2 mx-auto">
+      <div className="max-w-screen-xl p-2 mx-auto">
         <div className="flex items-center justify-between">
           <Link to="/">
             <img
