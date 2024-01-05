@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
 import { TiArrowRight } from "react-icons/ti";
@@ -9,9 +9,13 @@ import CustomInputField from "../CustomComponents/CustomInputField";
 import CustomTextarea from "../CustomComponents/CustomTextarea";
 import CustomFormButton from "../CustomComponents/CustomFormButton";
 import { createRequest } from "../../services/apis/Feature";
+import { FeaturesContext } from "../../context/FeaturesContextProvider";
 
 const CreateFeatureRequest = () => {
   const [formSubmit, setFormSubmit] = useState(false);
+  const { setFeatures } = useContext(FeaturesContext);
+
+  const navigate = useNavigate();
 
   const {
     register,
@@ -30,12 +34,19 @@ const CreateFeatureRequest = () => {
       setFormSubmit(true);
 
       const response = await createRequest(featureData);
-      // console.log(response);
-      toast.success(response.message);
 
-      reset();
+      if (response.feature._id) {
+        toast.success(response.message);
+
+        // Update features list in context
+        setFeatures((prevFeatures) => [response.feature, ...prevFeatures]);
+
+        // Redirect to the home page and show success message
+        navigate("/");
+        reset();
+      }
     } catch (error) {
-      // console.error("Error:", error);
+      console.error("Error:", error);
       toast.error(error);
     } finally {
       setFormSubmit(false);

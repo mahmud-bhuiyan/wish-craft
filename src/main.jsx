@@ -7,16 +7,24 @@ import { HelmetProvider } from "react-helmet-async";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AuthContextProvider from "./context/AuthContextProvider.jsx";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import FeaturesContextProvider from "./context/FeaturesContextProvider.jsx";
+
+const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthContextProvider>
-      <HelmetProvider>
-        <ToastContainer autoClose={3000} rtl={false} theme="dark" />
-        <div className="bg-[#F7F7F7]">
-          <RouterProvider router={router} />
-        </div>
-      </HelmetProvider>
+      <FeaturesContextProvider>
+        <HelmetProvider>
+          <ToastContainer autoClose={3000} rtl={false} theme="dark" />
+          <QueryClientProvider client={queryClient}>
+            <div className="bg-[#F7F7F7]">
+              <RouterProvider router={router} />
+            </div>
+          </QueryClientProvider>
+        </HelmetProvider>
+      </FeaturesContextProvider>
     </AuthContextProvider>
   </React.StrictMode>
 );
