@@ -3,10 +3,12 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
 import { TiArrowRight } from "react-icons/ti";
+import { toast } from "react-toastify";
 
 import CustomInputField from "../CustomComponents/CustomInputField";
 import CustomTextarea from "../CustomComponents/CustomTextarea";
 import CustomFormButton from "../CustomComponents/CustomFormButton";
+import { createRequest } from "../../services/apis/Feature";
 
 const CreateFeatureRequest = () => {
   const [formSubmit, setFormSubmit] = useState(false);
@@ -18,11 +20,26 @@ const CreateFeatureRequest = () => {
     reset,
   } = useForm();
 
-  const onSubmit = (data) => {
-    setFormSubmit(true);
-    // Handle form submission logic here
-    console.log(data);
-    reset();
+  const onSubmit = async (data) => {
+    const featureData = {
+      title: data.title,
+      description: data.description,
+    };
+
+    try {
+      setFormSubmit(true);
+
+      const response = await createRequest(featureData);
+      // console.log(response);
+      toast.success(response.message);
+
+      reset();
+    } catch (error) {
+      // console.error("Error:", error);
+      toast.error(error);
+    } finally {
+      setFormSubmit(false);
+    }
   };
 
   return (
@@ -32,7 +49,7 @@ const CreateFeatureRequest = () => {
       </Helmet>
       <div className="bg-white shadow-lg p-5 rounded-lg mb-2">
         <div className="flex justify-between">
-          <h2 className="font-semibold text-2xl mb-2">
+          <h2 className="font-semibold text-2xl mb-2 ml-1">
             Create Feature Request
           </h2>
           <Link
@@ -43,7 +60,7 @@ const CreateFeatureRequest = () => {
             <TiArrowRight className="text-2xl" />
           </Link>
         </div>
-        <p className="mb-3">
+        <p className="mb-4 ml-1">
           Let us know what features you&lsquo;d like to see on WishCraft!
         </p>
 
@@ -51,7 +68,7 @@ const CreateFeatureRequest = () => {
           <CustomInputField
             label="GIVE A TITLE"
             type="text"
-            name="name"
+            name="title"
             placeholder="Please write a short title"
             register={register}
             errors={errors}
