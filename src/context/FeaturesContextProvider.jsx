@@ -11,11 +11,11 @@ const FeaturesContextProvider = ({ children }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         const response = await getAllRequest();
         setLoading(false);
 
         if (response && response.features) {
-          console.log(response.features);
           setFeatures(response.features);
         }
       } catch (error) {

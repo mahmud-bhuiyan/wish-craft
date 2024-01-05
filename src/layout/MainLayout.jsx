@@ -12,7 +12,7 @@ const MainLayout = () => {
 
       {noNavigation ? null : <HeroSection />}
 
-      <div className="flex-1 container p-2 mx-auto mt-2">
+      <div className="flex-1 container mx-auto">
         <Outlet />
       </div>
       <Footer />

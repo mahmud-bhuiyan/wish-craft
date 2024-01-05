@@ -8,7 +8,7 @@ const Home = () => {
         <title>WishCraft</title>
       </Helmet>
 
-      <div className="max-w-screen-xl mx-auto px-2">
+      <div className="max-w-screen-xl mx-auto">
         <FeatureRequestList />
       </div>
     </div>

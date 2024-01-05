@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="relative bg-[#402F3F] p-8 text-[#EDF0F1]">
+    <footer className="relative bg-[#402F3F] p-5 text-[#EDF0F1]">
       <div className="container flex justify-center align-middle mx-auto">
         <Link
           to="https://github.com/mahmud-bhuiyan"
