@@ -9,6 +9,7 @@ import PublicRoute from "./PublicRoute";
 import PrivateRoute from "./PrivateRoute";
 import UserProfilePage from "../pages/UserProfilePage";
 import CreateFeatureRequest from "../components/Feature/CreateFeatureRequest";
+import SingleFeaturePage from "../components/Feature/SingleFeaturePage";
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +26,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <CreateFeatureRequest />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/feature-requests/:id",
+        element: (
+          <PrivateRoute>
+            <SingleFeaturePage />
           </PrivateRoute>
         ),
       },

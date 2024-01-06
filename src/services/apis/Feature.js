@@ -1,4 +1,5 @@
 import { axiosSecureInstance } from "../../utils/axios";
+import handleApiError from "../../utils/handleApiError";
 
 // =============================================
 //                  Create Request
@@ -13,7 +14,7 @@ export const createRequest = async (data) => {
 };
 
 // =============================================
-//                  get all Request
+//                 get all Request
 // =============================================
 export const getAllRequest = async () => {
   try {
@@ -21,5 +22,18 @@ export const getAllRequest = async () => {
     return response.data;
   } catch (error) {
     throw error.response?.data?.msg;
+  }
+};
+
+// =============================================
+//               get a single Request
+// =============================================
+export const getSingleFeatureRequest = async (featureId) => {
+  try {
+    const response = await axiosSecureInstance.get(`/features/${featureId}`);
+
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
   }
 };
