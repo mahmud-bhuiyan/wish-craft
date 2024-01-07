@@ -13,7 +13,7 @@ import { FeaturesContext } from "../../context/FeaturesContextProvider";
 
 const CreateFeatureRequest = () => {
   const [formSubmit, setFormSubmit] = useState(false);
-  const { setFeatures } = useContext(FeaturesContext);
+  const { setFeatures, setRefetch } = useContext(FeaturesContext);
 
   const navigate = useNavigate();
 
@@ -40,6 +40,9 @@ const CreateFeatureRequest = () => {
 
         // Update features list in context
         setFeatures((prevFeatures) => [response.feature, ...prevFeatures]);
+
+        // Trigger a refetch
+        setRefetch((prevRefetch) => !prevRefetch);
 
         // Redirect to the home page and show success message
         navigate("/");

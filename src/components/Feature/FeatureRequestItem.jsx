@@ -22,7 +22,7 @@ const FeatureRequestItem = ({ feature }) => {
   } = feature;
 
   // Extract emails of users who liked
-  const likedUserEmails = likes?.users.map((user) => user.email);
+  const likedUserEmails = likes?.users?.map((user) => user.email);
 
   const [isLiked, setIsLiked] = useState(likedUserEmails.includes(user?.email));
 
@@ -53,7 +53,6 @@ const FeatureRequestItem = ({ feature }) => {
   const updateFeatureRequestLikes = async () => {
     try {
       const updatedFeature = await updateFeatureRequestLikesById(feature._id);
-      // Update the state or perform any other necessary actions
     } catch (error) {
       console.error("Error:", error);
     }
@@ -104,42 +103,19 @@ const FeatureRequestItem = ({ feature }) => {
 
         <div className="flex items-center">
           {createdBy.photoURL ? (
-            <>
-              {createdBy.photoURL ? (
-                <img
-                  className="object-cover w-6 h-6 mx-2 rounded-full sm:block"
-                  src={createdBy.photoURL}
-                  alt="avatar"
-                />
-              ) : (
-                <div className="w-6 h-6 mx-2 flex items-center justify-center rounded-full bg-gray-300 text-gray-700">
-                  {getInitials(createdBy.name)}
-                </div>
-              )}
-
-              <div className="text-gray-700 cursor-pointer text-sm">
-                {createdBy.name}
-              </div>
-            </>
+            <img
+              className="object-cover w-6 h-6 mx-2 rounded-full sm:block"
+              src={createdBy.photoURL}
+              alt="avatar"
+            />
           ) : (
-            <>
-              {user.photoURL ? (
-                <img
-                  className="object-cover w-6 h-6 mx-2 rounded-full sm:block"
-                  src={user.photoURL}
-                  alt="avatar"
-                />
-              ) : (
-                <div className="w-6 h-6 mx-2 flex items-center justify-center rounded-full bg-gray-300 text-gray-700">
-                  {getInitials(user.displayName)}
-                </div>
-              )}
-
-              <div className="text-gray-700 cursor-pointer text-sm">
-                {user.displayName}
-              </div>
-            </>
+            <div className="w-6 h-6 mx-2 flex items-center justify-center rounded-full bg-gray-300 text-gray-700">
+              {getInitials(createdBy.name)}
+            </div>
           )}
+          <div className="text-gray-700 cursor-pointer text-sm">
+            {createdBy.name || user.displayName}
+          </div>
         </div>
       </div>
     </div>

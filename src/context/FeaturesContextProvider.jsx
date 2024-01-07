@@ -10,6 +10,7 @@ const FeaturesContextProvider = ({ children }) => {
 
   const [features, setFeatures] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [refetch, setRefetch] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,17 +31,18 @@ const FeaturesContextProvider = ({ children }) => {
     if (user) {
       const intervalId = setInterval(() => {
         fetchData();
-      }, 1 * 60 * 1000);
+      }, 2 * 60 * 1000);
 
       return () => clearInterval(intervalId);
     }
-  }, [user]);
+  }, [user, refetch]);
 
   const featuresData = {
     features,
     setFeatures,
     loading,
     setLoading,
+    setRefetch,
   };
 
   return (
