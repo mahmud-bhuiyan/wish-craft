@@ -26,11 +26,24 @@ export const getAllRequest = async () => {
 };
 
 // =============================================
-//               get a single Request
+//               get single Request
 // =============================================
 export const getSingleFeatureRequest = async (featureId) => {
   try {
     const response = await axiosSecureInstance.get(`/features/${featureId}`);
+
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+// =============================================
+//       Update single Request Likes by ID
+// =============================================
+export const updateFeatureRequestLikesById = async (featureId) => {
+  try {
+    const response = await axiosSecureInstance.patch(`/features/${featureId}`);
 
     return response.data;
   } catch (error) {

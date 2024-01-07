@@ -13,7 +13,7 @@ const SingleFeaturePage = () => {
   const [feature, setFeature] = useState(null);
 
   const { user } = useContext(AuthContext);
-  // console.log(user.email);
+  console.log(user.email);
 
   useEffect(() => {
     const fetchFeature = async () => {

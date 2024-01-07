@@ -3,12 +3,13 @@ import { CustomDateFormat } from "../../utils/CustomDateFormat";
 import { BiLike, BiSolidLike } from "react-icons/bi";
 import { FaRegComments } from "react-icons/fa";
 import getInitials from "../../utils/getInitials";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContextProvider";
+import { updateFeatureRequestLikesById } from "../../services/apis/Feature";
 
 const FeatureRequestItem = ({ feature }) => {
   const { user } = useContext(AuthContext);
-  console.log(user.email);
+
   const {
     _id,
     comments,
@@ -19,7 +20,44 @@ const FeatureRequestItem = ({ feature }) => {
     status,
     title,
   } = feature;
-  console.log(feature.createdBy.email);
+
+  // Extract emails of users who liked
+  const likedUserEmails = likes?.users.map((user) => user.email);
+
+  const [isLiked, setIsLiked] = useState(likedUserEmails.includes(user?.email));
+
+  const [likeCount, setLikeCount] = useState(feature?.likes?.count);
+
+  const handleLike = () => {
+    try {
+      setLikeCount((prevLikeCount) => prevLikeCount + 1);
+      setIsLiked(true);
+
+      updateFeatureRequestLikes();
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  const handleUnlike = () => {
+    try {
+      setLikeCount((prevLikeCount) => prevLikeCount - 1);
+      setIsLiked(false);
+
+      updateFeatureRequestLikes();
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  const updateFeatureRequestLikes = async () => {
+    try {
+      const updatedFeature = await updateFeatureRequestLikesById(feature._id);
+      // Update the state or perform any other necessary actions
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   return (
     <div className="px-4 py-2 bg-white rounded-lg drop-shadow-md mb-4">
@@ -43,15 +81,25 @@ const FeatureRequestItem = ({ feature }) => {
 
       <div className="flex items-center justify-between mt-2">
         <div className="flex items-center gap-1 sm:gap-4">
-          <div className="flex gap-2">
-            <BiLike />
-            <BiSolidLike />
-            {likes.count}
-          </div>
-          <div className="flex gap-2">
-            <FaRegComments />
+          {isLiked ? (
+            <>
+              <BiSolidLike
+                className="text-xl cursor-pointer"
+                onClick={handleUnlike}
+              />
+              {likeCount}
+            </>
+          ) : (
+            <>
+              <BiLike className="text-xl cursor-pointer" onClick={handleLike} />
+              {likeCount}
+            </>
+          )}
+
+          <Link to={`/feature-requests/${_id}`} className="flex gap-2">
+            <FaRegComments className="text-xl" />
             {comments.count}
-          </div>
+          </Link>
         </div>
 
         <div className="flex items-center">
