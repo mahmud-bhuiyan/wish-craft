@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
-import { TiArrowRight } from "react-icons/ti";
+import { IoReturnUpBackSharp } from "react-icons/io5";
 import { toast } from "react-toastify";
 
 import CustomInputField from "../CustomComponents/CustomInputField";
@@ -68,8 +68,8 @@ const CreateFeatureRequest = () => {
               to="/"
               className="bg-[#F0F0F0] rounded p-2 flex gap-2 justify-center items-center"
             >
+              <IoReturnUpBackSharp className="text-2xl" />
               SEE ALL POSTS
-              <TiArrowRight className="text-2xl" />
             </Link>
           </div>
           <p className="mb-4 ml-1">

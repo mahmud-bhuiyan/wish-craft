@@ -1,4 +1,4 @@
-export const CustomDateFormat = (dateString) => {
+export const CustomDateFormat = (dateString, showTime = true) => {
   const dateObject = new Date(dateString);
 
   const options = {
@@ -9,6 +9,11 @@ export const CustomDateFormat = (dateString) => {
     minute: "numeric",
     hour12: true,
   };
+
+  if (!showTime) {
+    options.hour = undefined;
+    options.minute = undefined;
+  }
 
   const formattedDate = dateObject.toLocaleString("en-US", options);
 

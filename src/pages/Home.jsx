@@ -8,9 +8,7 @@ const Home = () => {
         <title>WishCraft</title>
       </Helmet>
 
-      <div className="max-w-screen-xl mx-auto">
-        <FeatureRequestList />
-      </div>
+      <FeatureRequestList />
     </div>
   );
 };

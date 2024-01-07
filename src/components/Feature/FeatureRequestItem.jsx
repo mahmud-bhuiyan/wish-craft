@@ -8,7 +8,7 @@ import { AuthContext } from "../../context/AuthContextProvider";
 
 const FeatureRequestItem = ({ feature }) => {
   const { user } = useContext(AuthContext);
-
+  console.log(user.email);
   const {
     _id,
     comments,
@@ -19,23 +19,26 @@ const FeatureRequestItem = ({ feature }) => {
     status,
     title,
   } = feature;
+  console.log(feature.createdBy.email);
 
   return (
     <div className="px-4 py-2 bg-white rounded-lg drop-shadow-md mb-4">
       <div className="flex items-center justify-between">
-        <div className="px-3 text-sm font-bold text-gray-100 transition-colors duration-300 transform bg-gray-600 rounded cursor-pointer capitalize">
+        <h3 className="px-3 py-1 text-sm font-bold text-gray-100 transition-colors duration-300 transform bg-gray-600 rounded cursor-pointer capitalize">
           {status}
-        </div>
+        </h3>
         <span className="text-sm font-light text-gray-600">
           {CustomDateFormat(createdAt)}
         </span>
       </div>
 
       <Link to={`/feature-requests/${_id}`}>
-        <h4 className="mt-1 text-xl font-semibold text-gray-700 hover:text-gray-600 hover:underline">
+        <h4 className="mt-1 text-xl font-semibold text-gray-700 hover:text-gray-600 hover:underline whitespace-normal break-words">
           {title}
         </h4>
-        <p className="mt-1 text-gray-600">{description}</p>
+        <p className="mt-1 text-gray-600 whitespace-normal break-words">
+          {description}
+        </p>
       </Link>
 
       <div className="flex items-center justify-between mt-2">
