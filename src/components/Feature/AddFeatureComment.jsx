@@ -14,11 +14,14 @@ const AddFeatureComment = ({ id, setRefresh }) => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    setFormSubmit(true);
+    const comment = {
+      comment: data.comment,
+    };
 
     try {
+      setFormSubmit(true);
       // Make API call to add a feature comment
-      await addFeatureComment(id, data.comment);
+      await addFeatureComment(id, comment);
 
       // Trigger a refetch
       setRefresh((prevRefetch) => !prevRefetch);

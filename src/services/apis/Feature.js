@@ -58,9 +58,7 @@ export const addFeatureComment = async (featureId, data) => {
   try {
     const response = await axiosSecureInstance.patch(
       `/features/${featureId}/comments`,
-      {
-        data,
-      }
+      data
     );
 
     return response.data;

@@ -4,10 +4,10 @@ import { getSingleFeatureRequest } from "../../services/apis/Feature";
 import Loader from "../Loader";
 import { IoReturnUpBackSharp } from "react-icons/io5";
 import { MdOutlineDateRange } from "react-icons/md";
-import { CustomDateFormat } from "../../utils/CustomDateFormat";
 import AvatarWithText from "../AvatarWithText";
 import LikeButton from "./LikeButton";
 import AddFeatureComment from "./AddFeatureComment";
+import CustomDateFormat from "../../utils/CustomDateFormat";
 
 const SingleFeaturePage = () => {
   const { id } = useParams();
@@ -27,19 +27,22 @@ const SingleFeaturePage = () => {
     fetchFeature();
   }, [id, refresh]);
 
-  // const updateComments = (newComments) => {
-  //   setFeature((prevFeature) => ({
-  //     ...prevFeature,
-  //     comments: newComments,
-  //   }));
-  // };
-
   if (!feature) {
     return <Loader />;
   }
 
-  const { title, description, status, createdAt, createdBy, likes, comments } =
-    feature;
+  const {
+    _id,
+    title,
+    description,
+    status,
+    createdAt,
+    createdBy,
+    likes,
+    comments,
+  } = feature;
+
+  console.log(feature);
 
   return (
     <div className="max-w-screen-xl mx-auto">
@@ -73,19 +76,23 @@ const SingleFeaturePage = () => {
                 {status}
               </span>
             </div>
-            <AvatarWithText createdBy={createdBy} />
+
+            <AvatarWithText userData={createdBy} />
+
             <p className="text-gray-700 my-5 whitespace-normal break-words">
               {description}
             </p>
             <p className="flex align-middle gap-2 text-sm my-2">
-              <MdOutlineDateRange className="text-xl" />{" "}
-              {CustomDateFormat(createdAt, false)}
+              <MdOutlineDateRange className="text-xl" />
+              {CustomDateFormat(createdAt, {
+                showTimeOff: true,
+              })}
             </p>
             <div className="flex gap-2">
-              <LikeButton id={id} likes={likes} />
+              <LikeButton id={_id} likes={likes} />
             </div>
 
-            <AddFeatureComment id={id} setRefresh={setRefresh} />
+            <AddFeatureComment id={_id} setRefresh={setRefresh} />
 
             {/* Display Comments */}
             <div>
@@ -95,10 +102,14 @@ const SingleFeaturePage = () => {
               ) : (
                 <ul>
                   {comments.data.map((comment) => (
-                    <li key={comment._id}>
-                      <p>{comment.comment}</p>
-                      <p>Commented by: {comment.commentsBy.name}</p>
-                      <p>Commented at: {comment.createdAt}</p>
+                    <li key={comment._id} className="py-3">
+                      <AvatarWithText userData={comment.commentsBy} />
+                      <p className="sm:mt-2 ml-8">{comment.comment}</p>
+                      <p className="sm:mt-2 ml-8 text-slate-500 text-sm">
+                        {CustomDateFormat(comment.createdAt, {
+                          timeInWords: true,
+                        })}
+                      </p>
                     </li>
                   ))}
                 </ul>

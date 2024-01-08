@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import { FaRegComments } from "react-icons/fa";
-import { CustomDateFormat } from "../../utils/CustomDateFormat";
+import CustomDateFormat from "../../utils/CustomDateFormat";
 import AvatarWithText from "../AvatarWithText";
 import LikeButton from "./LikeButton";
 
 const FeatureRequestItem = ({ feature }) => {
   const {
     _id,
-    comments,
+    totalComments,
     createdAt,
     createdBy,
     description,
@@ -18,11 +18,16 @@ const FeatureRequestItem = ({ feature }) => {
 
   return (
     <div className="px-4 py-2 bg-white rounded-lg drop-shadow-md mb-4">
-      <div className="flex items-center justify-between">
-        <h3 className="px-3 py-1 text-sm font-bold text-gray-100 transition-colors duration-300 transform bg-gray-600 rounded cursor-pointer capitalize">
+      <div className="flex items-center justify-between gap-2 py-1">
+        <h3 className="px-2 py-1.5 text-sm font-bold text-gray-100 transition-colors duration-300 transform bg-gray-600 rounded cursor-pointer capitalize">
           {status}
         </h3>
-        <span className="text-sm font-light text-gray-600">
+        <span className="text-sm font-light text-gray-600 sm:hidden">
+          {CustomDateFormat(createdAt, {
+            showTimeOff: true,
+          })}
+        </span>
+        <span className="text-sm font-light text-gray-600 hidden sm:flex">
           {CustomDateFormat(createdAt)}
         </span>
       </div>
@@ -42,11 +47,11 @@ const FeatureRequestItem = ({ feature }) => {
 
           <Link to={`/feature-requests/${_id}`} className="flex gap-2 ml-2">
             <FaRegComments className="text-xl" />
-            {comments.count}
+            {totalComments}
           </Link>
         </div>
 
-        <AvatarWithText createdBy={createdBy} />
+        <AvatarWithText userData={createdBy} />
       </div>
     </div>
   );
