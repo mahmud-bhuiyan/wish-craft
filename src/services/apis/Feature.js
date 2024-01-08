@@ -50,3 +50,21 @@ export const updateFeatureRequestLikesById = async (featureId) => {
     handleApiError(error);
   }
 };
+
+// =============================================
+//            add comments to Requests
+// =============================================
+export const addFeatureComment = async (featureId, data) => {
+  try {
+    const response = await axiosSecureInstance.patch(
+      `/features/${featureId}/comments`,
+      {
+        data,
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};

@@ -7,10 +7,12 @@ import { MdOutlineDateRange } from "react-icons/md";
 import { CustomDateFormat } from "../../utils/CustomDateFormat";
 import AvatarWithText from "../AvatarWithText";
 import LikeButton from "./LikeButton";
+import AddFeatureComment from "./AddFeatureComment";
 
 const SingleFeaturePage = () => {
   const { id } = useParams();
   const [feature, setFeature] = useState(null);
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     const fetchFeature = async () => {
@@ -23,7 +25,14 @@ const SingleFeaturePage = () => {
     };
 
     fetchFeature();
-  }, [id]);
+  }, [id, refresh]);
+
+  // const updateComments = (newComments) => {
+  //   setFeature((prevFeature) => ({
+  //     ...prevFeature,
+  //     comments: newComments,
+  //   }));
+  // };
 
   if (!feature) {
     return <Loader />;
@@ -64,10 +73,8 @@ const SingleFeaturePage = () => {
                 {status}
               </span>
             </div>
-
             <AvatarWithText createdBy={createdBy} />
-
-            <p className="text-gray-700 ml-8 my-4 whitespace-normal break-words lg:px-3 border-2 py-4 px-2 rounded">
+            <p className="text-gray-700 my-5 whitespace-normal break-words">
               {description}
             </p>
             <p className="flex align-middle gap-2 text-sm my-2">
@@ -77,6 +84,9 @@ const SingleFeaturePage = () => {
             <div className="flex gap-2">
               <LikeButton id={id} likes={likes} />
             </div>
+
+            <AddFeatureComment id={id} setRefresh={setRefresh} />
+
             {/* Display Comments */}
             <div>
               <h3 className="font-semibold mt-4 mb-2">Comments</h3>
