@@ -10,6 +10,8 @@ import PrivateRoute from "./PrivateRoute";
 import UserProfilePage from "../pages/UserProfilePage";
 import CreateFeatureRequest from "../components/Feature/CreateFeatureRequest";
 import SingleFeaturePage from "../components/Feature/SingleFeaturePage";
+import AdminLayout from "../layout/AdminLayout";
+import Dashboard from "../pages/Dashboard";
 
 export const router = createBrowserRouter([
   {
@@ -63,6 +65,17 @@ export const router = createBrowserRouter([
       {
         path: "register",
         element: <Register />,
+      },
+    ],
+  },
+  {
+    path: "/admin",
+    element: <AdminLayout />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/admin",
+        element: <Dashboard />,
       },
     ],
   },

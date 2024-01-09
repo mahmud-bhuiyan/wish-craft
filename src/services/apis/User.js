@@ -116,3 +116,16 @@ export const passwordUpdate = async (passwordData) => {
     throw error.response?.data?.msg;
   }
 };
+
+// =============================================
+//                  user details
+// =============================================
+export const getUserProfile = async () => {
+  try {
+    const response = await axiosSecureInstance.get("/users/me");
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error.response?.data?.msg);
+    throw error.response?.data?.msg;
+  }
+};

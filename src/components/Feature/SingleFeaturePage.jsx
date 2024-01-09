@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getSingleFeatureRequest } from "../../services/apis/Feature";
 import Loader from "../Loader";
@@ -9,11 +9,13 @@ import LikeButton from "./LikeButton";
 import AddFeatureComment from "./AddFeatureComment";
 import CustomDateFormat from "../../utils/CustomDateFormat";
 import DeleteComment from "./DeleteComment";
+import { FeaturesContext } from "../../context/FeaturesContextProvider";
 
 const SingleFeaturePage = () => {
   const { id } = useParams();
   const [feature, setFeature] = useState(null);
   const [refresh, setRefresh] = useState(false);
+  const { setRefetch } = useContext(FeaturesContext);
 
   useEffect(() => {
     const fetchFeature = async () => {
@@ -64,11 +66,13 @@ const SingleFeaturePage = () => {
           <div className="flex-1 p-4 border-2 m-3 rounded-lg">
             <Link
               to="/"
+              onClick={() => setRefetch((prevRefresh) => !prevRefresh)}
               className="btn btn-sm lg:btn-md bg-[#F0F0F0] mb-4 lg:hidden"
             >
               <IoReturnUpBackSharp className="text-2xl" />
               BACK TO ALL POSTS
             </Link>
+
             <div className="mb-4 lg:px-3">
               <span className="text-xl font-semibold whitespace-normal break-words mr-2">
                 {title}

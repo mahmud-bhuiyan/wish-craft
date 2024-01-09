@@ -69,6 +69,7 @@ const CreateFeatureRequest = () => {
             </h2>
             <Link
               to="/"
+              onClick={() => setRefetch((prevRefresh) => !prevRefresh)}
               className="bg-[#F0F0F0] rounded p-2 flex gap-2 justify-center items-center"
             >
               <IoReturnUpBackSharp className="text-2xl" />

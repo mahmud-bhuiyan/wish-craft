@@ -10,21 +10,25 @@ import AuthContextProvider from "./context/AuthContextProvider.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import FeaturesContextProvider from "./context/FeaturesContextProvider.jsx";
 
+import { UserContextProvider } from "./context/UserContextProvider.jsx";
+
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthContextProvider>
-      <FeaturesContextProvider>
-        <HelmetProvider>
-          <ToastContainer autoClose={3000} rtl={false} theme="dark" />
-          <QueryClientProvider client={queryClient}>
-            <div className="bg-[#F7F7F7]">
-              <RouterProvider router={router} />
-            </div>
-          </QueryClientProvider>
-        </HelmetProvider>
-      </FeaturesContextProvider>
+      <UserContextProvider>
+        <FeaturesContextProvider>
+          <HelmetProvider>
+            <ToastContainer autoClose={3000} rtl={false} theme="dark" />
+            <QueryClientProvider client={queryClient}>
+              <div className="bg-[#F7F7F7]">
+                <RouterProvider router={router} />
+              </div>
+            </QueryClientProvider>
+          </HelmetProvider>
+        </FeaturesContextProvider>
+      </UserContextProvider>
     </AuthContextProvider>
   </React.StrictMode>
 );
