@@ -12,6 +12,7 @@ import CreateFeatureRequest from "../components/Feature/CreateFeatureRequest";
 import SingleFeaturePage from "../components/Feature/SingleFeaturePage";
 import AdminLayout from "../layout/AdminLayout";
 import Dashboard from "../pages/Dashboard";
+import AdminRoutes from "./AdminRoutes";
 
 export const router = createBrowserRouter([
   {
@@ -70,7 +71,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <AdminLayout />,
+    element: (
+      <AdminRoutes>
+        <AdminLayout />
+      </AdminRoutes>
+    ),
     errorElement: <ErrorPage />,
     children: [
       {

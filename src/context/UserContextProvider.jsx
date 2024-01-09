@@ -1,32 +1,32 @@
 import { createContext, useEffect, useState } from "react";
 import { getUserProfile } from "../services/apis/User";
 
-export const UserContext = createContext({ user: {}, setUser: () => {} });
+export const UserContext = createContext(null);
 
 export const UserContextProvider = ({ children }) => {
   const [userDetails, setUserDetails] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setLoading(true);
+        setIsLoading(true);
         const currentUser = await getUserProfile();
         setUserDetails(currentUser.user);
       } catch (error) {
         console.log("null");
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
     };
     fetchData();
-  }, [setUserDetails, setLoading]);
+  }, [setUserDetails, setIsLoading]);
 
   const authInfo = {
     userDetails,
     setUserDetails,
-    loading,
-    setLoading,
+    isLoading,
+    setIsLoading,
   };
 
   return (
