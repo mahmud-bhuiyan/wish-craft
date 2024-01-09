@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { FaRegComments } from "react-icons/fa";
 import CustomDateFormat from "../../utils/CustomDateFormat";
-import AvatarWithText from "../AvatarWithText";
+import AvatarWithText from "./AvatarWithText";
 import LikeButton from "./LikeButton";
 
 const FeatureRequestItem = ({ feature }) => {

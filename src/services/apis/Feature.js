@@ -9,7 +9,7 @@ export const createRequest = async (data) => {
     const response = await axiosSecureInstance.post("/features/", data);
     return response.data;
   } catch (error) {
-    throw error.response?.data?.msg;
+    handleApiError(error);
   }
 };
 
@@ -21,7 +21,7 @@ export const getAllRequest = async () => {
     const response = await axiosSecureInstance.get("/features/");
     return response.data;
   } catch (error) {
-    throw error.response?.data?.msg;
+    handleApiError(error);
   }
 };
 
@@ -61,6 +61,21 @@ export const addFeatureComment = async (featureId, data) => {
       data
     );
 
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+// =============================================
+//        delete feature requests comments
+// =============================================
+export const deleteFeatureComment = async (featureId, commentId) => {
+  console.log(featureId, commentId);
+  try {
+    const response = await axiosSecureInstance.delete(
+      `/features/${featureId}/comments/${commentId}`
+    );
     return response.data;
   } catch (error) {
     handleApiError(error);

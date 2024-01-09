@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import getInitials from "../utils/getInitials";
-import { AuthContext } from "../context/AuthContextProvider";
+import { AuthContext } from "../../context/AuthContextProvider";
+import getInitials from "../../utils/getInitials";
 
 const AvatarWithText = ({ userData }) => {
   const { user } = useContext(AuthContext);

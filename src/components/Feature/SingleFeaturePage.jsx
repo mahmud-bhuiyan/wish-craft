@@ -4,10 +4,11 @@ import { getSingleFeatureRequest } from "../../services/apis/Feature";
 import Loader from "../Loader";
 import { IoReturnUpBackSharp } from "react-icons/io5";
 import { MdOutlineDateRange } from "react-icons/md";
-import AvatarWithText from "../AvatarWithText";
+import AvatarWithText from "./AvatarWithText";
 import LikeButton from "./LikeButton";
 import AddFeatureComment from "./AddFeatureComment";
 import CustomDateFormat from "../../utils/CustomDateFormat";
+import DeleteComment from "./DeleteComment";
 
 const SingleFeaturePage = () => {
   const { id } = useParams();
@@ -105,11 +106,20 @@ const SingleFeaturePage = () => {
                     <li key={comment._id} className="py-3">
                       <AvatarWithText userData={comment.commentsBy} />
                       <p className="sm:mt-2 ml-8">{comment.comment}</p>
-                      <p className="sm:mt-2 ml-8 text-slate-500 text-sm">
-                        {CustomDateFormat(comment.createdAt, {
-                          timeInWords: true,
-                        })}
-                      </p>
+                      <div className="flex">
+                        <p className="sm:mt-2 ml-8 text-slate-500 text-sm">
+                          {CustomDateFormat(comment.createdAt, {
+                            timeInWords: true,
+                          })}
+                        </p>
+                        <DeleteComment
+                          feature={feature}
+                          commentUser={comment.commentsBy}
+                          featureId={feature._id}
+                          commentId={comment._id}
+                          setRefresh={setRefresh}
+                        />
+                      </div>
                     </li>
                   ))}
                 </ul>
