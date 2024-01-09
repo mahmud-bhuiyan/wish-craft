@@ -4,9 +4,11 @@ import { getUserProfile } from "../services/apis/User";
 export const UserContext = createContext(null);
 
 export const UserContextProvider = ({ children }) => {
-  const [userDetails, setUserDetails] = useState(null);
+  const [allUsers, setAllUsers] = useState([]);
+  const [userDetails, setUserDetails] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  // admin user data
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -27,6 +29,8 @@ export const UserContextProvider = ({ children }) => {
     setUserDetails,
     isLoading,
     setIsLoading,
+    allUsers,
+    setAllUsers,
   };
 
   return (
