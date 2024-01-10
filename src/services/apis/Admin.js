@@ -12,3 +12,16 @@ export const getAllUsers = async () => {
     handleApiError(error);
   }
 };
+
+// =============================================
+//              Soft delete user by ID
+// =============================================
+export const softDeleteUserById = async (userId) => {
+  try {
+    const response = await axiosSecureInstance.patch(`/admins/${userId}`);
+
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
