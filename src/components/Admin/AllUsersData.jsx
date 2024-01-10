@@ -1,33 +1,54 @@
 import { MdOutlineAdminPanelSettings, MdDelete } from "react-icons/md";
 import { toast } from "react-toastify";
-import { softDeleteUserById } from "../../services/apis/Admin";
 import Swal from "sweetalert2";
+import { makeAdmin, softDeleteUserById } from "../../services/apis/Admin";
 
 const AllUsersData = ({ user, index, setRefetch }) => {
   console.log(user);
   const { _id, name, email, role } = user;
 
-  const handleDelete = async () => {
-    // Display confirmation dialog
-    const confirmationResult = await Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
+  const showConfirmationDialog = async (title, text, actionType) => {
+    return Swal.fire({
+      title,
+      text,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: `Yes, delete user`,
+      confirmButtonText: actionType,
     });
+  };
 
-    // If user confirms the deletion
+  const showToast = (message, type = "success") => {
+    toast[type](message);
+  };
+
+  const handleAction = async (actionType) => {
+    const actionText =
+      actionType === "admin" ? `make ${name} an Admin` : `delete ${name}`;
+    const confirmationResult = await showConfirmationDialog(
+      "Are you sure?",
+      `You want to ${actionText}`,
+      actionType === "admin" ? "Yes, Make Admin" : "Yes, Delete"
+    );
+
     if (confirmationResult.isConfirmed) {
       try {
-        const response = await softDeleteUserById(_id);
+        const response =
+          actionType === "admin"
+            ? await makeAdmin(_id)
+            : await softDeleteUserById(_id);
+
         setRefetch((prevRefetch) => !prevRefetch);
-        toast.success(response.message);
+        showToast(response.message);
       } catch (error) {
         console.error(error);
-        toast.error("Failed to delete user");
+        showToast(
+          actionType === "admin"
+            ? "Failed to update user role"
+            : "Failed to delete user",
+          "error"
+        );
       }
     }
   };
@@ -42,13 +63,19 @@ const AllUsersData = ({ user, index, setRefetch }) => {
       <td className="py-2 px-4 text-sm font-normal text-gray-800">{role}</td>
 
       <td className="py-2 px-4 text-sm font-normal text-gray-800 flex justify-center align-middle gap-4">
-        <div className="tooltip-top tooltip" data-tip="Make Admin">
-          <MdOutlineAdminPanelSettings className="text-2xl text-blue-400" />
-        </div>
+        {role !== "admin" && (
+          <div
+            className="tooltip-top tooltip"
+            data-tip="Make Admin"
+            onClick={() => handleAction("admin")}
+          >
+            <MdOutlineAdminPanelSettings className="text-2xl text-blue-400" />
+          </div>
+        )}
         <div
           className="tooltip-top tooltip"
           data-tip="Delete"
-          onClick={handleDelete}
+          onClick={() => handleAction("delete")}
         >
           <MdDelete className="text-2xl text-red-500 cursor-pointer" />
         </div>
