@@ -1,11 +1,12 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/UserContextProvider";
 import { getAllUsers } from "../services/apis/Admin";
 import AllUsersData from "../components/Admin/AllUsersData";
 
 const Dashboard = () => {
   const { allUsers, setAllUsers } = useContext(UserContext);
-
+  const [refetch, setRefetch] = useState(false);
+  
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -17,7 +18,7 @@ const Dashboard = () => {
     };
 
     fetchUsers();
-  }, [setAllUsers]);
+  }, [setAllUsers, refetch]);
 
   console.log(allUsers);
 
@@ -75,7 +76,12 @@ const Dashboard = () => {
                 {/* Inside the table body */}
                 <tbody className="bg-white divide-y divide-gray-200">
                   {allUsers.map((user, index) => (
-                    <AllUsersData index={index} key={user._id} user={user} />
+                    <AllUsersData
+                      index={index}
+                      key={user._id}
+                      user={user}
+                      setRefetch={setRefetch}
+                    />
                   ))}
                 </tbody>
               </table>

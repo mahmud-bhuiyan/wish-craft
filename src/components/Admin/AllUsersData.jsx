@@ -1,18 +1,34 @@
 import { MdOutlineAdminPanelSettings, MdDelete } from "react-icons/md";
 import { toast } from "react-toastify";
 import { softDeleteUserById } from "../../services/apis/Admin";
+import Swal from "sweetalert2";
 
-const AllUsersData = ({ user, index }) => {
+const AllUsersData = ({ user, index, setRefetch }) => {
   console.log(user);
   const { _id, name, email, role } = user;
 
   const handleDelete = async () => {
-    try {
-      await softDeleteUserById(_id);
-      toast.success("User deleted successfully");
-    } catch (error) {
-      console.error(error);
-      toast.error("Failed to delete user");
+    // Display confirmation dialog
+    const confirmationResult = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: `Yes, delete user`,
+    });
+
+    // If user confirms the deletion
+    if (confirmationResult.isConfirmed) {
+      try {
+        const response = await softDeleteUserById(_id);
+        setRefetch((prevRefetch) => !prevRefetch);
+        toast.success(response.message);
+      } catch (error) {
+        console.error(error);
+        toast.error("Failed to delete user");
+      }
     }
   };
 
