@@ -1,4 +1,5 @@
 import { axiosNonSecureInstance, axiosSecureInstance } from "../../utils/axios";
+import handleApiError from "../../utils/handleApiError";
 
 // =============================================
 //                    register
@@ -61,8 +62,7 @@ export const userLogin = async (credentials) => {
     localStorage.setItem("userToken", token);
     return response.data;
   } catch (error) {
-    // console.error("Error:", error.response?.data?.msg);
-    throw error.response?.data?.msg;
+    // handleApiError(error);
   }
 };
 
@@ -96,8 +96,7 @@ export const updateUser = async (updatedUserData) => {
     );
     return response.data;
   } catch (error) {
-    console.error("Error:", error.response?.data?.msg);
-    throw error.response?.data?.msg;
+    handleApiError(error);
   }
 };
 
@@ -112,8 +111,7 @@ export const passwordUpdate = async (passwordData) => {
     );
     return response.data;
   } catch (error) {
-    console.error("Error:", error.response?.data?.msg);
-    throw error.response?.data?.msg;
+    handleApiError(error);
   }
 };
 
@@ -125,7 +123,6 @@ export const getUserProfile = async () => {
     const response = await axiosSecureInstance.get("/users/me");
     return response.data;
   } catch (error) {
-    console.error("Error:", error.response?.data?.msg);
-    throw error.response?.data?.msg;
+    handleApiError(error);
   }
 };

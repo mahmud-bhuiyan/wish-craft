@@ -1,25 +1,32 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getSingleFeatureRequest } from "../../services/apis/Feature";
-import Loader from "../Loader";
 import { IoReturnUpBackSharp } from "react-icons/io5";
 import { MdOutlineDateRange } from "react-icons/md";
+import Loader from "../Loader";
 import AvatarWithText from "./AvatarWithText";
 import LikeButton from "./LikeButton";
 import AddFeatureComment from "./AddFeatureComment";
 import CustomDateFormat from "../../utils/CustomDateFormat";
-import DeleteComment from "./DeleteComment";
+import DisplayComments from "./DisplayComments";
 import { FeaturesContext } from "../../context/FeaturesContextProvider";
+import { getSingleFeatureRequest } from "../../services/apis/Feature";
 
 const SingleFeaturePage = () => {
+  // Retrieve feature id from URL params
   const { id } = useParams();
+
+  // State to hold the feature data and trigger refresh
   const [feature, setFeature] = useState(null);
   const [refresh, setRefresh] = useState(false);
+
+  // Access to FeaturesContext for global state management
   const { setRefetch } = useContext(FeaturesContext);
 
+  // Fetch feature data on component mount or refresh
   useEffect(() => {
     const fetchFeature = async () => {
       try {
+        // Fetch feature data based on the id
         const featureData = await getSingleFeatureRequest(id);
         setFeature(featureData.feature);
       } catch (error) {
@@ -27,9 +34,11 @@ const SingleFeaturePage = () => {
       }
     };
 
+    // Trigger the fetch on mount or when refresh state changes
     fetchFeature();
   }, [id, refresh]);
 
+  // If feature data is still loading, display a loader
   if (!feature) {
     return <Loader />;
   }
@@ -45,13 +54,11 @@ const SingleFeaturePage = () => {
     comments,
   } = feature;
 
-  console.log(feature);
-
   return (
     <div className="max-w-screen-xl mx-auto">
       <div className="mx-2 my-4">
         <div className="lg:flex bg-white rounded-lg p-1">
-          {/* Content for the left div */}
+          {/* Left div: Back to all posts link */}
           <div className="lg:w-1/3 hidden lg:flex lg:order-first p-4 border-2 m-3 rounded-lg">
             <Link
               to="/"
@@ -62,8 +69,9 @@ const SingleFeaturePage = () => {
             </Link>
           </div>
 
-          {/* Content for the right div */}
+          {/* Right div: Feature details */}
           <div className="flex-1 p-4 border-2 m-3 rounded-lg">
+            {/* Back to all posts link for smaller screens */}
             <Link
               to="/"
               onClick={() => setRefetch((prevRefresh) => !prevRefresh)}
@@ -73,6 +81,7 @@ const SingleFeaturePage = () => {
               BACK TO ALL POSTS
             </Link>
 
+            {/* Feature title and status */}
             <div className="mb-4 lg:px-3">
               <span className="text-xl font-semibold whitespace-normal break-words mr-2">
                 {title}
@@ -82,53 +91,40 @@ const SingleFeaturePage = () => {
               </span>
             </div>
 
+            {/* Display creator's avatar and text */}
             <AvatarWithText userData={createdBy} />
 
+            {/* Feature description */}
             <p className="text-gray-700 my-5 whitespace-normal break-words">
               {description}
             </p>
+
+            {/* Display creation date */}
             <p className="flex align-middle gap-2 text-sm my-2">
               <MdOutlineDateRange className="text-xl" />
               {CustomDateFormat(createdAt, {
                 showTimeOff: true,
               })}
             </p>
+
+            {/* Like button */}
             <div className="flex gap-2">
               <LikeButton id={_id} likes={likes} />
             </div>
 
-            <AddFeatureComment id={_id} setRefresh={setRefresh} />
+            {/* Component to add a new comment */}
+            <AddFeatureComment
+              id={_id}
+              setRefresh={setRefresh}
+              setFeature={setFeature}
+            />
 
             {/* Display Comments */}
-            <div>
-              <h3 className="font-semibold mt-4 mb-2">Comments</h3>
-              {comments.count === 0 ? (
-                <p>No comments yet.</p>
-              ) : (
-                <ul>
-                  {comments.data.map((comment) => (
-                    <li key={comment._id} className="py-3">
-                      <AvatarWithText userData={comment.commentsBy} />
-                      <p className="sm:mt-2 ml-8">{comment.comment}</p>
-                      <div className="flex">
-                        <p className="sm:mt-2 ml-8 text-slate-500 text-sm">
-                          {CustomDateFormat(comment.createdAt, {
-                            timeInWords: true,
-                          })}
-                        </p>
-                        <DeleteComment
-                          feature={feature}
-                          commentUser={comment.commentsBy}
-                          featureId={feature._id}
-                          commentId={comment._id}
-                          setRefresh={setRefresh}
-                        />
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
+            <DisplayComments
+              feature={feature}
+              comments={comments}
+              setRefresh={setRefresh}
+            />
           </div>
         </div>
       </div>

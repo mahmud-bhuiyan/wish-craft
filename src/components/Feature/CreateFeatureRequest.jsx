@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
 import { IoReturnUpBackSharp } from "react-icons/io5";
 import { toast } from "react-toastify";
-
 import CustomInputField from "../CustomComponents/CustomInputField";
 import CustomTextarea from "../CustomComponents/CustomTextarea";
 import CustomFormButton from "../CustomComponents/CustomFormButton";
@@ -12,11 +11,16 @@ import { createRequest } from "../../services/apis/Feature";
 import { FeaturesContext } from "../../context/FeaturesContextProvider";
 
 const CreateFeatureRequest = () => {
+  // State to track the form submission status
   const [formSubmit, setFormSubmit] = useState(false);
+
+  // Destructuring context values
   const { setFeatures, setRefetch } = useContext(FeaturesContext);
 
+  // React Router hook for navigation
   const navigate = useNavigate();
 
+  // React Hook Form initialization
   const {
     register,
     handleSubmit,
@@ -24,7 +28,9 @@ const CreateFeatureRequest = () => {
     reset,
   } = useForm();
 
+  // Function to handle form submission
   const onSubmit = async (data) => {
+    // Extracting relevant data from the form
     const featureData = {
       title: data.title,
       description: data.description,
@@ -33,18 +39,21 @@ const CreateFeatureRequest = () => {
     try {
       setFormSubmit(true);
 
+      // API call to create a feature request
       const response = await createRequest(featureData);
+      console.log(response);
 
+      // Check if the feature request was successfully created
       if (response.feature._id) {
         toast.success(response.message);
 
         // Update features list in context
         setFeatures((prevFeatures) => [response.feature, ...prevFeatures]);
 
-        // Trigger a refetch
+        // Trigger a refetch of the features
         setRefetch((prevRefetch) => !prevRefetch);
 
-        // Redirect to the home page and show success message
+        // Redirect to the home page and reset the form
         navigate("/");
         reset();
       }
@@ -62,11 +71,14 @@ const CreateFeatureRequest = () => {
         <Helmet>
           <title>Create Request | WishCraft</title>
         </Helmet>
+
         <div className="p-4 border-2 rounded-lg">
           <div className="sm:flex justify-between pb-2 sm:pb-0">
+            {/* Heading and "See All Posts" link */}
             <h2 className="font-semibold text-2xl mb-2 ml-1">
               Create Feature Request
             </h2>
+
             <Link
               to="/"
               onClick={() => setRefetch((prevRefresh) => !prevRefresh)}
@@ -76,10 +88,13 @@ const CreateFeatureRequest = () => {
               SEE ALL POSTS
             </Link>
           </div>
+
+          {/* Instructional text */}
           <p className="mb-4 ml-1">
             Let us know what features you&lsquo;d like to see on WishCraft!
           </p>
 
+          {/* Form with custom input and textarea components */}
           <form onSubmit={handleSubmit(onSubmit)}>
             <CustomInputField
               label="GIVE A TITLE"
@@ -98,9 +113,11 @@ const CreateFeatureRequest = () => {
               errors={errors}
             />
 
+            {/* Submit button with custom loading state */}
             <div className="mt-4">
               <CustomFormButton
                 buttonText={"REQUEST FEATURE"}
+                loadingText={"REQUESTING NEW FEATURE..."}
                 loading={formSubmit}
                 color={"custom"}
               />

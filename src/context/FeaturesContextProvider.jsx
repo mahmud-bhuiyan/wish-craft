@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { getAllRequest } from "../services/apis/Feature";
-import { toast } from "react-toastify";
 import { AuthContext } from "./AuthContextProvider";
 
 export const FeaturesContext = createContext(null);
@@ -14,15 +13,24 @@ const FeaturesContextProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await getAllRequest();
-        setLoading(false);
+      if (user?.email) {
+        // Used setTimeout to fetch data
+        const timeoutId = setTimeout(async () => {
+          try {
+            const response = await getAllRequest();
+            setLoading(false);
 
-        if (response && response.features) {
-          setFeatures(response.features);
-        }
-      } catch (error) {
-        toast.error(error);
+            if (response && response.features) {
+              setFeatures(response.features);
+            }
+          } catch (error) {
+            console.log(error);
+          }
+        }, 500);
+
+        return () => clearTimeout(timeoutId);
+      } else {
+        return;
       }
     };
 

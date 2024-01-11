@@ -31,8 +31,8 @@ const Nav = () => {
       await userLogout();
       await logoutUser();
       navigate("/auth/login");
+      window.location.reload();
     } catch (error) {
-      // console.error("Logout failed:", error);
       toast.error(error.message || "Logout failed");
     }
   };
@@ -67,7 +67,7 @@ const Nav = () => {
             {userDetails?.role === "admin" && (
               <>
                 <Link
-                  to="/admin"
+                  to="/admin/users"
                   className="btn border-2 border-gray-400 hover:border-slate-500 rounded-md text-[#A99FA8] hover:text-black bg-[#241A24]"
                 >
                   Admin Panel

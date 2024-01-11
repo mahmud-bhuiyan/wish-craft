@@ -1,21 +1,23 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
-import { MdOutlineDashboard } from "react-icons/md";
+import { Link, useLocation } from "react-router-dom";
+import { HiHome } from "react-icons/hi";
 import { UserContext } from "../../context/UserContextProvider";
 import { logo, demoAdmin } from "../../assets/images/images";
-import { HiHome } from "react-icons/hi";
+import { TbUsers } from "react-icons/tb";
 
 const Sidebar = () => {
   const { userDetails } = useContext(UserContext);
   const { name, email, photoURL } = userDetails;
 
+  const location = useLocation();
+
   // navigation links
   const navLinks = [
     { to: "/", icon: <HiHome className="text-xl" />, text: "Homepage" },
     {
-      to: "/admin",
-      icon: <MdOutlineDashboard className="text-xl" />,
-      text: "Dashboard",
+      to: "/admin/users",
+      icon: <TbUsers className="text-xl" />,
+      text: "All Users",
     },
   ];
 
@@ -52,7 +54,9 @@ const Sidebar = () => {
             <Link
               key={index}
               to={to}
-              className="flex justify-center items-center px-4 py-2 text-gray-700 bg-gray-100 rounded-lg mb-2"
+              className={`flex justify-center items-center px-4 py-2 text-gray-700 rounded-lg mb-2 ${
+                location.pathname === to ? "bg-[#B4E4FF]" : "bg-gray-100"
+              }`}
             >
               {icon}
               <span className="mx-4 font-medium">{text}</span>

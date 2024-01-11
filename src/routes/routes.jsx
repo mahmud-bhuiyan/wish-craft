@@ -11,8 +11,8 @@ import UserProfilePage from "../pages/UserProfilePage";
 import CreateFeatureRequest from "../components/Feature/CreateFeatureRequest";
 import SingleFeaturePage from "../components/Feature/SingleFeaturePage";
 import AdminLayout from "../layout/AdminLayout";
-import Dashboard from "../pages/Dashboard";
 import AdminRoutes from "./AdminRoutes";
+import AllUsers from "../pages/AllUsers";
 
 export const router = createBrowserRouter([
   {
@@ -79,8 +79,8 @@ export const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "/admin",
-        element: <Dashboard />,
+        path: "users",
+        element: <AllUsers />,
       },
     ],
   },

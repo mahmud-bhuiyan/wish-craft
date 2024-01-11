@@ -4,10 +4,9 @@ import { UserContext } from "../context/UserContextProvider";
 import { getAllUsers } from "../services/apis/Admin";
 import AllUsersData from "../components/Admin/AllUsersData";
 
-const Dashboard = () => {
+const AllUsers = () => {
   const { allUsers, setAllUsers } = useContext(UserContext);
   const [refetch, setRefetch] = useState(false);
-
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -26,7 +25,7 @@ const Dashboard = () => {
   return (
     <>
       <Helmet>
-        <title>Admin Dashboard | WishCraft</title>
+        <title>All Users | WishCraft</title>
       </Helmet>
       <div className="max-w-screen-xl p-4 my-4 w-full mx-auto">
         <div className="flex items-center gap-x-3">
@@ -119,4 +118,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default AllUsers;

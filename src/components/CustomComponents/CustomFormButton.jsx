@@ -1,12 +1,23 @@
 import { ThreeDots } from "react-loader-spinner";
 
-const CustomFormButton = ({ buttonText, loading, color, size }) => {
+const CustomFormButton = ({
+  buttonText,
+  loading,
+  loadingText,
+  color,
+  size,
+}) => {
+  // Determine the background and text color based on the "color" prop
   const buttonColor =
     color === "custom"
-      ? "bg-[#402F3F] text-[#F0F0F0]"
-      : "bg-green-100 text-gray-800";
+      ? "bg-[#402F3F] text-[#F0F0F0]" // Custom color variant
+      : "bg-green-100 text-gray-800"; // Default color variant
 
+  // Determine the size styles based on the "size" prop
   const buttonSize = size === "small" ? "px-4 py-2 mt-2 rounded" : "w-full";
+
+  // Determine the color of the loading dots based on the "color" prop
+  const dotsColor = color === "custom" ? "#FFFFFF" : "#000000";
 
   return (
     <button
@@ -16,12 +27,12 @@ const CustomFormButton = ({ buttonText, loading, color, size }) => {
     >
       {loading ? (
         <span className="flex gap-2 justify-center align-middle">
-          Submitting
+          {loadingText ? loadingText : "Submitting"}{" "}
           <ThreeDots
             visible={true}
             height="25"
             width="25"
-            color="#000000"
+            color={dotsColor}
             radius="9"
             ariaLabel="three-dots-loading"
             wrapperStyle={{}}

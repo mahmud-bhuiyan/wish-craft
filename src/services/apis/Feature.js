@@ -71,7 +71,6 @@ export const addFeatureComment = async (featureId, data) => {
 //        delete feature requests comments
 // =============================================
 export const deleteFeatureComment = async (featureId, commentId) => {
-  console.log(featureId, commentId);
   try {
     const response = await axiosSecureInstance.delete(
       `/features/${featureId}/comments/${commentId}`
