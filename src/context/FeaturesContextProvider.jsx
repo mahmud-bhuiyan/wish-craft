@@ -13,24 +13,15 @@ const FeaturesContextProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (user?.email) {
-        // Used setTimeout to fetch data
-        const timeoutId = setTimeout(async () => {
-          try {
-            const response = await getAllRequest();
-            setLoading(false);
+      try {
+        const response = await getAllRequest();
+        setLoading(false);
 
-            if (response && response.features) {
-              setFeatures(response.features);
-            }
-          } catch (error) {
-            console.log(error);
-          }
-        }, 500);
-
-        return () => clearTimeout(timeoutId);
-      } else {
-        return;
+        if (response && response.features) {
+          setFeatures(response.features);
+        }
+      } catch (error) {
+        console.log(error);
       }
     };
 
