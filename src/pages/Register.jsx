@@ -1,10 +1,10 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { toast } from "react-toastify";
 import { logo } from "../assets/images/images";
 import CustomAuthForm from "../components/Auth/CustomAuthForm";
 import { AuthContext } from "../context/AuthContextProvider";
-import { toast } from "react-toastify";
 import { registerUser } from "../services/apis/User";
 import handleError from "../utils/handleError";
 

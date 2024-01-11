@@ -23,6 +23,11 @@ const DeleteComment = ({ commentUser, featureId, commentId, setRefresh }) => {
     }
   };
 
+  // Return null if there is no user
+  if (!user) {
+    return null;
+  }
+
   return (
     <>
       {matched && (

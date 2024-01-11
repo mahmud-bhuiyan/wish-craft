@@ -28,7 +28,9 @@ const Nav = () => {
   // logout user using firebase
   const handleLogOut = async () => {
     try {
+      // Logout user from the application context
       await userLogout();
+      // Logout user from Firebase
       await logoutUser();
       navigate("/auth/login");
       window.location.reload();

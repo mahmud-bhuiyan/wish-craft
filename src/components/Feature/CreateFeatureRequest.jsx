@@ -41,7 +41,6 @@ const CreateFeatureRequest = () => {
 
       // API call to create a feature request
       const response = await createRequest(featureData);
-      console.log(response);
 
       // Check if the feature request was successfully created
       if (response.feature._id) {

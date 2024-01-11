@@ -26,6 +26,10 @@ export const router = createBrowserRouter([
         element: <Home />,
       },
       {
+        path: "/feature-requests/:id",
+        element: <SingleFeaturePage />,
+      },
+      {
         path: "/feature-requests/create",
         element: (
           <PrivateRoute>
@@ -33,14 +37,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      {
-        path: "/feature-requests/:id",
-        element: (
-          <PrivateRoute>
-            <SingleFeaturePage />
-          </PrivateRoute>
-        ),
-      },
+
       {
         path: "/users/profile",
         element: (

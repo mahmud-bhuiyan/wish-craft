@@ -30,7 +30,7 @@ export const getAllRequest = async () => {
 // =============================================
 export const getSingleFeatureRequest = async (featureId) => {
   try {
-    const response = await axiosSecureInstance.get(`/features/${featureId}`);
+    const response = await axiosNonSecureInstance.get(`/features/${featureId}`);
 
     return response.data;
   } catch (error) {

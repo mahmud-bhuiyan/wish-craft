@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { addFeatureComment } from "../../services/apis/Feature";
 import CustomTextarea from "../CustomComponents/CustomTextarea";
 import CustomFormButton from "../CustomComponents/CustomFormButton";
+import { AuthContext } from "../../context/AuthContextProvider";
 
 const AddFeatureComment = ({ id, setRefresh }) => {
+  const { user } = useContext(AuthContext);
+
   // State to track form submission status
   const [formSubmit, setFormSubmit] = useState(false);
 
@@ -45,6 +48,11 @@ const AddFeatureComment = ({ id, setRefresh }) => {
       setFormSubmit(false);
     }
   };
+
+  // Return null if there is no user
+  if (!user) {
+    return null;
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

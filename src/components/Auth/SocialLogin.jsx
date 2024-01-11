@@ -1,9 +1,10 @@
 import { useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
+import { toast } from "react-toastify";
 import { AuthContext } from "../../context/AuthContextProvider";
 import { signInWithGoogle } from "../../services/apis/User";
-import { toast } from "react-toastify";
+import handleError from "../../utils/handleError";
 
 const SocialLogin = () => {
   const { googleSignIn } = useContext(AuthContext);
@@ -32,12 +33,11 @@ const SocialLogin = () => {
 
       // Check if MongoDB login was successful
       if (response.user.email) {
-        // Redirect to the home page and show success message
-        navigate(from, { replace: true });
         toast.success(response.message);
       }
+      navigate(from, { replace: true });
     } catch (error) {
-      console.error("Error:", error);
+      handleError(error);
     }
   };
 
