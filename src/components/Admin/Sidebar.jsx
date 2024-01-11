@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { HiHome } from "react-icons/hi";
 import { UserContext } from "../../context/UserContextProvider";
 import { logo, demoAdmin } from "../../assets/images/images";
+import { MdOutlineFeaturedVideo } from "react-icons/md";
 import { TbUsers } from "react-icons/tb";
 
 const Sidebar = () => {
@@ -15,9 +16,14 @@ const Sidebar = () => {
   const navLinks = [
     { to: "/", icon: <HiHome className="text-xl" />, text: "Homepage" },
     {
+      to: "/admin/feature-requests",
+      icon: <MdOutlineFeaturedVideo className="text-xl" />,
+      text: "Feature Requests",
+    },
+    {
       to: "/admin/users",
       icon: <TbUsers className="text-xl" />,
-      text: "All Users",
+      text: "Users",
     },
   ];
 

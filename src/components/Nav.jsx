@@ -67,7 +67,7 @@ const Nav = () => {
             {userDetails?.role === "admin" && (
               <>
                 <Link
-                  to="/admin/users"
+                  to="/admin/feature-requests"
                   className="btn border-2 border-gray-400 hover:border-slate-500 rounded-md text-[#A99FA8] hover:text-black bg-[#241A24]"
                 >
                   Admin Panel
