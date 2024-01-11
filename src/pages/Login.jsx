@@ -6,19 +6,23 @@ import { logo } from "../assets/images/images";
 import CustomAuthForm from "../components/Auth/CustomAuthForm";
 import SocialLogin from "../components/Auth/SocialLogin";
 import { AuthContext } from "../context/AuthContextProvider";
-import { userLogin } from "../services/apis/User";
+import { userLogin, userLogout } from "../services/apis/User";
 import handleError from "../utils/handleError";
 
 const Login = () => {
+  // Access the authentication context
   const { loginUser } = useContext(AuthContext);
 
+  // React Router hooks for navigation and location
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
+  // State to manage form submission and reset
   const [formSubmit, setFormSubmit] = useState(false);
   const [formReset, setFormReset] = useState(false);
 
+  // Handle the login process
   const handleLogin = async (data) => {
     // Extract user data from the input
     const userData = {
@@ -36,16 +40,28 @@ const Login = () => {
       // Check if MongoDB login was successful
       if (response.user.email) {
         // Step 2: login user to Firebase authentication
-        await loginUserUsingFirebase(userData.email, userData.password);
+        const firebaseResponse = await loginUserUsingFirebase(
+          userData.email,
+          userData.password
+        );
+
+        // Error handling if user does not match between MongoDB and Firebase
+        if (response.user.email !== firebaseResponse.user.email) {
+          // Logout user and navigate to the login page
+          await userLogout();
+          navigate("/auth/login");
+        } else {
+          // Step 3: Redirect to the home page and show success message
+          navigate(from, { replace: true });
+          toast.success(response.message);
+          setFormReset(true);
+        }
       }
-      // Step 3: Redirect to the home page and show success message
-      navigate(from, { replace: true });
-      toast.success(response.message);
-      setFormReset(true);
     } catch (error) {
-      // console.log(error.code, error.message);
+      console.log(error);
       toast.error(error.message);
     } finally {
+      // Set form submission in progress flag to false
       setFormSubmit(false);
     }
   };
@@ -87,6 +103,7 @@ const Login = () => {
           <div className="bg-white mx-4 p-8 rounded shadow-md w-full md:w-1/2 lg:w-1/3">
             <div className="text-center">
               <div className="flex justify-center mx-auto">
+                {/* Logo */}
                 <Link to="/">
                   <img className="w-auto h-9" src={logo} alt="logo" />
                 </Link>
@@ -108,7 +125,7 @@ const Login = () => {
                 </div>
 
                 <div className="mx-auto max-w-xs">
-                  {/* custom login form */}
+                  {/* Custom login form */}
                   <CustomAuthForm
                     buttonText="Login"
                     onSubmit={handleLogin}

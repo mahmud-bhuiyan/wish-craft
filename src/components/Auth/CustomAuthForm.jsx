@@ -7,6 +7,7 @@ import CustomPasswordField from "../CustomComponents/CustomPasswordField";
 import CustomFormButton from "../CustomComponents/CustomFormButton";
 
 const CustomAuthForm = ({ buttonText, formReset, formSubmit, onSubmit }) => {
+  // React Hook Form setup
   const {
     register,
     handleSubmit,
@@ -14,25 +15,34 @@ const CustomAuthForm = ({ buttonText, formReset, formSubmit, onSubmit }) => {
     reset,
   } = useForm();
 
+  // Handling form submission
   const handleFormSubmit = (data) => {
+    // Check if it's a registration form and passwords match
     if (!isLogin && data.password !== data.confirmPassword) {
       toast.warning("Passwords do not match");
       return;
     }
 
+    // Call the onSubmit callback function if provided
     if (onSubmit) {
       onSubmit(data);
     }
 
+    // Reset the form if needed
     if (formReset) {
       reset();
     }
   };
 
+  // Determine if it's a login form
   const isLogin = buttonText.toLowerCase() === "login";
+
+  // Set loadingText based on login or registration
+  const loadingText = isLogin ? "Logging In" : "Registering";
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)}>
+      {/* Display name input field for registration */}
       {!isLogin && (
         <CustomInputField
           type="text"
@@ -44,6 +54,7 @@ const CustomAuthForm = ({ buttonText, formReset, formSubmit, onSubmit }) => {
         />
       )}
 
+      {/* Email input field */}
       <CustomInputField
         type="email"
         name="email"
@@ -53,6 +64,7 @@ const CustomAuthForm = ({ buttonText, formReset, formSubmit, onSubmit }) => {
         icon={MdOutlineMarkEmailRead}
       />
 
+      {/* Password input field */}
       <CustomPasswordField
         type="password"
         name="password"
@@ -62,6 +74,7 @@ const CustomAuthForm = ({ buttonText, formReset, formSubmit, onSubmit }) => {
         icon={FiUnlock}
       />
 
+      {/* Confirm password input field for registration */}
       {!isLogin && (
         <CustomPasswordField
           type="password"
@@ -73,8 +86,13 @@ const CustomAuthForm = ({ buttonText, formReset, formSubmit, onSubmit }) => {
         />
       )}
 
+      {/* Form submission button */}
       <div className="mt-6">
-        <CustomFormButton buttonText={buttonText} loading={formSubmit} />
+        <CustomFormButton
+          buttonText={buttonText}
+          loading={formSubmit}
+          loadingText={loadingText}
+        />
       </div>
     </form>
   );
