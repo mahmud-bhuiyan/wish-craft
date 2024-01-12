@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 const FeatureRequestsData = ({ feature, index }) => {
   const { _id, title, description, createdBy, status } = feature;
   const [newStatus, setNewStatus] = useState(status);
+  const [localLoading, setLocalLoading] = useState(false);
 
   const handleStatusChange = (e) => {
     setNewStatus(e.target.value);
@@ -12,6 +13,15 @@ const FeatureRequestsData = ({ feature, index }) => {
 
   const handleUpdateStatus = async () => {
     try {
+      // Check if the new status is different from the existing status
+      if (newStatus === status) {
+        toast.info("Nothing to update.");
+        return;
+      }
+
+      // Set local loading state to true before making the API call
+      setLocalLoading(true);
+
       const response = await updateFeatureStatus(_id, newStatus);
 
       if (response.feature) {
@@ -20,6 +30,8 @@ const FeatureRequestsData = ({ feature, index }) => {
     } catch (error) {
       console.error("Error updating status:", error);
       toast.error(error);
+    } finally {
+      setLocalLoading(false);
     }
   };
 
@@ -52,11 +64,11 @@ const FeatureRequestsData = ({ feature, index }) => {
       <td className="py-2 px-4 text-sm font-normal text-gray-800">
         {createdBy?.name}
       </td>
-      <td className="py-2 px-4 text-sm font-normal text-gray-800 uppercase">
+      <td className="py-2 px-4 text-sm font-normal text-gray-800 uppercase flex justify-center">
         <select
           value={newStatus}
           onChange={handleStatusChange}
-          className="text-sm text-slate-700"
+          className="body-large mb-0 flex h-10 w-3/4 rounded-md border border-input bg-[#F6F2F7] px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-[#78767A] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-[#C8C5CA] disabled:cursor-not-allowed disabled:opacity-50 text-center"
           style={getStatusColor(newStatus)}
         >
           <option
@@ -90,14 +102,17 @@ const FeatureRequestsData = ({ feature, index }) => {
             Complete
           </option>
         </select>
+      </td>
+
+      <td className="py-2 px-4 text-sm font-normal text-gray-800 align-middle gap-4">
         <button
           onClick={handleUpdateStatus}
-          className="ml-2 px-2 py-1 bg-blue-500 text-white rounded"
+          disabled={localLoading}
+          className="py-2 px-4 bg-blue-500 text-white rounded"
         >
-          Update Status
+          {localLoading ? "Updating" : "Update Status"}
         </button>
       </td>
-      <td className="py-2 px-4 text-sm font-normal text-gray-800 flex justify-center align-middle gap-4"></td>
     </tr>
   );
 };

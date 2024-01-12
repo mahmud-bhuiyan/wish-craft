@@ -78,7 +78,6 @@ const FeatureRequests = () => {
                         index={index}
                         key={feature._id}
                         feature={feature}
-                        // setRefetch={setRefetch}
                       />
                     ))}
                   </tbody>

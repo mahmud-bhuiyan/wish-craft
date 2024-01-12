@@ -1,12 +1,16 @@
 import { useContext } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { HiHome } from "react-icons/hi";
 import { UserContext } from "../../context/UserContextProvider";
 import { logo, demoAdmin } from "../../assets/images/images";
-import { MdOutlineFeaturedVideo } from "react-icons/md";
+import { MdOutlineFeaturedVideo, MdOutlineLogout } from "react-icons/md";
 import { TbUsers } from "react-icons/tb";
+import { toast } from "react-toastify";
+import { userLogout } from "../../services/apis/User";
+import { AuthContext } from "../../context/AuthContextProvider";
 
 const Sidebar = () => {
+  const { logoutUser } = useContext(AuthContext);
   const { userDetails } = useContext(UserContext);
   const { name, email, photoURL } = userDetails;
 
@@ -26,6 +30,22 @@ const Sidebar = () => {
       text: "Users",
     },
   ];
+
+  const navigate = useNavigate();
+
+  // logout user using firebase
+  const handleLogOut = async () => {
+    try {
+      // Logout user from the application context
+      await userLogout();
+      // Logout user from Firebase
+      await logoutUser();
+      navigate("/auth/login");
+      window.location.reload();
+    } catch (error) {
+      toast.error(error.message || "Logout failed");
+    }
+  };
 
   return (
     <aside className="flex flex-col w-64 min-h-screen px-4 py-10 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l">
@@ -68,6 +88,10 @@ const Sidebar = () => {
               <span className="mx-4 font-medium">{text}</span>
             </Link>
           ))}
+          <div className="flex gap-2 justify-center align-middle px-4 py-2 text-gray-700 rounded-lg mb-2 bg-gray-100">
+            <MdOutlineLogout className="text-lg mt-1" />
+            <button onClick={handleLogOut}>Sign Out</button>
+          </div>
         </nav>
       </div>
     </aside>
