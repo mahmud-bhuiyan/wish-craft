@@ -4,9 +4,11 @@ import { BiLike, BiSolidLike } from "react-icons/bi";
 import { AuthContext } from "../../context/AuthContextProvider";
 import { updateFeatureRequestLikesById } from "../../services/apis/Feature";
 import { toast } from "react-toastify";
+import { FeaturesContext } from "../../context/FeaturesContextProvider";
 
 const LikeButton = ({ id, likes }) => {
   const { user } = useContext(AuthContext);
+  const { setRefetch } = useContext(FeaturesContext);
   const navigate = useNavigate();
 
   // Extract emails of users who liked
@@ -15,6 +17,17 @@ const LikeButton = ({ id, likes }) => {
   const [isLiked, setIsLiked] = useState(likedUserEmails.includes(user?.email));
 
   const [likeCount, setLikeCount] = useState(likes?.count);
+
+  const updateFeatureRequestLikes = async () => {
+    try {
+      const response = await updateFeatureRequestLikesById(id);
+      if (response.feature._id) {
+        setRefetch((prevRefetch) => !prevRefetch);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
 
   const handleLike = () => {
     try {
@@ -41,14 +54,6 @@ const LikeButton = ({ id, likes }) => {
       setIsLiked(false);
       toast.info("You unlike the post!");
       updateFeatureRequestLikes();
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
-
-  const updateFeatureRequestLikes = async () => {
-    try {
-      await updateFeatureRequestLikesById(id);
     } catch (error) {
       console.error("Error:", error);
     }

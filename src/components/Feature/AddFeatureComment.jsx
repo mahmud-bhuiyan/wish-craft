@@ -34,7 +34,6 @@ const AddFeatureComment = ({ id, setRefresh }) => {
 
       // Display success toast
       toast.success(response.message);
-      console.log(response);
 
       // Trigger a refetch to update the feature with the new comment
       setRefresh((prevRefetch) => !prevRefetch);

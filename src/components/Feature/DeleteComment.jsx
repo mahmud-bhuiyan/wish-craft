@@ -5,7 +5,7 @@ import { AuthContext } from "../../context/AuthContextProvider";
 const DeleteComment = ({ commentUser, featureId, commentId, setRefresh }) => {
   const { user } = useContext(AuthContext);
 
-  const [matched, setMatched] = useState(commentUser.email === user.email);
+  const [matched, setMatched] = useState(commentUser?.email === user?.email);
   const [isDeleting, setIsDeleting] = useState(false);
 
   const handleDelete = async () => {
