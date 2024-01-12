@@ -39,11 +39,31 @@ export const getSingleFeatureRequest = async (featureId) => {
 };
 
 // =============================================
-//       Update single Request Likes by ID
+//            update Feature Status
 // =============================================
-export const updateFeatureRequestLikesById = async (featureId) => {
+export const updateFeatureStatus = async (featureId, status) => {
   try {
-    const response = await axiosSecureInstance.patch(`/features/${featureId}`);
+    const response = await axiosSecureInstance.patch(
+      `/features/${featureId}/status`,
+      {
+        status,
+      }
+    );
+
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+// =============================================
+//           Update Requests Likes by ID
+// =============================================
+export const updateRequestsLikesById = async (featureId) => {
+  try {
+    const response = await axiosSecureInstance.patch(
+      `/features/${featureId}/likes`
+    );
 
     return response.data;
   } catch (error) {

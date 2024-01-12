@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BiLike, BiSolidLike } from "react-icons/bi";
 import { AuthContext } from "../../context/AuthContextProvider";
-import { updateFeatureRequestLikesById } from "../../services/apis/Feature";
+import { updateRequestsLikesById } from "../../services/apis/Feature";
 import { toast } from "react-toastify";
 import { FeaturesContext } from "../../context/FeaturesContextProvider";
 
@@ -20,7 +20,7 @@ const LikeButton = ({ id, likes }) => {
 
   const updateFeatureRequestLikes = async () => {
     try {
-      const response = await updateFeatureRequestLikesById(id);
+      const response = await updateRequestsLikesById(id);
       if (response.feature._id) {
         setRefetch((prevRefetch) => !prevRefetch);
       }

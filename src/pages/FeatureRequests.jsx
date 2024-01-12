@@ -4,8 +4,7 @@ import { Helmet } from "react-helmet-async";
 import FeatureRequestsData from "../components/Admin/FeatureRequestsData";
 
 const FeatureRequests = () => {
-  const { features, loading } = useContext(FeaturesContext);
-  console.log(features, loading);
+  const { features } = useContext(FeaturesContext);
 
   return (
     <>
