@@ -8,6 +8,7 @@ import { TbUsers } from "react-icons/tb";
 import { toast } from "react-toastify";
 import { userLogout } from "../../services/apis/User";
 import { AuthContext } from "../../context/AuthContextProvider";
+import { FiSettings } from "react-icons/fi";
 
 const Sidebar = () => {
   const { logoutUser } = useContext(AuthContext);
@@ -18,16 +19,21 @@ const Sidebar = () => {
 
   // navigation links
   const navLinks = [
-    { to: "/", icon: <HiHome className="text-xl" />, text: "Homepage" },
+    { to: "/", icon: <HiHome className="text-lg" />, text: "Homepage" },
     {
       to: "/admin/feature-requests",
-      icon: <MdOutlineFeaturedVideo className="text-xl" />,
+      icon: <MdOutlineFeaturedVideo className="text-lg" />,
       text: "Requests",
     },
     {
       to: "/admin/users",
-      icon: <TbUsers className="text-xl" />,
+      icon: <TbUsers className="text-lg" />,
       text: "Users",
+    },
+    {
+      to: "/admin/settings",
+      icon: <FiSettings className="text-lg" />,
+      text: "Settings",
     },
   ];
 

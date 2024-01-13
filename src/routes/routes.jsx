@@ -14,6 +14,7 @@ import AdminLayout from "../layout/AdminLayout";
 import AdminRoutes from "./AdminRoutes";
 import FeatureRequests from "../pages/Admin/FeatureRequests";
 import AllUsers from "../pages/Admin/AllUsers";
+import SiteSettings from "../pages/Admin/SiteSettings";
 
 export const router = createBrowserRouter([
   {
@@ -83,6 +84,10 @@ export const router = createBrowserRouter([
       {
         path: "users",
         element: <AllUsers />,
+      },
+      {
+        path: "settings",
+        element: <SiteSettings />,
       },
     ],
   },
