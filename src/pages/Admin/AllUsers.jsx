@@ -3,10 +3,15 @@ import { UserContext } from "../../context/UserContextProvider";
 import { getAllUsers } from "../../services/apis/Admin";
 import AllUsersData from "../../components/Admin/AllUsersData";
 import CustomHelmet from "../../components/CustomComponents/CustomHelmet";
+import CustomTableHeader from "../../components/Admin/CustomTableHeader";
+import TableTotalDataCount from "../../components/Admin/TableTotalDataCount";
 
 const AllUsers = () => {
   const { allUsers, setAllUsers } = useContext(UserContext);
   const [refetch, setRefetch] = useState(false);
+
+  const columns = ["#", "Name", "Email", "Role", "Action"];
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -23,56 +28,20 @@ const AllUsers = () => {
   return (
     <>
       <CustomHelmet pageName={"All Users"} />
-      <div className="max-w-screen-xl p-4 my-4 w-full mx-auto">
-        <div className="flex items-center gap-x-3">
-          <h2 className="text-lg font-medium text-gray-800 ml-1">Total</h2>
-          <span className="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full">
-            {allUsers.length} users
-          </span>
-        </div>
+      {/* <div className="max-w-screen-xl p-4 my-4 w-full mx-auto"> */}
+      <div className="p-4 w-full mx-auto">
+        <TableTotalDataCount
+          title="Total"
+          count={allUsers.length}
+          tableName={"users"}
+        />
 
-        <div className="flex flex-col mt-6">
-          <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+        <div className="flex flex-col mt-4">
+          <div className="overflow-x-auto">
+            <div className="inline-block min-w-full align-middle">
               <div className="overflow-hidden border border-gray-200 md:rounded-lg">
                 <table className="min-w-full divide-y divide-gray-200 text-center">
-                  <thead className="bg-gray-200">
-                    <tr>
-                      <th
-                        scope="col"
-                        className="px-4 py-3.5 font-semibold text-gray-500"
-                      >
-                        #
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-4 py-3.5 font-semibold text-gray-500"
-                      >
-                        Name
-                      </th>
-
-                      <th
-                        scope="col"
-                        className="px-4 py-3.5 font-semibold text-gray-500"
-                      >
-                        Email
-                      </th>
-
-                      <th
-                        scope="col"
-                        className="px-4 py-3.5 font-semibold text-gray-500"
-                      >
-                        Role
-                      </th>
-
-                      <th
-                        scope="col"
-                        className="px-4 py-3.5 font-semibold text-gray-500"
-                      >
-                        Action
-                      </th>
-                    </tr>
-                  </thead>
+                  <CustomTableHeader columns={columns} />
                   {/* Inside the table body */}
                   <tbody className="bg-white divide-y divide-gray-200">
                     {allUsers.map((user, index) => (

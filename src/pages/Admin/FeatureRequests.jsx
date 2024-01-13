@@ -2,73 +2,37 @@ import { useContext } from "react";
 import { FeaturesContext } from "../../context/FeaturesContextProvider";
 import FeatureRequestsData from "../../components/Admin/FeatureRequestsData";
 import CustomHelmet from "../../components/CustomComponents/CustomHelmet";
+import CustomTableHeader from "../../components/Admin/CustomTableHeader";
+import TableTotalDataCount from "../../components/Admin/TableTotalDataCount";
 
 const FeatureRequests = () => {
   const { features } = useContext(FeaturesContext);
+
+  const columns = [
+    "#",
+    "Title",
+    "Description",
+    "Request By",
+    "Status",
+    "Action",
+  ];
 
   return (
     <>
       <CustomHelmet pageName={"Feature Requests"} />
       <div className="p-4 w-full mx-auto">
-        <div className="flex items-center gap-x-3 justify-center bg-white py-4 rounded-t-lg">
-          <h2 className="text-2xl text-gray-800 font-mono font-semibold">
-            Total
-            <span className="p-2 mx-2 text-lg text-blue-600 bg-blue-100 rounded-full">
-              {features.length}
-            </span>
-            Requests
-          </h2>
-        </div>
+        <TableTotalDataCount
+          title="Total"
+          count={features.length}
+          tableName={"Requests"}
+        />
 
-        <div className="flex flex-col">
+        <div className="flex flex-col mt-4">
           <div className="overflow-x-auto">
             <div className="inline-block min-w-full align-middle">
-              <div className="overflow-hidden border border-gray-200 md:rounded-b-lg">
+              <div className="overflow-hidden border border-gray-200 md:rounded-lg">
                 <table className="min-w-full divide-y divide-gray-200 text-center">
-                  <thead className="bg-gray-200">
-                    <tr>
-                      <th
-                        scope="col"
-                        className="px-4 py-3.5 font-semibold text-gray-500"
-                      >
-                        #
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-4 py-3.5 font-semibold text-gray-500"
-                      >
-                        Title
-                      </th>
-
-                      <th
-                        scope="col"
-                        className="px-4 py-3.5 font-semibold text-gray-500"
-                      >
-                        Description
-                      </th>
-
-                      <th
-                        scope="col"
-                        className="px-4 py-3.5 font-semibold text-gray-500"
-                      >
-                        Request By
-                      </th>
-
-                      <th
-                        scope="col"
-                        className="px-4 py-3.5 font-semibold text-gray-500"
-                      >
-                        Status
-                      </th>
-
-                      <th
-                        scope="col"
-                        className="px-4 py-3.5 font-semibold text-gray-500"
-                      >
-                        Action
-                      </th>
-                    </tr>
-                  </thead>
+                  <CustomTableHeader columns={columns} />
                   {/* Inside the table body */}
                   <tbody className="bg-white divide-y divide-gray-200">
                     {features.map((feature, index) => (
