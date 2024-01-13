@@ -1,10 +1,13 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { BiLike, BiSolidLike } from "react-icons/bi";
 import { AuthContext } from "../../context/AuthContextProvider";
-import { updateRequestsLikesById } from "../../services/apis/Feature";
-import { toast } from "react-toastify";
 import { FeaturesContext } from "../../context/FeaturesContextProvider";
+import {
+  likeFeatureRequestById,
+  unlikeFeatureRequestById,
+} from "../../services/apis/Feature";
 
 const LikeButton = ({ id, likes }) => {
   const { user } = useContext(AuthContext);
@@ -15,12 +18,18 @@ const LikeButton = ({ id, likes }) => {
   const likedUserEmails = likes?.users?.map((user) => user.email);
 
   const [isLiked, setIsLiked] = useState(likedUserEmails.includes(user?.email));
-
   const [likeCount, setLikeCount] = useState(likes?.count);
 
-  const updateFeatureRequestLikes = async () => {
+  const updateFeatureRequestLikes = async (action) => {
     try {
-      const response = await updateRequestsLikesById(id);
+      let response;
+
+      if (action === "like") {
+        response = await likeFeatureRequestById(id);
+      } else if (action === "unlike") {
+        response = await unlikeFeatureRequestById(id);
+      }
+
       if (response.feature._id) {
         setRefetch(true);
       }
@@ -35,10 +44,11 @@ const LikeButton = ({ id, likes }) => {
         navigate("/auth/login");
         return;
       }
+
       setLikeCount((prevLikeCount) => prevLikeCount + 1);
       setIsLiked(true);
       toast.success("You liked the post!");
-      updateFeatureRequestLikes();
+      updateFeatureRequestLikes("like");
     } catch (error) {
       console.error("Error:", error);
     }
@@ -50,10 +60,11 @@ const LikeButton = ({ id, likes }) => {
         navigate("/auth/login");
         return;
       }
+
       setLikeCount((prevLikeCount) => prevLikeCount - 1);
       setIsLiked(false);
       toast.info("You unlike the post!");
-      updateFeatureRequestLikes();
+      updateFeatureRequestLikes("unlike");
     } catch (error) {
       console.error("Error:", error);
     }

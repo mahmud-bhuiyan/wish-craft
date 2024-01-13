@@ -57,12 +57,27 @@ export const updateFeatureStatus = async (featureId, status) => {
 };
 
 // =============================================
-//           Update Requests Likes by ID
+//          like Feature Request By Id
 // =============================================
-export const updateRequestsLikesById = async (featureId) => {
+export const likeFeatureRequestById = async (featureId) => {
   try {
     const response = await axiosSecureInstance.patch(
-      `/features/${featureId}/likes`
+      `/features/${featureId}/like`
+    );
+
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+// =============================================
+//          unlike Feature Request By Id
+// =============================================
+export const unlikeFeatureRequestById = async (featureId) => {
+  try {
+    const response = await axiosSecureInstance.patch(
+      `/features/${featureId}/unlike`
     );
 
     return response.data;

@@ -15,11 +15,11 @@ const AvatarWithText = ({ userData }) => {
           alt="avatar"
         />
       ) : (
-        <div className="w-6 h-6 mr-2 flex items-center justify-center rounded-full bg-gray-300 text-gray-700">
+        <div className="w-6 h-6 mr-2 flex items-center justify-center rounded-full bg-[#4FC3F7] text-white">
           {getInitials(name)}
         </div>
       )}
-      <div className="text-gray-700 cursor-pointer text-sm">
+      <div className="text-gray-700 cursor-pointer text-sm capitalize">
         {name || user.displayName}
       </div>
     </div>
