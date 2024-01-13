@@ -92,7 +92,7 @@ const Login = () => {
   return (
     <>
       <Helmet>
-        <title>Login | WishCraft</title>
+        <title>Login | {websiteInfo?.name || ""}</title>
       </Helmet>
 
       <div

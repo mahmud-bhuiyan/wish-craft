@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { updateFeatureStatus } from "../../services/apis/Feature";
 import { toast } from "react-toastify";
+import { updateFeatureStatus } from "../../services/apis/Feature";
+import { getStatusColor } from "../../utils/getStatusColor";
 
 const FeatureRequestsData = ({ feature, index }) => {
   const { _id, title, description, createdBy, status } = feature;
@@ -35,23 +36,6 @@ const FeatureRequestsData = ({ feature, index }) => {
     }
   };
 
-  const getStatusColor = (status) => {
-    switch (status) {
-      case "pending":
-        return { backgroundColor: "#FAD02E", color: "black" };
-      case "under-review":
-        return { backgroundColor: "#B0BEC5", color: "black" };
-      case "planned":
-        return { backgroundColor: "#66BB6A", color: "black" };
-      case "in-progress":
-        return { backgroundColor: "#4FC3F7", color: "black" };
-      case "complete":
-        return { backgroundColor: "#81C784", color: "black" };
-      default:
-        return {};
-    }
-  };
-
   return (
     <tr key={_id}>
       <td className="py-2 px-4 text-sm font-normal text-gray-800">
@@ -68,7 +52,7 @@ const FeatureRequestsData = ({ feature, index }) => {
         <select
           value={newStatus}
           onChange={handleStatusChange}
-          className="body-large mb-0 flex h-10 w-3/4 rounded-md border border-input bg-[#F6F2F7] px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-[#78767A] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-[#C8C5CA] disabled:cursor-not-allowed disabled:opacity-50 text-center"
+          className="body-large mb-0 flex h-10 w-3/4 rounded-md border border-input bg-[#F6F2F7] text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-[#78767A] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-[#C8C5CA] disabled:cursor-not-allowed disabled:opacity-50 text-center"
           style={getStatusColor(newStatus)}
         >
           <option

@@ -4,15 +4,17 @@ import { MdSearch } from "react-icons/md";
 import { FeaturesContext } from "../context/FeaturesContextProvider";
 import FeatureRequestItem from "../components/Feature/FeatureRequestItem";
 import Loader from "../components/Loader";
+import { WebsiteContext } from "../context/WebsiteContextProvider";
 
 const Home = () => {
   const { features, loading, searchTerm, searchResults, setSearchTerm } =
     useContext(FeaturesContext);
-
+  const { websiteInfo } = useContext(WebsiteContext);
+  console.log(websiteInfo?.name);
   return (
     <div>
       <Helmet>
-        <title>WishCraft</title>
+        <title>{websiteInfo?.name || ""}</title>
       </Helmet>
 
       <div className="max-w-screen-xl mx-auto">

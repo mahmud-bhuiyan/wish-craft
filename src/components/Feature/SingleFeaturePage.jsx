@@ -11,6 +11,7 @@ import DisplayComments from "./DisplayComments";
 import { FeaturesContext } from "../../context/FeaturesContextProvider";
 import { getSingleFeatureRequest } from "../../services/apis/Feature";
 import CustomHelmet from "../CustomComponents/CustomHelmet";
+import { getStatusColor } from "../../utils/getStatusColor";
 
 const SingleFeaturePage = () => {
   // Retrieve feature id from URL params
@@ -89,7 +90,10 @@ const SingleFeaturePage = () => {
                 <span className="text-xl font-semibold whitespace-normal break-words mr-2">
                   {title}
                 </span>
-                <span className="px-3 py-1 text-sm text-white bg-gray-600 rounded cursor-pointer uppercase">
+                <span
+                  className="px-2 py-1.5 text-sm font-semibold transition-colors duration-300 transform rounded cursor-pointer uppercase"
+                  style={getStatusColor(status)}
+                >
                   {status}
                 </span>
               </div>

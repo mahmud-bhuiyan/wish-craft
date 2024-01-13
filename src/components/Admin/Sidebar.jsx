@@ -61,7 +61,7 @@ const Sidebar = () => {
         <img className="w-auto h-6 sm:h-7" src={websiteInfo?.logoUrl} alt="" />
       </Link>
       <p className="text-center mt-3 text-gray-500 capitalize font-semibold">
-        {websiteInfo?.name}
+        {websiteInfo?.name || ""}
       </p>
       <div className="divider"></div>
       <div className="flex flex-col items-center -mx-2">

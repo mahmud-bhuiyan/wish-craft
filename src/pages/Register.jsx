@@ -100,7 +100,7 @@ const Register = () => {
   return (
     <>
       <Helmet>
-        <title>Register | WishCraft</title>
+        <title>Register | {websiteInfo?.name || ""}</title>
       </Helmet>
 
       <div

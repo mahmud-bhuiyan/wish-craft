@@ -22,7 +22,7 @@ const LikeButton = ({ id, likes }) => {
     try {
       const response = await updateRequestsLikesById(id);
       if (response.feature._id) {
-        setRefetch((prevRefetch) => !prevRefetch);
+        setRefetch(true);
       }
     } catch (error) {
       console.error("Error:", error);

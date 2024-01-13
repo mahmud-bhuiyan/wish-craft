@@ -3,6 +3,7 @@ import { FaRegComments } from "react-icons/fa";
 import CustomDateFormat from "../../utils/CustomDateFormat";
 import AvatarWithText from "./AvatarWithText";
 import LikeButton from "./LikeButton";
+import { getStatusColor } from "../../utils/getStatusColor";
 
 const FeatureRequestItem = ({ feature }) => {
   const {
@@ -19,7 +20,10 @@ const FeatureRequestItem = ({ feature }) => {
   return (
     <div className="px-4 py-2 bg-white rounded-lg drop-shadow-md mb-4">
       <div className="flex items-center justify-between gap-2 py-1">
-        <h3 className="px-2 py-1.5 text-sm font-bold text-gray-100 transition-colors duration-300 transform bg-gray-600 rounded cursor-pointer capitalize">
+        <h3
+          className="px-2 py-1.5 text-sm font-semibold transition-colors duration-300 transform rounded cursor-pointer uppercase"
+          style={getStatusColor(status)}
+        >
           {status}
         </h3>
         <span className="text-sm font-light text-gray-600 sm:hidden">
