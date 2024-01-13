@@ -1,25 +1,39 @@
-import { useContext } from "react";
-import { FeaturesContext } from "../context/FeaturesContextProvider";
+import { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import FeatureRequestsData from "../components/Admin/FeatureRequestsData";
+import { UserContext } from "../../context/UserContextProvider";
+import { getAllUsers } from "../../services/apis/Admin";
+import AllUsersData from "../../components/Admin/AllUsersData";
+// import { UserContext } from "../../context/UserContextProvider";
+// import { getAllUsers } from "../../services/apis/Admin";
+// import AllUsersData from "../../components/Admin/AllUsersData";
 
-const FeatureRequests = () => {
-  const { features } = useContext(FeaturesContext);
+const AllUsers = () => {
+  const { allUsers, setAllUsers } = useContext(UserContext);
+  const [refetch, setRefetch] = useState(false);
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const usersData = await getAllUsers();
+        setAllUsers(usersData.users);
+      } catch (error) {
+        console.error("Error fetching feature:", error);
+      }
+    };
+
+    fetchUsers();
+  }, [setAllUsers, refetch]);
 
   return (
     <>
       <Helmet>
-        <title>Feature Requests | WishCraft</title>
+        <title>All Users | WishCraft</title>
       </Helmet>
       <div className="max-w-screen-xl p-4 my-4 w-full mx-auto">
-        <div className="flex items-center gap-x-3 justify-center">
-          <h2 className="text-lg font-medium text-gray-800 ml-1">
-            Total
-            <span className="px-3 py-1 m-2 text-sm text-blue-600 bg-blue-100 rounded-full">
-              {features.length}
-            </span>
-            Requests
-          </h2>
+        <div className="flex items-center gap-x-3">
+          <h2 className="text-lg font-medium text-gray-800 ml-1">Total</h2>
+          <span className="px-3 py-1 text-xs text-blue-600 bg-blue-100 rounded-full">
+            {allUsers.length} users
+          </span>
         </div>
 
         <div className="flex flex-col mt-6">
@@ -39,28 +53,21 @@ const FeatureRequests = () => {
                         scope="col"
                         className="px-4 py-3.5 font-semibold text-gray-500"
                       >
-                        Title
+                        Name
                       </th>
 
                       <th
                         scope="col"
                         className="px-4 py-3.5 font-semibold text-gray-500"
                       >
-                        Description
+                        Email
                       </th>
 
                       <th
                         scope="col"
                         className="px-4 py-3.5 font-semibold text-gray-500"
                       >
-                        Request By
-                      </th>
-
-                      <th
-                        scope="col"
-                        className="px-4 py-3.5 font-semibold text-gray-500"
-                      >
-                        Status
+                        Role
                       </th>
 
                       <th
@@ -73,11 +80,12 @@ const FeatureRequests = () => {
                   </thead>
                   {/* Inside the table body */}
                   <tbody className="bg-white divide-y divide-gray-200">
-                    {features.map((feature, index) => (
-                      <FeatureRequestsData
+                    {allUsers.map((user, index) => (
+                      <AllUsersData
                         index={index}
-                        key={feature._id}
-                        feature={feature}
+                        key={user._id}
+                        user={user}
+                        setRefetch={setRefetch}
                       />
                     ))}
                   </tbody>
@@ -111,4 +119,4 @@ const FeatureRequests = () => {
   );
 };
 
-export default FeatureRequests;
+export default AllUsers;

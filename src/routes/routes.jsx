@@ -12,8 +12,8 @@ import CreateFeatureRequest from "../components/Feature/CreateFeatureRequest";
 import SingleFeaturePage from "../components/Feature/SingleFeaturePage";
 import AdminLayout from "../layout/AdminLayout";
 import AdminRoutes from "./AdminRoutes";
-import FeatureRequests from "../pages/FeatureRequests";
-import AllUsers from "../pages/AllUsers";
+import FeatureRequests from "../pages/Admin/FeatureRequests";
+import AllUsers from "../pages/Admin/AllUsers";
 
 export const router = createBrowserRouter([
   {

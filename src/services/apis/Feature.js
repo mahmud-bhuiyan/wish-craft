@@ -100,3 +100,17 @@ export const deleteFeatureComment = async (featureId, commentId) => {
     handleApiError(error);
   }
 };
+
+// =============================================
+//            search Feature Requests
+// =============================================
+export const searchRequest = async (searchTerm) => {
+  try {
+    const response = await axiosNonSecureInstance.get(
+      `/features/search/${searchTerm}`
+    );
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};

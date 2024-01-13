@@ -4,7 +4,6 @@ import Swal from "sweetalert2";
 import { makeAdmin, softDeleteUserById } from "../../services/apis/Admin";
 
 const AllUsersData = ({ user, index, setRefetch }) => {
-  console.log(user);
   const { _id, name, email, role } = user;
 
   const showConfirmationDialog = async (title, text, actionType) => {

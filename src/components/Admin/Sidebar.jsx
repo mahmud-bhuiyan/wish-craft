@@ -22,7 +22,7 @@ const Sidebar = () => {
     {
       to: "/admin/feature-requests",
       icon: <MdOutlineFeaturedVideo className="text-xl" />,
-      text: "Feature Requests",
+      text: "Requests",
     },
     {
       to: "/admin/users",
@@ -85,12 +85,14 @@ const Sidebar = () => {
               }`}
             >
               {icon}
-              <span className="mx-4 font-medium">{text}</span>
+              <span className="mx-2 font-medium">{text}</span>
             </Link>
           ))}
           <div className="flex gap-2 justify-center align-middle px-4 py-2 text-gray-700 rounded-lg mb-2 bg-gray-100">
             <MdOutlineLogout className="text-lg mt-1" />
-            <button onClick={handleLogOut}>Sign Out</button>
+            <button onClick={handleLogOut} className="font-medium">
+              Sign Out
+            </button>
           </div>
         </nav>
       </div>
