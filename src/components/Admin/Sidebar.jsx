@@ -77,7 +77,9 @@ const Sidebar = () => {
           />
         )}
         <h4 className="mx-2 mt-2 font-medium text-gray-800">{name}</h4>
-        <p className="mx-2 mt-1 text-sm font-medium text-gray-600">{email}</p>
+        <p className="mx-2 mt-1 text-sm font-medium text-gray-600 break-all">
+          {email}
+        </p>
       </div>
 
       <div className="divider"></div>

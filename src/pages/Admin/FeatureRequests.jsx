@@ -11,21 +11,21 @@ const FeatureRequests = () => {
       <Helmet>
         <title>Feature Requests | WishCraft</title>
       </Helmet>
-      <div className="max-w-screen-xl p-4 my-4 w-full mx-auto">
-        <div className="flex items-center gap-x-3 justify-center">
-          <h2 className="text-lg font-medium text-gray-800 ml-1">
+      <div className="p-4 w-full mx-auto">
+        <div className="flex items-center gap-x-3 justify-center bg-white py-4 rounded-t-lg">
+          <h2 className="text-2xl text-gray-800 font-mono font-semibold">
             Total
-            <span className="px-3 py-1 m-2 text-sm text-blue-600 bg-blue-100 rounded-full">
+            <span className="p-2 mx-2 text-lg text-blue-600 bg-blue-100 rounded-full">
               {features.length}
             </span>
             Requests
           </h2>
         </div>
 
-        <div className="flex flex-col mt-6">
-          <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-              <div className="overflow-hidden border border-gray-200 md:rounded-lg">
+        <div className="flex flex-col">
+          <div className="overflow-x-auto">
+            <div className="inline-block min-w-full align-middle">
+              <div className="overflow-hidden border border-gray-200 md:rounded-b-lg">
                 <table className="min-w-full divide-y divide-gray-200 text-center">
                   <thead className="bg-gray-200">
                     <tr>
