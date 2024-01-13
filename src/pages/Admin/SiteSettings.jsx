@@ -22,7 +22,6 @@ const SiteSettings = () => {
     handleSubmit,
     formState: { errors },
     setValue,
-    formState,
   } = useForm();
 
   // Set default values for the form fields based on websiteInfo
@@ -41,7 +40,12 @@ const SiteSettings = () => {
   const handleFormSubmit = async (data) => {
     // Checking if the form data is different from the initial values
     const isDataChanged =
-      JSON.stringify(data) !== JSON.stringify(formState?.defaultValues);
+      data.name !== websiteInfo.name ||
+      data.title !== websiteInfo.title ||
+      data.description !== websiteInfo.description ||
+      data.logoUrl !== websiteInfo.logoUrl ||
+      data.sortingOrder !== websiteInfo.sortingOrder ||
+      data.status !== websiteInfo.status;
 
     // If no changes, display a toast message and return
     if (!isDataChanged) {
@@ -98,11 +102,16 @@ const SiteSettings = () => {
         <title>Settings | WishCraft</title>
       </Helmet>
 
-      <div className="max-w-screen-xl p-4 my-4 w-full mx-auto">
-        <div className="overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 p-10">
-          <div className="mx-10">
+      <div className="max-w-screen-xl mt-2 p-6 w-full mx-auto">
+        <div className="lg:flex gap-6 overflow-hidden dark:bg-gray-800">
+          <div className="lg:w-7/12 bg-white shadow-lg rounded">
+            <h2 className="p-2 font-bold text-2xl ml-5 font-mono">Settings</h2>
+            <hr />
             {/* Form for updating website information */}
-            <form onSubmit={handleSubmit(handleFormSubmit)}>
+            <form
+              onSubmit={handleSubmit(handleFormSubmit)}
+              className="px-6 pb-6"
+            >
               {/* Custom input field for website name */}
               <CustomInputField
                 label="Website Name"
@@ -162,6 +171,30 @@ const SiteSettings = () => {
                 loadingText={"Updating Website Info"}
               />
             </form>
+          </div>
+          <div className="lg:w-5/12 my-4 lg:m-0 bg-white shadow-lg rounded ">
+            <h2 className="p-2 font-bold text-2xl ml-5 font-mono text-center">
+              Website Info&apos;s
+            </h2>
+            <hr />
+            <div className="px-6 pb-6 pt-4">
+              <div className="flex flex-col items-center -mx-2">
+                <img
+                  className="object-cover w-24 h-24 mx-2 rounded-full"
+                  src={websiteInfo.logoUrl}
+                  alt="avatar"
+                />
+                <h4 className="mx-2 mt-4 font-medium text-gray-800 text-2xl">
+                  {websiteInfo.name}
+                </h4>
+                <p className="mx-2 mt-4 text-lg font-medium text-gray-600">
+                  {websiteInfo.title}
+                </p>
+                <p className="mx-2 mt-4 text-sm font-medium text-gray-600 text-center">
+                  {websiteInfo.description}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
