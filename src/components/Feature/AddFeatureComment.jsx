@@ -63,15 +63,13 @@ const AddFeatureComment = ({ id, setRefresh }) => {
         errors={errors}
       />
 
-      <div className="mt-4">
-        {/* CustomFormButton component */}
-        <CustomFormButton
-          buttonText={"Add Comment"}
-          loading={formSubmit}
-          color={"custom"}
-          size={"small"}
-        />
-      </div>
+      {/* CustomFormButton component */}
+      <CustomFormButton
+        buttonText={"Add Comment"}
+        loading={formSubmit}
+        color={"custom"}
+        size={"small"}
+      />
     </form>
   );
 };

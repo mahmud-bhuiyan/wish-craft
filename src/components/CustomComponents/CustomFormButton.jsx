@@ -23,7 +23,7 @@ const CustomFormButton = ({
     <button
       type="submit"
       disabled={loading}
-      className={`${buttonSize} font-semibold shadow-sm rounded-lg py-2 ${buttonColor} flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline`}
+      className={`${buttonSize} mt-4 font-semibold shadow-sm rounded-lg py-2 ${buttonColor} flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline`}
     >
       {loading ? (
         <span className="flex gap-2 justify-center align-middle">

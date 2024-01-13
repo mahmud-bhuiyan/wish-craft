@@ -87,13 +87,11 @@ const CustomAuthForm = ({ buttonText, formReset, formSubmit, onSubmit }) => {
       )}
 
       {/* Form submission button */}
-      <div className="mt-6">
-        <CustomFormButton
-          buttonText={buttonText}
-          loading={formSubmit}
-          loadingText={loadingText}
-        />
-      </div>
+      <CustomFormButton
+        buttonText={buttonText}
+        loading={formSubmit}
+        loadingText={loadingText}
+      />
     </form>
   );
 };

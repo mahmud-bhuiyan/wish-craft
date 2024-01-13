@@ -113,14 +113,12 @@ const CreateFeatureRequest = () => {
             />
 
             {/* Submit button with custom loading state */}
-            <div className="mt-4">
-              <CustomFormButton
-                buttonText={"REQUEST FEATURE"}
-                loadingText={"REQUESTING NEW FEATURE..."}
-                loading={formSubmit}
-                color={"custom"}
-              />
-            </div>
+            <CustomFormButton
+              buttonText={"REQUEST FEATURE"}
+              loadingText={"REQUESTING NEW FEATURE..."}
+              loading={formSubmit}
+              color={"custom"}
+            />
           </form>
         </div>
       </div>

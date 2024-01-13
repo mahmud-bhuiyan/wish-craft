@@ -3,9 +3,6 @@ import { Helmet } from "react-helmet-async";
 import { UserContext } from "../../context/UserContextProvider";
 import { getAllUsers } from "../../services/apis/Admin";
 import AllUsersData from "../../components/Admin/AllUsersData";
-// import { UserContext } from "../../context/UserContextProvider";
-// import { getAllUsers } from "../../services/apis/Admin";
-// import AllUsersData from "../../components/Admin/AllUsersData";
 
 const AllUsers = () => {
   const { allUsers, setAllUsers } = useContext(UserContext);
