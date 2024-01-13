@@ -31,7 +31,7 @@ const SiteSettings = () => {
       setValue("title", websiteInfo.title);
       setValue("description", websiteInfo.description);
       setValue("logoUrl", websiteInfo.logoUrl);
-      setValue("status", websiteInfo.status);
+      setValue("boardStatus", websiteInfo.boardStatus);
       setValue("sortingOrder", websiteInfo.sortingOrder);
     }
   }, [websiteInfo, setValue]);
@@ -45,7 +45,7 @@ const SiteSettings = () => {
       data.description !== websiteInfo.description ||
       data.logoUrl !== websiteInfo.logoUrl ||
       data.sortingOrder !== websiteInfo.sortingOrder ||
-      data.status !== websiteInfo.status;
+      data.boardStatus !== websiteInfo.boardStatus;
 
     // If no changes, display a toast message and return
     if (!isDataChanged) {
@@ -59,7 +59,7 @@ const SiteSettings = () => {
       description: data.description,
       logoUrl: data.logoUrl,
       sortingOrder: data.sortingOrder,
-      status: data.status,
+      boardStatus: data.boardStatus,
     };
 
     try {
@@ -87,7 +87,6 @@ const SiteSettings = () => {
   const statusOptions = [
     { value: "Active", label: "Active" },
     { value: "Inactive", label: "Inactive" },
-    { value: "Archived", label: "Archived" },
   ];
 
   const sortingOrderOptions = [
@@ -146,10 +145,10 @@ const SiteSettings = () => {
               />
 
               <CustomSelect
-                label="Status Board"
+                label="Board Status"
                 options={statusOptions}
                 register={register}
-                name="status"
+                name="boardStatus"
                 errors={errors}
               />
               <CustomSelect

@@ -17,7 +17,6 @@ export const getWebsiteInfo = async () => {
 //               update Website Info
 // =============================================
 export const updateWebsiteInfo = async (updatedInfo) => {
-  console.log(updatedInfo);
   try {
     const response = await axiosSecureInstance.patch("/website", updatedInfo);
     return response.data;

@@ -2,16 +2,16 @@ import { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { toast } from "react-toastify";
-import { logo } from "../assets/images/images";
 import CustomAuthForm from "../components/Auth/CustomAuthForm";
 import SocialLogin from "../components/Auth/SocialLogin";
 import { AuthContext } from "../context/AuthContextProvider";
 import { userLogin, userLogout } from "../services/apis/User";
 import handleError from "../utils/handleError";
+import { WebsiteContext } from "../context/WebsiteContextProvider";
 
 const Login = () => {
-  // Access the authentication context
   const { loginUser } = useContext(AuthContext);
+  const { websiteInfo } = useContext(WebsiteContext);
 
   // React Router hooks for navigation and location
   const navigate = useNavigate();
@@ -105,7 +105,11 @@ const Login = () => {
               <div className="flex justify-center mx-auto">
                 {/* Logo */}
                 <Link to="/">
-                  <img className="w-auto h-9" src={logo} alt="logo" />
+                  <img
+                    className="w-auto h-9"
+                    src={websiteInfo?.logoUrl}
+                    alt="logo"
+                  />
                 </Link>
               </div>
 

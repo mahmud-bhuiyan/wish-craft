@@ -2,23 +2,25 @@ import { useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { HiHome } from "react-icons/hi";
 import { UserContext } from "../../context/UserContextProvider";
-import { logo, demoAdmin } from "../../assets/images/images";
+import { demoAdmin } from "../../assets/images/images";
 import { MdOutlineFeaturedVideo, MdOutlineLogout } from "react-icons/md";
 import { TbUsers } from "react-icons/tb";
 import { toast } from "react-toastify";
 import { userLogout } from "../../services/apis/User";
 import { AuthContext } from "../../context/AuthContextProvider";
 import { FiSettings } from "react-icons/fi";
+import { WebsiteContext } from "../../context/WebsiteContextProvider";
 
 const Sidebar = () => {
   const { logoutUser } = useContext(AuthContext);
   const { userDetails } = useContext(UserContext);
-  const { name, email, photoURL } = userDetails;
+  const { name, photoURL, role } = userDetails;
+  const { websiteInfo } = useContext(WebsiteContext);
 
   const location = useLocation();
 
   // navigation links
-  const navLinks = [
+  const sidebarLinks = [
     { to: "/", icon: <HiHome className="text-lg" />, text: "Homepage" },
     {
       to: "/admin/feature-requests",
@@ -56,10 +58,10 @@ const Sidebar = () => {
   return (
     <aside className="flex flex-col min-w-44 lg:w-64 min-h-screen px-4 py-10 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l">
       <Link to="/" className="mx-auto">
-        <img className="w-auto h-6 sm:h-7" src={logo} alt="" />
+        <img className="w-auto h-6 sm:h-7" src={websiteInfo?.logoUrl} alt="" />
       </Link>
       <p className="text-center mt-3 text-gray-500 capitalize font-semibold">
-        WishCraft
+        {websiteInfo?.name}
       </p>
       <div className="divider"></div>
       <div className="flex flex-col items-center -mx-2">
@@ -76,9 +78,11 @@ const Sidebar = () => {
             alt="demo avatar"
           />
         )}
-        <h4 className="mx-2 mt-2 font-medium text-gray-800">{name}</h4>
-        <p className="mx-2 mt-1 text-sm font-medium text-gray-600 break-all">
-          {email}
+        <h4 className="mx-2 mt-2 font-medium text-gray-800 capitalize">
+          {name}
+        </h4>
+        <p className="mx-2 mt-1 text-sm font-semibold text-sky-500 break-all uppercase">
+          {role}
         </p>
       </div>
 
@@ -86,7 +90,7 @@ const Sidebar = () => {
 
       <div className="flex flex-col justify-between flex-1">
         <nav>
-          {navLinks.map(({ to, icon, text }, index) => (
+          {sidebarLinks.map(({ to, icon, text }, index) => (
             <Link
               key={index}
               to={to}

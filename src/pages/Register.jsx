@@ -2,14 +2,16 @@ import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { toast } from "react-toastify";
-import { logo } from "../assets/images/images";
 import CustomAuthForm from "../components/Auth/CustomAuthForm";
 import { AuthContext } from "../context/AuthContextProvider";
 import { registerUser } from "../services/apis/User";
 import handleError from "../utils/handleError";
+import { WebsiteContext } from "../context/WebsiteContextProvider";
 
 const Register = () => {
   const { createUser, updateUserProfile } = useContext(AuthContext);
+  const { websiteInfo } = useContext(WebsiteContext);
+
   const navigate = useNavigate();
   const [formSubmit, setFormSubmit] = useState(false);
   const [formReset, setFormReset] = useState(false);
@@ -110,7 +112,11 @@ const Register = () => {
             <div className="text-center">
               <div className="flex justify-center mx-auto">
                 <Link to="/">
-                  <img className="w-auto h-9" src={logo} alt="logo" />
+                  <img
+                    className="w-auto h-9"
+                    src={websiteInfo?.logoUrl}
+                    alt="logo"
+                  />
                 </Link>
               </div>
 
