@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { Helmet } from "react-helmet-async";
 import { IoReturnUpBackSharp } from "react-icons/io5";
 import { toast } from "react-toastify";
 import CustomInputField from "../CustomComponents/CustomInputField";
@@ -9,6 +8,7 @@ import CustomTextarea from "../CustomComponents/CustomTextarea";
 import CustomFormButton from "../CustomComponents/CustomFormButton";
 import { createRequest } from "../../services/apis/Feature";
 import { FeaturesContext } from "../../context/FeaturesContextProvider";
+import CustomHelmet from "../CustomComponents/CustomHelmet";
 
 const CreateFeatureRequest = () => {
   // State to track the form submission status
@@ -67,9 +67,7 @@ const CreateFeatureRequest = () => {
   return (
     <div className="mx-2 my-8">
       <div className="container mx-auto max-w-3xl bg-white shadow-lg rounded-lg p-4">
-        <Helmet>
-          <title>Create Request | WishCraft</title>
-        </Helmet>
+        <CustomHelmet pageName={"Create Request"} />
 
         <div className="p-4 border-2 rounded-lg">
           <div className="sm:flex justify-between pb-2 sm:pb-0">

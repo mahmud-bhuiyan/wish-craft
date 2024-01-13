@@ -1,16 +1,14 @@
 import { useContext } from "react";
-import { Helmet } from "react-helmet-async";
 import { FeaturesContext } from "../../context/FeaturesContextProvider";
 import FeatureRequestsData from "../../components/Admin/FeatureRequestsData";
+import CustomHelmet from "../../components/CustomComponents/CustomHelmet";
 
 const FeatureRequests = () => {
   const { features } = useContext(FeaturesContext);
 
   return (
     <>
-      <Helmet>
-        <title>Feature Requests | WishCraft</title>
-      </Helmet>
+      <CustomHelmet pageName={"Feature Requests"} />
       <div className="p-4 w-full mx-auto">
         <div className="flex items-center gap-x-3 justify-center bg-white py-4 rounded-t-lg">
           <h2 className="text-2xl text-gray-800 font-mono font-semibold">

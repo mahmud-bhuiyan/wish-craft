@@ -10,6 +10,7 @@ import CustomDateFormat from "../../utils/CustomDateFormat";
 import DisplayComments from "./DisplayComments";
 import { FeaturesContext } from "../../context/FeaturesContextProvider";
 import { getSingleFeatureRequest } from "../../services/apis/Feature";
+import CustomHelmet from "../CustomComponents/CustomHelmet";
 
 const SingleFeaturePage = () => {
   // Retrieve feature id from URL params
@@ -55,80 +56,83 @@ const SingleFeaturePage = () => {
   } = feature;
 
   return (
-    <div className="max-w-screen-xl mx-auto">
-      <div className="mx-2 my-4">
-        <div className="lg:flex bg-white rounded-lg p-1">
-          {/* Left div: Back to all posts link */}
-          <div className="lg:w-1/3 hidden lg:flex lg:order-first p-4 border-2 m-3 rounded-lg">
-            <Link
-              to="/"
-              className="w-full h-10 bg-[#F0F0F0] rounded p-2 flex gap-2 justify-center items-center"
-            >
-              <IoReturnUpBackSharp className="text-2xl" />
-              SEE ALL POSTS
-            </Link>
-          </div>
-
-          {/* Right div: Feature details */}
-          <div className="flex-1 p-4 border-2 m-3 rounded-lg">
-            {/* Back to all posts link for smaller screens */}
-            <Link
-              to="/"
-              onClick={() => setRefetch((prevRefresh) => !prevRefresh)}
-              className="btn btn-sm lg:btn-md bg-[#F0F0F0] mb-4 lg:hidden"
-            >
-              <IoReturnUpBackSharp className="text-2xl" />
-              BACK TO ALL POSTS
-            </Link>
-
-            {/* Feature title and status */}
-            <div className="mb-4 lg:px-3">
-              <span className="text-xl font-semibold whitespace-normal break-words mr-2">
-                {title}
-              </span>
-              <span className="px-3 py-1 text-sm text-white bg-gray-600 rounded cursor-pointer uppercase">
-                {status}
-              </span>
+    <>
+      <CustomHelmet pageName={"Feature Request"} />
+      <div className="max-w-screen-xl mx-auto">
+        <div className="mx-2 my-4">
+          <div className="lg:flex bg-white rounded-lg p-1">
+            {/* Left div: Back to all posts link */}
+            <div className="lg:w-1/3 hidden lg:flex lg:order-first p-4 border-2 m-3 rounded-lg">
+              <Link
+                to="/"
+                className="w-full h-10 bg-[#F0F0F0] rounded p-2 flex gap-2 justify-center items-center"
+              >
+                <IoReturnUpBackSharp className="text-2xl" />
+                SEE ALL POSTS
+              </Link>
             </div>
 
-            {/* Display creator's avatar and text */}
-            <AvatarWithText userData={createdBy} />
+            {/* Right div: Feature details */}
+            <div className="flex-1 p-4 border-2 m-3 rounded-lg">
+              {/* Back to all posts link for smaller screens */}
+              <Link
+                to="/"
+                onClick={() => setRefetch((prevRefresh) => !prevRefresh)}
+                className="btn btn-sm lg:btn-md bg-[#F0F0F0] mb-4 lg:hidden"
+              >
+                <IoReturnUpBackSharp className="text-2xl" />
+                BACK TO ALL POSTS
+              </Link>
 
-            {/* Feature description */}
-            <p className="text-gray-700 my-5 whitespace-normal break-words">
-              {description}
-            </p>
+              {/* Feature title and status */}
+              <div className="mb-4 lg:px-3">
+                <span className="text-xl font-semibold whitespace-normal break-words mr-2">
+                  {title}
+                </span>
+                <span className="px-3 py-1 text-sm text-white bg-gray-600 rounded cursor-pointer uppercase">
+                  {status}
+                </span>
+              </div>
 
-            {/* Display creation date */}
-            <p className="flex align-middle gap-2 text-sm my-2">
-              <MdOutlineDateRange className="text-xl" />
-              {CustomDateFormat(createdAt, {
-                showTimeOff: true,
-              })}
-            </p>
+              {/* Display creator's avatar and text */}
+              <AvatarWithText userData={createdBy} />
 
-            {/* Like button */}
-            <div className="flex gap-2">
-              <LikeButton id={_id} likes={likes} />
+              {/* Feature description */}
+              <p className="text-gray-700 my-5 whitespace-normal break-words">
+                {description}
+              </p>
+
+              {/* Display creation date */}
+              <p className="flex align-middle gap-2 text-sm my-2">
+                <MdOutlineDateRange className="text-xl" />
+                {CustomDateFormat(createdAt, {
+                  showTimeOff: true,
+                })}
+              </p>
+
+              {/* Like button */}
+              <div className="flex gap-2">
+                <LikeButton id={_id} likes={likes} />
+              </div>
+
+              {/* Component to add a new comment */}
+              <AddFeatureComment
+                id={_id}
+                setRefresh={setRefresh}
+                setFeature={setFeature}
+              />
+
+              {/* Display Comments */}
+              <DisplayComments
+                feature={feature}
+                comments={comments}
+                setRefresh={setRefresh}
+              />
             </div>
-
-            {/* Component to add a new comment */}
-            <AddFeatureComment
-              id={_id}
-              setRefresh={setRefresh}
-              setFeature={setFeature}
-            />
-
-            {/* Display Comments */}
-            <DisplayComments
-              feature={feature}
-              comments={comments}
-              setRefresh={setRefresh}
-            />
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

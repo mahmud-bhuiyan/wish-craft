@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
-import { Helmet } from "react-helmet-async";
 import { UserContext } from "../../context/UserContextProvider";
 import { getAllUsers } from "../../services/apis/Admin";
 import AllUsersData from "../../components/Admin/AllUsersData";
+import CustomHelmet from "../../components/CustomComponents/CustomHelmet";
 
 const AllUsers = () => {
   const { allUsers, setAllUsers } = useContext(UserContext);
@@ -22,9 +22,7 @@ const AllUsers = () => {
 
   return (
     <>
-      <Helmet>
-        <title>All Users | WishCraft</title>
-      </Helmet>
+      <CustomHelmet pageName={"All Users"} />
       <div className="max-w-screen-xl p-4 my-4 w-full mx-auto">
         <div className="flex items-center gap-x-3">
           <h2 className="text-lg font-medium text-gray-800 ml-1">Total</h2>

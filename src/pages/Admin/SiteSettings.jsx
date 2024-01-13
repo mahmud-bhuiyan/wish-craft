@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { updateWebsiteInfo } from "../../services/apis/Website";
 import { WebsiteContext } from "../../context/WebsiteContextProvider";
@@ -8,6 +7,7 @@ import CustomInputField from "../../components/CustomComponents/CustomInputField
 import CustomTextarea from "../../components/CustomComponents/CustomTextarea";
 import CustomFormButton from "../../components/CustomComponents/CustomFormButton";
 import CustomSelect from "../../components/CustomComponents/CustomSelect";
+import CustomHelmet from "../../components/CustomComponents/CustomHelmet";
 
 const SiteSettings = () => {
   // Accessing the website information context
@@ -98,11 +98,8 @@ const SiteSettings = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Settings | WishCraft</title>
-      </Helmet>
-
-      <div className="max-w-screen-xl mt-2 p-6 w-full mx-auto">
+      <CustomHelmet pageName={"Settings"} />
+      <div className="max-w-screen-xl pt-6 px-4 w-full mx-auto">
         <div className="lg:flex gap-6 overflow-hidden dark:bg-gray-800">
           <div className="lg:w-7/12 bg-white shadow-lg rounded">
             <h2 className="p-2 font-bold text-2xl ml-5 font-mono">Settings</h2>

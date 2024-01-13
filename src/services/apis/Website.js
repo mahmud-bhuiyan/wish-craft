@@ -1,4 +1,4 @@
-import { axiosSecureInstance } from "../../utils/axios";
+import { axiosNonSecureInstance, axiosSecureInstance } from "../../utils/axios";
 import handleApiError from "../../utils/handleApiError";
 
 // =============================================
@@ -6,7 +6,7 @@ import handleApiError from "../../utils/handleApiError";
 // =============================================
 export const getWebsiteInfo = async () => {
   try {
-    const response = await axiosSecureInstance.get("/website");
+    const response = await axiosNonSecureInstance.get("/website");
     return response.data;
   } catch (error) {
     handleApiError(error);
