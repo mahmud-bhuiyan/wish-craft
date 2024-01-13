@@ -12,3 +12,16 @@ export const getWebsiteInfo = async () => {
     handleApiError(error);
   }
 };
+
+// =============================================
+//               update Website Info
+// =============================================
+export const updateWebsiteInfo = async (updatedInfo) => {
+  console.log(updatedInfo);
+  try {
+    const response = await axiosSecureInstance.patch("/website", updatedInfo);
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};

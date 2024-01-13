@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
+import { updateWebsiteInfo } from "../../services/apis/Website";
 import { WebsiteContext } from "../../context/WebsiteContextProvider";
 import CustomInputField from "../../components/CustomComponents/CustomInputField";
 import CustomTextarea from "../../components/CustomComponents/CustomTextarea";
@@ -20,6 +22,7 @@ const SiteSettings = () => {
     handleSubmit,
     formState: { errors },
     setValue,
+    formState,
   } = useForm();
 
   // Set default values for the form fields based on websiteInfo
@@ -36,6 +39,16 @@ const SiteSettings = () => {
 
   // Handling form submission
   const handleFormSubmit = async (data) => {
+    // Checking if the form data is different from the initial values
+    const isDataChanged =
+      JSON.stringify(data) !== JSON.stringify(formState?.defaultValues);
+
+    // If no changes, display a toast message and return
+    if (!isDataChanged) {
+      toast.info("No changes detected");
+      return;
+    }
+
     const updatedInfo = {
       name: data.name,
       title: data.title,
@@ -45,7 +58,26 @@ const SiteSettings = () => {
       status: data.status,
     };
 
-    console.log(updatedInfo);
+    try {
+      // Set loading state to true during form submission
+      setLoading(true);
+
+      // Make API request to update website information
+      const response = await updateWebsiteInfo(updatedInfo);
+
+      if (response) {
+        // Display success toast and trigger a refetch in the context
+        toast.success("Website info updated successfully");
+        setRefetch((prevRefetch) => !prevRefetch);
+      }
+    } catch (error) {
+      // Display error toast if there's an issue with the API request
+      console.error("Error updating website info:", error);
+      toast.error(error);
+    } finally {
+      // Set loading state back to false after form submission is complete
+      setLoading(false);
+    }
   };
 
   const statusOptions = [
