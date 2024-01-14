@@ -32,6 +32,8 @@ const FeatureRequestsData = ({ feature, index, setRefetch }) => {
         toast.success(response.message);
         // Update the local state to reflect the new status
         setNewStatus(selectedStatus);
+        // Trigger a refetch of the features
+        setRefetch((prevRefetch) => !prevRefetch);
       }
     } catch (error) {
       console.error("Error updating status:", error);

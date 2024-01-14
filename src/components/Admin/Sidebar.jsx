@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { HiHome } from "react-icons/hi";
 import { UserContext } from "../../context/UserContextProvider";
-import { demoAdmin } from "../../assets/images/images";
+import { WishCraft, demoAdmin } from "../../assets/images/images";
 import { MdOutlineFeaturedVideo, MdOutlineLogout } from "react-icons/md";
 import { TbUsers } from "react-icons/tb";
 import { toast } from "react-toastify";
@@ -63,8 +63,8 @@ const Sidebar = () => {
       <Link to="/" className="mx-auto">
         <img
           className="object-cover w-10 h-10 mx-2 rounded-full"
-          src={image}
-          alt=""
+          src={image || WishCraft}
+          alt="logo"
         />
       </Link>
       <p className="text-center mt-3 text-gray-500 capitalize font-semibold">

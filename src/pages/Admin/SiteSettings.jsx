@@ -9,6 +9,7 @@ import CustomFormButton from "../../components/CustomComponents/CustomFormButton
 import CustomSelect from "../../components/CustomComponents/CustomSelect";
 import CustomHelmet from "../../components/CustomComponents/CustomHelmet";
 import ImageUpload from "../../components/ImageUpload";
+import { WishCraft } from "../../assets/images/images";
 
 const SiteSettings = () => {
   // Accessing the website information context
@@ -170,7 +171,7 @@ const SiteSettings = () => {
               <div className="flex flex-col items-center -mx-2">
                 <img
                   className="object-cover w-24 h-24 mx-2 rounded-full"
-                  src={image}
+                  src={image || WishCraft}
                   alt="logo"
                 />
                 <h4 className="mx-2 mt-4 font-medium text-gray-800 text-2xl">

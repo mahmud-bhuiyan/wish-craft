@@ -7,6 +7,7 @@ import { UserContext } from "../context/UserContextProvider";
 import { userLogout } from "../services/apis/User";
 import NavbarDropdown from "./NavbarDropdown";
 import { WebsiteContext } from "../context/WebsiteContextProvider";
+import { WishCraft } from "../assets/images/images";
 
 const Nav = () => {
   const [isProfileDropdownOpen, setProfileDropdownOpen] = useState(false);
@@ -64,7 +65,7 @@ const Nav = () => {
             <img
               // className="w-auto h-6 sm:h-7 bg-white rounded-full bg-white"
               className="object-cover w-6 sm:w-7 h-6 sm:h-7 mx-2 rounded-full bg-white"
-              src={image}
+              src={image || WishCraft}
               alt="Logo"
             />
           </Link>

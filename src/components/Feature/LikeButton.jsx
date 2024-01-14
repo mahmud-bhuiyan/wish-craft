@@ -7,9 +7,11 @@ import {
   likeFeatureRequestById,
   unlikeFeatureRequestById,
 } from "../../services/apis/Feature";
+import { FeaturesContext } from "../../context/FeaturesContextProvider";
 
 const LikeButton = ({ id, likes }) => {
   const { user } = useContext(AuthContext);
+  const { setRefetch } = useContext(FeaturesContext);
   const navigate = useNavigate();
 
   // Extract emails of users who liked
@@ -34,6 +36,8 @@ const LikeButton = ({ id, likes }) => {
           toast.info(response.message);
         }
       }
+      // Trigger a refetch of the features
+      setRefetch((prevRefetch) => !prevRefetch);
     } catch (error) {
       console.error("Error:", error);
     }

@@ -8,6 +8,7 @@ import { AuthContext } from "../context/AuthContextProvider";
 import { userLogin, userLogout } from "../services/apis/User";
 import handleError from "../utils/handleError";
 import { WebsiteContext } from "../context/WebsiteContextProvider";
+import { WishCraft } from "../assets/images/images";
 
 const Login = () => {
   const { loginUser } = useContext(AuthContext);
@@ -110,7 +111,7 @@ const Login = () => {
                 <Link to="/">
                   <img
                     className="object-cover w-16 h-16 mx-2 rounded-full"
-                    src={image}
+                    src={image || WishCraft}
                     alt="logo"
                   />
                 </Link>
