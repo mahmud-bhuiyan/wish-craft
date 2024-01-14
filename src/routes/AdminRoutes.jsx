@@ -11,7 +11,7 @@ const AdminRoutes = ({ children }) => {
     return <Loader />;
   }
 
-  if (userDetails?.email && userDetails?.role === "admin") {
+  if (userDetails && userDetails?.email && userDetails?.role === "admin") {
     return children;
   }
 

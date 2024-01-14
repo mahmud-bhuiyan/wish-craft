@@ -10,7 +10,7 @@ const Home = () => {
   const { features, loading, searchTerm, searchResults, setSearchTerm } =
     useContext(FeaturesContext);
   const { websiteInfo } = useContext(WebsiteContext);
-  console.log(websiteInfo?.name);
+
   return (
     <div>
       <Helmet>

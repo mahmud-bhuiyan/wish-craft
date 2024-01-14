@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { BiLike, BiSolidLike } from "react-icons/bi";
 import { AuthContext } from "../../context/AuthContextProvider";
-import { FeaturesContext } from "../../context/FeaturesContextProvider";
 import {
   likeFeatureRequestById,
   unlikeFeatureRequestById,
@@ -11,13 +10,13 @@ import {
 
 const LikeButton = ({ id, likes }) => {
   const { user } = useContext(AuthContext);
-  const { setRefetch } = useContext(FeaturesContext);
   const navigate = useNavigate();
 
   // Extract emails of users who liked
   const likedUserEmails = likes?.users?.map((user) => user.email);
 
   const [isLiked, setIsLiked] = useState(likedUserEmails.includes(user?.email));
+
   const [likeCount, setLikeCount] = useState(likes?.count);
 
   const updateFeatureRequestLikes = async (action) => {
@@ -26,12 +25,14 @@ const LikeButton = ({ id, likes }) => {
 
       if (action === "like") {
         response = await likeFeatureRequestById(id);
+        if (response.feature._id) {
+          toast.success(response.message);
+        }
       } else if (action === "unlike") {
         response = await unlikeFeatureRequestById(id);
-      }
-
-      if (response.feature._id) {
-        setRefetch(true);
+        if (response.feature._id) {
+          toast.info(response.message);
+        }
       }
     } catch (error) {
       console.error("Error:", error);
@@ -47,7 +48,6 @@ const LikeButton = ({ id, likes }) => {
 
       setLikeCount((prevLikeCount) => prevLikeCount + 1);
       setIsLiked(true);
-      toast.success("You liked the post!");
       updateFeatureRequestLikes("like");
     } catch (error) {
       console.error("Error:", error);
@@ -63,7 +63,6 @@ const LikeButton = ({ id, likes }) => {
 
       setLikeCount((prevLikeCount) => prevLikeCount - 1);
       setIsLiked(false);
-      toast.info("You unlike the post!");
       updateFeatureRequestLikes("unlike");
     } catch (error) {
       console.error("Error:", error);
