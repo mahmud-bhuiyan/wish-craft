@@ -13,25 +13,25 @@ const FeatureRequestsData = ({ feature, index, setRefetch }) => {
   const [newStatus, setNewStatus] = useState(status);
   const [localLoading, setLocalLoading] = useState(false);
 
-  const handleStatusChange = (e) => {
-    setNewStatus(e.target.value);
-  };
+  const handleStatusChange = async (e) => {
+    const selectedStatus = e.target.value;
 
-  const handleUpdateStatus = async () => {
+    // Check if the new status is different from the existing status
+    if (selectedStatus === status) {
+      toast.info("Nothing to update.");
+      return;
+    }
+
     try {
-      // Check if the new status is different from the existing status
-      if (newStatus === status) {
-        toast.info("Nothing to update.");
-        return;
-      }
-
       // Set local loading state to true before making the API call
       setLocalLoading(true);
 
-      const response = await updateFeatureStatus(_id, newStatus);
+      const response = await updateFeatureStatus(_id, selectedStatus);
 
       if (response.feature) {
         toast.success(response.message);
+        // Update the local state to reflect the new status
+        setNewStatus(selectedStatus);
       }
     } catch (error) {
       console.error("Error updating status:", error);
@@ -129,14 +129,6 @@ const FeatureRequestsData = ({ feature, index, setRefetch }) => {
 
       <td className="text-sm">
         <div className="flex flex-wrap justify-center gap-4">
-          <button
-            onClick={handleUpdateStatus}
-            disabled={localLoading}
-            className="py-2 px-4 bg-blue-500 text-white rounded"
-          >
-            {localLoading ? "Updating" : "Update Status"}
-          </button>
-
           <button
             onClick={handleDeleteRequest}
             disabled={localLoading}
