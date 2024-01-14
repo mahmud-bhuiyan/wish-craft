@@ -138,15 +138,6 @@ const SiteSettings = () => {
                 register={register}
                 errors={errors}
               />
-              {/* Custom input field for logo URL */}
-              <CustomInputField
-                label="Logo URL"
-                type="text"
-                name="logoUrl"
-                placeholder="Logo URL"
-                register={register}
-                errors={errors}
-              />
               <CustomSelect
                 label="Board Status"
                 options={statusOptions}
@@ -191,6 +182,7 @@ const SiteSettings = () => {
                 <p className="mx-2 mt-4 text-sm font-medium text-gray-600 text-center">
                   {websiteInfo.description}
                 </p>
+                {/* image upload  */}
                 <ImageUpload />
               </div>
             </div>

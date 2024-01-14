@@ -1,8 +1,10 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { updateWebsiteImage } from "../services/apis/Website";
+import { WebsiteContext } from "../context/WebsiteContextProvider";
 
 const ImageUpload = () => {
+  const { setRefetch } = useContext(WebsiteContext);
   const [uploadError, setUploadError] = useState(null);
   const fileInputRef = useRef(null);
 
@@ -13,11 +15,23 @@ const ImageUpload = () => {
         return;
       }
 
+      const allowedExtensions = ["jpg", "jpeg", "png"];
+      const selectedFile = fileInputRef.current.files[0];
+      const fileExtension = selectedFile.name.split(".").pop().toLowerCase();
+
+      if (!allowedExtensions.includes(fileExtension)) {
+        setUploadError("Only jpg, jpeg, and png files are allowed");
+        return;
+      }
+
       const formData = new FormData();
-      formData.append("file", fileInputRef.current.files[0]);
+      formData.append("file", selectedFile);
+
       const result = await updateWebsiteImage(formData);
+
       if (result) {
         toast.success(result.message);
+        setRefetch((prevRefetch) => !prevRefetch);
         fileInputRef.current.value = "";
         setUploadError(null);
       }
