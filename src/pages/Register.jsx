@@ -12,6 +12,9 @@ const Register = () => {
   const { createUser, updateUserProfile } = useContext(AuthContext);
   const { websiteInfo } = useContext(WebsiteContext);
 
+  const imgURL = import.meta.env.VITE_IMAGE_URL;
+  const image = `${imgURL}/${websiteInfo.logoUrl}`;
+
   const navigate = useNavigate();
   const [formSubmit, setFormSubmit] = useState(false);
   const [formReset, setFormReset] = useState(false);
@@ -113,8 +116,8 @@ const Register = () => {
               <div className="flex justify-center mx-auto">
                 <Link to="/">
                   <img
-                    className="w-auto h-9"
-                    src={websiteInfo?.logoUrl}
+                    className="object-cover w-16 h-16 mx-2 rounded-full"
+                    src={image}
                     alt="logo"
                   />
                 </Link>

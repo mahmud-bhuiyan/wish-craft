@@ -16,6 +16,9 @@ const Nav = () => {
   const { userDetails } = useContext(UserContext);
   const { websiteInfo } = useContext(WebsiteContext);
 
+  const imgURL = import.meta.env.VITE_IMAGE_URL;
+  const image = `${imgURL}/${websiteInfo.logoUrl}`;
+
   // Extracting the first name from the user's display name
   const firstName = user
     ? user.displayName
@@ -59,8 +62,9 @@ const Nav = () => {
         <div className="flex items-center justify-between">
           <Link to="/">
             <img
-              className="w-auto h-6 sm:h-7 bg-white rounded-full"
-              src={websiteInfo?.logoUrl}
+              // className="w-auto h-6 sm:h-7 bg-white rounded-full bg-white"
+              className="object-cover w-6 sm:w-7 h-6 sm:h-7 mx-2 rounded-full bg-white"
+              src={image}
               alt="Logo"
             />
           </Link>

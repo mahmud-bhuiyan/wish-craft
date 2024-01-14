@@ -17,6 +17,9 @@ const Sidebar = () => {
   const { name, photoURL, role } = userDetails;
   const { websiteInfo } = useContext(WebsiteContext);
 
+  const imgURL = import.meta.env.VITE_IMAGE_URL;
+  const image = `${imgURL}/${websiteInfo.logoUrl}`;
+
   const location = useLocation();
 
   // navigation links
@@ -58,7 +61,11 @@ const Sidebar = () => {
   return (
     <aside className="flex flex-col min-w-44 lg:w-64 min-h-screen px-4 py-10 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l">
       <Link to="/" className="mx-auto">
-        <img className="w-auto h-6 sm:h-7" src={websiteInfo?.logoUrl} alt="" />
+        <img
+          className="object-cover w-10 h-10 mx-2 rounded-full"
+          src={image}
+          alt=""
+        />
       </Link>
       <p className="text-center mt-3 text-gray-500 capitalize font-semibold">
         {websiteInfo?.name || ""}
@@ -78,7 +85,7 @@ const Sidebar = () => {
             alt="demo avatar"
           />
         )}
-        <h4 className="mx-2 mt-2 font-medium text-gray-800 capitalize">
+        <h4 className="text-center mx-2 mt-2 font-medium text-gray-800 capitalize">
           {name}
         </h4>
         <p className="mx-2 mt-1 text-sm font-semibold text-sky-500 break-all uppercase">

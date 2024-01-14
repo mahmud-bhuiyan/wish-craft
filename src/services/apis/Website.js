@@ -24,3 +24,18 @@ export const updateWebsiteInfo = async (updatedInfo) => {
     handleApiError(error);
   }
 };
+
+// =============================================
+//               update Website image
+// =============================================
+export const updateWebsiteImage = async (formData) => {
+  try {
+    const response = await axiosSecureInstance.patch(
+      "/website/upload",
+      formData
+    );
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};

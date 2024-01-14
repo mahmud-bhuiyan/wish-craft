@@ -8,10 +8,14 @@ import CustomTextarea from "../../components/CustomComponents/CustomTextarea";
 import CustomFormButton from "../../components/CustomComponents/CustomFormButton";
 import CustomSelect from "../../components/CustomComponents/CustomSelect";
 import CustomHelmet from "../../components/CustomComponents/CustomHelmet";
+import ImageUpload from "../../components/ImageUpload";
 
 const SiteSettings = () => {
   // Accessing the website information context
   const { websiteInfo, setRefetch } = useContext(WebsiteContext);
+
+  const imgURL = import.meta.env.VITE_IMAGE_URL;
+  const image = `${imgURL}/${websiteInfo.logoUrl}`;
 
   // State to manage loading state during form submission
   const [loading, setLoading] = useState(false);
@@ -143,7 +147,6 @@ const SiteSettings = () => {
                 register={register}
                 errors={errors}
               />
-
               <CustomSelect
                 label="Board Status"
                 options={statusOptions}
@@ -159,7 +162,6 @@ const SiteSettings = () => {
                 name="sortingOrder"
                 errors={errors}
               />
-
               {/* Custom button for submitting the form */}
               <CustomFormButton
                 buttonText={"Update Website Info"}
@@ -177,8 +179,8 @@ const SiteSettings = () => {
               <div className="flex flex-col items-center -mx-2">
                 <img
                   className="object-cover w-24 h-24 mx-2 rounded-full"
-                  src={websiteInfo.logoUrl}
-                  alt="avatar"
+                  src={image}
+                  alt="logo"
                 />
                 <h4 className="mx-2 mt-4 font-medium text-gray-800 text-2xl">
                   {websiteInfo.name}
@@ -189,6 +191,7 @@ const SiteSettings = () => {
                 <p className="mx-2 mt-4 text-sm font-medium text-gray-600 text-center">
                   {websiteInfo.description}
                 </p>
+                <ImageUpload />
               </div>
             </div>
           </div>

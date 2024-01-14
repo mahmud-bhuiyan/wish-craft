@@ -13,6 +13,9 @@ const Login = () => {
   const { loginUser } = useContext(AuthContext);
   const { websiteInfo } = useContext(WebsiteContext);
 
+  const imgURL = import.meta.env.VITE_IMAGE_URL;
+  const image = `${imgURL}/${websiteInfo.logoUrl}`;
+
   // React Router hooks for navigation and location
   const navigate = useNavigate();
   const location = useLocation();
@@ -106,8 +109,8 @@ const Login = () => {
                 {/* Logo */}
                 <Link to="/">
                   <img
-                    className="w-auto h-9"
-                    src={websiteInfo?.logoUrl}
+                    className="object-cover w-16 h-16 mx-2 rounded-full"
+                    src={image}
                     alt="logo"
                   />
                 </Link>
