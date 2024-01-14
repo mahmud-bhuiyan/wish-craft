@@ -1,9 +1,14 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { updateFeatureStatus } from "../../services/apis/Feature";
+import { MdDelete } from "react-icons/md";
+import Swal from "sweetalert2";
 import { getStatusColor } from "../../utils/getStatusColor";
+import {
+  deleteFeatureRequest,
+  updateFeatureStatus,
+} from "../../services/apis/Feature";
 
-const FeatureRequestsData = ({ feature, index }) => {
+const FeatureRequestsData = ({ feature, index, setRefetch }) => {
   const { _id, title, description, createdBy, status } = feature;
   const [newStatus, setNewStatus] = useState(status);
   const [localLoading, setLocalLoading] = useState(false);
@@ -33,6 +38,40 @@ const FeatureRequestsData = ({ feature, index }) => {
       toast.error(error);
     } finally {
       setLocalLoading(false);
+    }
+  };
+
+  const handleDeleteRequest = async () => {
+    // Use SweetAlert for confirmation
+    const confirmationResult = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    if (confirmationResult.isConfirmed) {
+      try {
+        // Set local loading state to true
+        setLocalLoading(true);
+
+        // Call the API to delete the feature request
+        const response = await deleteFeatureRequest(_id);
+
+        if (response) {
+          toast.success(response.message);
+          // Trigger a refetch of the features
+          setRefetch((prevRefetch) => !prevRefetch);
+        }
+      } catch (error) {
+        console.error("Error deleting feature request:", error);
+        toast.error("Error deleting feature request");
+      } finally {
+        setLocalLoading(false);
+      }
     }
   };
 
@@ -88,14 +127,31 @@ const FeatureRequestsData = ({ feature, index }) => {
         </select>
       </td>
 
-      <td className="py-2 px-4 text-sm font-normal text-gray-800 align-middle gap-4">
-        <button
-          onClick={handleUpdateStatus}
-          disabled={localLoading}
-          className="py-2 px-4 bg-blue-500 text-white rounded"
-        >
-          {localLoading ? "Updating" : "Update Status"}
-        </button>
+      <td className="text-sm">
+        <div className="flex flex-wrap justify-center gap-4">
+          <button
+            onClick={handleUpdateStatus}
+            disabled={localLoading}
+            className="py-2 px-4 bg-blue-500 text-white rounded"
+          >
+            {localLoading ? "Updating" : "Update Status"}
+          </button>
+
+          <button
+            onClick={handleDeleteRequest}
+            disabled={localLoading}
+            className="tooltip-top tooltip"
+            data-tip="Delete"
+          >
+            <MdDelete
+              className={`text-2xl ${
+                localLoading
+                  ? "text-red-300 cursor-not-allowed"
+                  : "text-red-500 cursor-pointer"
+              }  `}
+            />
+          </button>
+        </div>
       </td>
     </tr>
   );

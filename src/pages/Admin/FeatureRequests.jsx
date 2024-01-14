@@ -6,7 +6,7 @@ import CustomTableHeader from "../../components/Admin/CustomTableHeader";
 import TableTotalDataCount from "../../components/Admin/TableTotalDataCount";
 
 const FeatureRequests = () => {
-  const { features } = useContext(FeaturesContext);
+  const { features, setRefetch } = useContext(FeaturesContext);
 
   const columns = [
     "#",
@@ -30,7 +30,7 @@ const FeatureRequests = () => {
         <div className="flex flex-col mt-4">
           <div className="overflow-x-auto">
             <div className="inline-block min-w-full align-middle">
-              <div className="overflow-hidden border border-gray-200 md:rounded-lg">
+              <div className="border border-gray-200 md:rounded-lg">
                 <table className="min-w-full divide-y divide-gray-200 text-center">
                   <CustomTableHeader columns={columns} />
                   {/* Inside the table body */}
@@ -40,6 +40,7 @@ const FeatureRequests = () => {
                         index={index}
                         key={feature._id}
                         feature={feature}
+                        setRefetch={setRefetch}
                       />
                     ))}
                   </tbody>

@@ -1,15 +1,20 @@
 import { ThreeDots } from "react-loader-spinner";
 
-const CustomButton = ({ buttonText, loading }) => {
-  const buttonClass = `px-4 md:px-10 py-2 tracking-wide text-white transition-colors duration-300 transform rounded-lg bg-sky-500 hover:bg-sky-400 focus:bg-sky-400 focus:ring focus:ring-sky-300 focus:ring-opacity-50 ${
-    loading ? "cursor-not-allowed" : ``
-  }`;
+const CustomButton = ({ buttonText, loading, loadingText, size }) => {
+  // Determine the size styles based on the "size" prop
+  const buttonSize = size === "small" ? "px-4 py-2 mt-2 rounded" : "w-full";
 
   return (
-    <button type="submit" disabled={loading} className={buttonClass}>
+    <button
+      type="submit"
+      disabled={loading}
+      className={`${buttonSize} px-4 md:px-10 py-2 tracking-wide text-white transition-colors duration-300 transform rounded-lg bg-sky-500 hover:bg-sky-400 focus:bg-sky-400 focus:ring focus:ring-sky-300 focus:ring-opacity-50 ${
+        loading ? "cursor-not-allowed" : ``
+      }`}
+    >
       {loading ? (
         <span className="flex gap-2 justify-center align-middle">
-          Submitting
+          {loadingText ? loadingText : "Submitting"}{" "}
           <ThreeDots
             visible={true}
             height="25"
@@ -22,7 +27,7 @@ const CustomButton = ({ buttonText, loading }) => {
           />
         </span>
       ) : (
-        buttonText
+        { buttonText }
       )}
     </button>
   );

@@ -39,6 +39,18 @@ export const getSingleFeatureRequest = async (featureId) => {
 };
 
 // =============================================
+//      (soft) delete Feature Request By Id
+// =============================================
+export const deleteFeatureRequest = async (featureId) => {
+  try {
+    const response = await axiosSecureInstance.patch(`/features/${featureId}`);
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+// =============================================
 //            update Feature Status
 // =============================================
 export const updateFeatureStatus = async (featureId, status) => {
