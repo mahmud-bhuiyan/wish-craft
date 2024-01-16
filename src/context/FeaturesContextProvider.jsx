@@ -17,7 +17,11 @@ const FeaturesContextProvider = ({ children }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
-  // Effect hook to fetch data based on user, refetch and search
+  // New state variables for sorting
+  const [sortBy, setSortBy] = useState("");
+  const [sortOrder, setSortOrder] = useState("");
+
+  // Effect hook to fetch data based on user, refetch, search, sortBy, and sortOrder
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -27,6 +31,9 @@ const FeaturesContextProvider = ({ children }) => {
         if (searchTerm) {
           // If there is a search term, call the search API
           response = await searchRequest(searchTerm);
+        } else if (sortBy) {
+          // If there is sortBy, call the API with sorted data
+          response = await getAllRequest(sortBy, sortOrder);
         } else {
           // Otherwise, get all features
           response = await getAllRequest();
@@ -60,7 +67,19 @@ const FeaturesContextProvider = ({ children }) => {
 
     // Clean up interval when the component is unmounted
     return () => clearInterval(intervalId);
-  }, [user, refetch, searchTerm]);
+  }, [user, refetch, searchTerm, sortBy, sortOrder]);
+
+  const handleSort = async (field, order) => {
+    console.log(field);
+    console.log(order);
+    try {
+      setSortBy(field);
+      setSortOrder(order);
+      setRefetch((prevRefetch) => !prevRefetch);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const featuresData = {
     features,
@@ -72,6 +91,7 @@ const FeaturesContextProvider = ({ children }) => {
     setSearchTerm,
     searchResults,
     setSearchResults,
+    handleSort,
   };
 
   return (

@@ -1,10 +1,9 @@
 import { useContext, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { AuthContext } from "../context/AuthContextProvider";
 import UpdateUserDetailsModal from "../components/User/UpdateUserDetailsModal";
 import UpdateUserPasswordModal from "../components/User/UpdateUserPasswordModal";
 import { demoUser } from "../assets/images/images";
-import CustomHelmet from "../components/CustomComponents/CustomHelmet";
-
 
 const UserProfilePage = () => {
   const { user } = useContext(AuthContext);
@@ -31,7 +30,9 @@ const UserProfilePage = () => {
 
   return (
     <>
-      <CustomHelmet pageName={"Profile"} />
+      <Helmet>
+        <title>Profile</title>
+      </Helmet>
       <section className="bg-white mt-16 flex items-center justify-center">
         <div className="flex flex-col justify-center max-w-xs p-6 shadow-md rounded-xl sm:px-12">
           <img

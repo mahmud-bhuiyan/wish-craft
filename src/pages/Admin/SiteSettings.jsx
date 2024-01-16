@@ -8,7 +8,7 @@ import CustomTextarea from "../../components/CustomComponents/CustomTextarea";
 import CustomFormButton from "../../components/CustomComponents/CustomFormButton";
 import CustomSelect from "../../components/CustomComponents/CustomSelect";
 import CustomHelmet from "../../components/CustomComponents/CustomHelmet";
-import ImageUpload from "../../components/ImageUpload";
+// import ImageUpload from "../../components/ImageUpload";
 import { WishCraft } from "../../assets/images/images";
 
 const SiteSettings = () => {
@@ -139,6 +139,15 @@ const SiteSettings = () => {
                 register={register}
                 errors={errors}
               />
+              {/* Custom input field for logo */}
+              <CustomInputField
+                label="Homepage Title"
+                type="text"
+                name="logoUrl"
+                placeholder="Homepage Title"
+                register={register}
+                errors={errors}
+              />
               <CustomSelect
                 label="Board Status"
                 options={statusOptions}
@@ -171,7 +180,7 @@ const SiteSettings = () => {
               <div className="flex flex-col items-center -mx-2">
                 <img
                   className="object-cover w-24 h-24 mx-2 rounded-full"
-                  src={image || WishCraft}
+                  src={image || websiteInfo.logoUrl || WishCraft}
                   alt="logo"
                 />
                 <h4 className="mx-2 mt-4 font-medium text-gray-800 text-2xl">
@@ -184,7 +193,7 @@ const SiteSettings = () => {
                   {websiteInfo.description}
                 </p>
                 {/* image upload  */}
-                <ImageUpload />
+                {/* <ImageUpload /> */}
               </div>
             </div>
           </div>

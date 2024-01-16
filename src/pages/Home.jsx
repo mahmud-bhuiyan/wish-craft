@@ -7,9 +7,28 @@ import Loader from "../components/Loader";
 import { WebsiteContext } from "../context/WebsiteContextProvider";
 
 const Home = () => {
-  const { features, loading, searchTerm, searchResults, setSearchTerm } =
-    useContext(FeaturesContext);
+  const {
+    features,
+    loading,
+    searchTerm,
+    searchResults,
+    setSearchTerm,
+    handleSort,
+  } = useContext(FeaturesContext);
+
+  console.log(features);
   const { websiteInfo } = useContext(WebsiteContext);
+
+  // An array of sorting options
+  const sortingOptions = [
+    { field: "createdAt", order: "desc", label: "Newest" },
+    { field: "likes", order: "desc", label: "Likes (Higher to Lower)" },
+    { field: "likes", order: "asc", label: "Likes (Lower to Higher)" },
+    { field: "comments", order: "desc", label: "Comments (Higher to Lower)" },
+    { field: "comments", order: "asc", label: "Comments (Lower to Higher)" },
+    { field: "title", order: "asc", label: "A-Z" },
+    { field: "title", order: "desc", label: "Z-A" },
+  ];
 
   return (
     <div>
@@ -22,7 +41,16 @@ const Home = () => {
           <div className="lg:flex bg-white rounded-lg p-1">
             {/* Content for the left div */}
             <div className="lg:w-1/3 lg:order-first p-4 border-2 m-3 rounded-lg">
-              <p>Left Column</p>
+              {/* Sorting buttons with dynamic options */}
+              {sortingOptions.map((option) => (
+                <button
+                  key={option.label}
+                  className="btn btn-sm m-2 lg:w-full"
+                  onClick={() => handleSort(option.field, option.order)}
+                >
+                  {option.label}
+                </button>
+              ))}
             </div>
 
             {/* Content for the right div */}
