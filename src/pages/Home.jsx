@@ -41,11 +41,12 @@ const Home = () => {
           <div className="lg:flex bg-white rounded-lg p-1">
             {/* Content for the left div */}
             <div className="lg:w-1/3 lg:order-first p-4 border-2 m-3 rounded-lg">
+              <h3 className="uppercase font-bold lg:text-xl">Sort By</h3>
               {/* Sorting buttons with dynamic options */}
               {sortingOptions.map((option) => (
                 <button
                   key={option.label}
-                  className="btn btn-sm m-2 lg:w-full"
+                  className="btn btn-sm mr-2 mt-2 lg:w-full"
                   onClick={() => handleSort(option.field, option.order)}
                 >
                   {option.label}

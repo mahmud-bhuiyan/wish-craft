@@ -27,7 +27,7 @@ const CustomButton = ({ buttonText, loading, loadingText, size }) => {
           />
         </span>
       ) : (
-        { buttonText }
+        buttonText
       )}
     </button>
   );
