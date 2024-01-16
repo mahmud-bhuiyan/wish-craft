@@ -46,7 +46,7 @@ const Home = () => {
               {sortingOptions.map((option) => (
                 <button
                   key={option.label}
-                  className="btn btn-sm mr-2 mt-2 lg:w-full"
+                  className=" mr-2 mt-2 lg:w-full"
                   onClick={() => handleSort(option.field, option.order)}
                 >
                   {option.label}
