@@ -1,12 +1,13 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { getAllRequest, searchRequest } from "../services/apis/Feature";
 import { AuthContext } from "./AuthContextProvider";
+import { WebsiteContext } from "./WebsiteContextProvider";
 
 export const FeaturesContext = createContext(null);
 
 const FeaturesContextProvider = ({ children }) => {
-  // Accessing user information from the authentication context
   const { user } = useContext(AuthContext);
+  const { websiteInfo } = useContext(WebsiteContext);
 
   // State variables for managing features data and loading status
   const [features, setFeatures] = useState([]);
@@ -17,9 +18,26 @@ const FeaturesContextProvider = ({ children }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
-  // New state variables for sorting
+  // State variables for sorting
   const [sortBy, setSortBy] = useState("");
   const [sortOrder, setSortOrder] = useState("");
+
+  // Get the activeSorting value from websiteInfo
+  const activeSorting = websiteInfo?.sortingOrder;
+
+  // Set sortBy and sortOrder based on activeSorting
+  useEffect(() => {
+    if (activeSorting === "MostVoted") {
+      setSortBy("likes");
+      setSortOrder("desc");
+    } else if (activeSorting === "NewestFirst") {
+      setSortBy("createdAt");
+      setSortOrder("desc");
+    } else if (activeSorting === "OldestFirst") {
+      setSortBy("createdAt");
+      setSortOrder("asc");
+    }
+  }, [activeSorting]);
 
   // Effect hook to fetch data based on user, refetch, search, sortBy, and sortOrder
   useEffect(() => {
@@ -34,9 +52,6 @@ const FeaturesContextProvider = ({ children }) => {
         } else if (sortBy) {
           // If there is sortBy, call the API with sorted data
           response = await getAllRequest(sortBy, sortOrder);
-        } else {
-          // Otherwise, get all features
-          response = await getAllRequest();
         }
 
         // Update loading status
@@ -67,7 +82,7 @@ const FeaturesContextProvider = ({ children }) => {
 
     // Clean up interval when the component is unmounted
     return () => clearInterval(intervalId);
-  }, [user, refetch, searchTerm, sortBy, sortOrder]);
+  }, [user, refetch, searchTerm, sortBy, sortOrder, activeSorting]);
 
   const handleSort = async (field, order) => {
     console.log(field);

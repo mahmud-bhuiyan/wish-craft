@@ -16,12 +16,12 @@ const Home = () => {
     handleSort,
   } = useContext(FeaturesContext);
 
-  console.log(features);
   const { websiteInfo } = useContext(WebsiteContext);
 
   // An array of sorting options
   const sortingOptions = [
     { field: "createdAt", order: "desc", label: "Newest" },
+    { field: "createdAt", order: "asc", label: "Oldest" },
     { field: "likes", order: "desc", label: "Likes (Higher to Lower)" },
     { field: "likes", order: "asc", label: "Likes (Lower to Higher)" },
     { field: "comments", order: "desc", label: "Comments (Higher to Lower)" },
