@@ -14,7 +14,7 @@ const Nav = () => {
 
   const dropdownRef = useRef(null);
   const { user, logoutUser } = useContext(AuthContext);
-  const { userDetails } = useContext(UserContext);
+  const { userDetails, isLoading } = useContext(UserContext);
   const { websiteInfo } = useContext(WebsiteContext);
 
   const imgURL = import.meta.env.VITE_IMAGE_URL;
@@ -71,14 +71,20 @@ const Nav = () => {
           </Link>
 
           <div className="relative flex gap-4">
-            {userDetails?.role === "admin" && (
+            {isLoading ? (
+              <></>
+            ) : (
               <>
-                <Link
-                  to="/admin/feature-requests"
-                  className="btn border-2 border-gray-400 hover:border-slate-500 rounded-md text-[#A99FA8] hover:text-black bg-[#241A24]"
-                >
-                  Admin Panel
-                </Link>
+                {userDetails?.role === "admin" && (
+                  <>
+                    <Link
+                      to="/admin/feature-requests"
+                      className="btn border-2 border-gray-400 hover:border-slate-500 rounded-md text-[#A99FA8] hover:text-black bg-[#241A24]"
+                    >
+                      Admin Panel
+                    </Link>
+                  </>
+                )}
               </>
             )}
 
