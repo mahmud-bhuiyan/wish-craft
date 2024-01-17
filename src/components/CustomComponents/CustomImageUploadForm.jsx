@@ -13,6 +13,7 @@ const CustomImageUploadForm = ({ onUploadSuccess, loading, setLoading }) => {
       const formData = new FormData();
       formData.append("image", data.image[0]);
 
+      // Make a POST request to ImgBB API for image upload
       const response = await axios.post(
         "https://api.imgbb.com/1/upload",
         formData,
@@ -38,8 +39,14 @@ const CustomImageUploadForm = ({ onUploadSuccess, loading, setLoading }) => {
           <input
             className="file-input file-input-bordered w-full"
             type="file"
-            accept="image/*"
-            {...register("image", { required: "Image is required" })}
+            accept=".jpg, .jpeg, .png"
+            {...register("image", {
+              required: "Image is required",
+              validate: (file) =>
+                // Validate the file format
+                /\.(jpg|jpeg|png)$/i.test(file[0]?.name) ||
+                "Supported formats: jpg, jpeg, png",
+            })}
           />
         </div>
 

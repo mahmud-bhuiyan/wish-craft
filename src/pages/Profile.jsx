@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
 import { IoCamera } from "react-icons/io5";
 import { userPageBg } from "../assets/images/images";
 import { UserContext } from "../context/UserContextProvider";
+import Breadcrumbs from "../components/Breadcrumbs";
 
 const Profile = () => {
   const { userDetails } = useContext(UserContext);
@@ -12,22 +12,7 @@ const Profile = () => {
     <div className="mx-auto h-screen max-w-7xl mt-16 px-4 py-6">
       <div className="mx-auto">
         {/* Breadcrumb Start */}
-        <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <h2 className="text-xl font-bold text-black dark:text-white">
-            Profile
-          </h2>
-          <nav>
-            <ol className="flex items-center gap-2">
-              <li>
-                <Link to="/" className="font-medium">
-                  Dashboard /
-                </Link>
-              </li>
-              <li className="text-primary">Profile</li>
-            </ol>
-          </nav>
-        </div>
-        {/* Breadcrumb End */}
+        <Breadcrumbs fromPage={"Home"} pageTitle={"Profile"} fromURL={"/"} />
 
         {/* Profile Section Start */}
         <div className="overflow-hidden rounded-sm border border-stroke bg-white shadow-default dark:border-stroke-dark dark:bg-box-dark">
