@@ -1,14 +1,14 @@
 import { useContext } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { FiSettings } from "react-icons/fi";
 import { HiHome } from "react-icons/hi";
-import { UserContext } from "../../context/UserContextProvider";
-import { WishCraft, demoAdmin } from "../../assets/images/images";
 import { MdOutlineFeaturedVideo, MdOutlineLogout } from "react-icons/md";
 import { TbUsers } from "react-icons/tb";
-import { toast } from "react-toastify";
+import { UserContext } from "../../context/UserContextProvider";
+import { demoAdmin } from "../../assets/images/images";
 import { userLogout } from "../../services/apis/User";
 import { AuthContext } from "../../context/AuthContextProvider";
-import { FiSettings } from "react-icons/fi";
 import { WebsiteContext } from "../../context/WebsiteContextProvider";
 
 const Sidebar = () => {
@@ -16,9 +16,6 @@ const Sidebar = () => {
   const { userDetails } = useContext(UserContext);
   const { name, photoURL, role } = userDetails;
   const { websiteInfo } = useContext(WebsiteContext);
-
-  const imgURL = import.meta.env.VITE_IMAGE_URL;
-  const image = `${imgURL}/${websiteInfo.logoUrl}`;
 
   const location = useLocation();
 
@@ -63,7 +60,7 @@ const Sidebar = () => {
       <Link to="/" className="mx-auto">
         <img
           className="object-cover w-10 h-10 mx-2 rounded-full"
-          src={image || WishCraft}
+          src={websiteInfo?.logoUrl}
           alt="logo"
         />
       </Link>

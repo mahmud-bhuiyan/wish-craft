@@ -8,14 +8,10 @@ import { AuthContext } from "../context/AuthContextProvider";
 import { userLogin, userLogout } from "../services/apis/User";
 import handleError from "../utils/handleError";
 import { WebsiteContext } from "../context/WebsiteContextProvider";
-import { WishCraft } from "../assets/images/images";
 
 const Login = () => {
   const { loginUser } = useContext(AuthContext);
   const { websiteInfo } = useContext(WebsiteContext);
-
-  const imgURL = import.meta.env.VITE_IMAGE_URL;
-  const image = `${imgURL}/${websiteInfo.logoUrl}`;
 
   // React Router hooks for navigation and location
   const navigate = useNavigate();
@@ -110,8 +106,8 @@ const Login = () => {
                 {/* Logo */}
                 <Link to="/">
                   <img
-                    className="object-cover w-16 h-16 mx-2 rounded-full"
-                    src={image || WishCraft}
+                    className="object-cover w-14 h-14 mx-2 rounded-full"
+                    src={websiteInfo?.logoUrl}
                     alt="logo"
                   />
                 </Link>

@@ -7,14 +7,10 @@ import { AuthContext } from "../context/AuthContextProvider";
 import { registerUser } from "../services/apis/User";
 import handleError from "../utils/handleError";
 import { WebsiteContext } from "../context/WebsiteContextProvider";
-import { WishCraft } from "../assets/images/images";
 
 const Register = () => {
   const { createUser, updateUserProfile } = useContext(AuthContext);
   const { websiteInfo } = useContext(WebsiteContext);
-
-  const imgURL = import.meta.env.VITE_IMAGE_URL;
-  const image = `${imgURL}/${websiteInfo.logoUrl}`;
 
   const navigate = useNavigate();
   const [formSubmit, setFormSubmit] = useState(false);
@@ -117,8 +113,8 @@ const Register = () => {
               <div className="flex justify-center mx-auto">
                 <Link to="/">
                   <img
-                    className="object-cover w-16 h-16 mx-2 rounded-full"
-                    src={image || WishCraft}
+                    className="object-cover w-14 h-14 mx-2 rounded-full"
+                    src={websiteInfo?.logoUrl}
                     alt="logo"
                   />
                 </Link>

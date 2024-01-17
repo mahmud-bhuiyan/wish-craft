@@ -7,7 +7,6 @@ import { UserContext } from "../context/UserContextProvider";
 import { userLogout } from "../services/apis/User";
 import NavbarDropdown from "./NavbarDropdown";
 import { WebsiteContext } from "../context/WebsiteContextProvider";
-import { WishCraft } from "../assets/images/images";
 
 const Nav = () => {
   const [isProfileDropdownOpen, setProfileDropdownOpen] = useState(false);
@@ -16,9 +15,6 @@ const Nav = () => {
   const { user, logoutUser } = useContext(AuthContext);
   const { userDetails, isLoading } = useContext(UserContext);
   const { websiteInfo } = useContext(WebsiteContext);
-
-  const imgURL = import.meta.env.VITE_IMAGE_URL;
-  const image = `${imgURL}/${websiteInfo.logoUrl}`;
 
   // Extracting the first name from the user's display name
   const firstName = user
@@ -61,13 +57,15 @@ const Nav = () => {
     <nav className="bg-[#402F3F] shadow fixed top-0 w-full z-50">
       <div className="max-w-screen-xl p-2 mx-auto">
         <div className="flex items-center justify-between">
-          <Link to="/">
+          <Link to="/" className="flex justify-center">
             <img
-              // className="w-auto h-6 sm:h-7 bg-white rounded-full bg-white"
-              className="object-cover w-6 sm:w-7 h-6 sm:h-7 mx-2 rounded-full bg-white"
-              src={image || WishCraft}
+              className="object-cover w-7 h-6 sm:h-7 mx-2 rounded-full bg-white"
+              src={websiteInfo?.logoUrl}
               alt="Logo"
             />
+            <span className="text-white font-semibold text-xl hidden md:flex">
+              {websiteInfo?.name}
+            </span>
           </Link>
 
           <div className="relative flex gap-4">
