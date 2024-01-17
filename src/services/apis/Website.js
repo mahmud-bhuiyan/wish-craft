@@ -28,11 +28,11 @@ export const updateWebsiteInfo = async (updatedInfo) => {
 // =============================================
 //               update Website image
 // =============================================
-export const updateWebsiteImage = async (formData) => {
+export const updateWebsiteImage = async (imageUrl) => {
   try {
     const response = await axiosSecureInstance.patch(
       "/website/upload",
-      formData
+      imageUrl
     );
     return response.data;
   } catch (error) {

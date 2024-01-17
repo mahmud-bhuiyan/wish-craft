@@ -46,7 +46,7 @@ const Home = () => {
               {sortingOptions.map((option) => (
                 <button
                   key={option.label}
-                  className=" mr-2 mt-2 lg:w-full"
+                  className="px-4 py-2 bg-slate-100 rounded mr-2 mt-2 lg:w-full hover:bg-slate-200 text-gray-600 font-semibold"
                   onClick={() => handleSort(option.field, option.order)}
                 >
                   {option.label}

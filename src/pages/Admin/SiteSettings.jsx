@@ -8,15 +8,11 @@ import CustomTextarea from "../../components/CustomComponents/CustomTextarea";
 import CustomFormButton from "../../components/CustomComponents/CustomFormButton";
 import CustomSelect from "../../components/CustomComponents/CustomSelect";
 import CustomHelmet from "../../components/CustomComponents/CustomHelmet";
-// import ImageUpload from "../../components/ImageUpload";
-import { WishCraft } from "../../assets/images/images";
+import UploadImage from "../../components/UploadImage";
 
 const SiteSettings = () => {
   // Accessing the website information context
   const { websiteInfo, setRefetch } = useContext(WebsiteContext);
-
-  const imgURL = import.meta.env.VITE_IMAGE_URL;
-  const image = `${imgURL}/${websiteInfo.logoUrl}`;
 
   // State to manage loading state during form submission
   const [loading, setLoading] = useState(false);
@@ -35,7 +31,6 @@ const SiteSettings = () => {
       setValue("name", websiteInfo.name);
       setValue("title", websiteInfo.title);
       setValue("description", websiteInfo.description);
-      setValue("logoUrl", websiteInfo.logoUrl);
       setValue("boardStatus", websiteInfo.boardStatus);
       setValue("sortingOrder", websiteInfo.sortingOrder);
     }
@@ -48,7 +43,6 @@ const SiteSettings = () => {
       data.name !== websiteInfo.name ||
       data.title !== websiteInfo.title ||
       data.description !== websiteInfo.description ||
-      data.logoUrl !== websiteInfo.logoUrl ||
       data.sortingOrder !== websiteInfo.sortingOrder ||
       data.boardStatus !== websiteInfo.boardStatus;
 
@@ -62,7 +56,6 @@ const SiteSettings = () => {
       name: data.name,
       title: data.title,
       description: data.description,
-      logoUrl: data.logoUrl,
       sortingOrder: data.sortingOrder,
       boardStatus: data.boardStatus,
     };
@@ -139,15 +132,7 @@ const SiteSettings = () => {
                 register={register}
                 errors={errors}
               />
-              {/* Custom input field for logo */}
-              <CustomInputField
-                label="Homepage Title"
-                type="text"
-                name="logoUrl"
-                placeholder="Homepage Title"
-                register={register}
-                errors={errors}
-              />
+              {/* Custom select field for Status */}
               <CustomSelect
                 label="Board Status"
                 options={statusOptions}
@@ -155,6 +140,7 @@ const SiteSettings = () => {
                 name="boardStatus"
                 errors={errors}
               />
+              {/* Custom select field for Sorting */}
               <CustomSelect
                 label="Features Sorting Order"
                 id="sortingOrder"
@@ -180,7 +166,7 @@ const SiteSettings = () => {
               <div className="flex flex-col items-center -mx-2">
                 <img
                   className="object-cover w-24 h-24 mx-2 rounded-full"
-                  src={image || websiteInfo.logoUrl || WishCraft}
+                  src={websiteInfo.logoUrl}
                   alt="logo"
                 />
                 <h4 className="mx-2 mt-4 font-medium text-gray-800 text-2xl">
@@ -192,8 +178,16 @@ const SiteSettings = () => {
                 <p className="mx-2 mt-4 text-sm font-medium text-gray-600 text-center">
                   {websiteInfo.description}
                 </p>
+
+                <div className="mt-6 divider mx-4"></div>
+                
                 {/* image upload  */}
-                {/* <ImageUpload /> */}
+                <div className="shadow-md p-4 rounded-md">
+                  <h3 className="font-bold text-xl font-mono underline text-center">
+                    Upload Website Logo
+                  </h3>
+                  <UploadImage />
+                </div>
               </div>
             </div>
           </div>
