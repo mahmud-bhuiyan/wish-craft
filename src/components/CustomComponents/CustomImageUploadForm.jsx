@@ -1,19 +1,15 @@
-import { useContext, useState } from "react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import { updateWebsiteImage } from "../services/apis/Website";
-import { toast } from "react-toastify";
-import { WebsiteContext } from "../context/WebsiteContextProvider";
 
-const UploadImage = () => {
-  const { setRefetch } = useContext(WebsiteContext);
+const CustomImageUploadForm = ({ onUploadSuccess, loading, setLoading }) => {
   const { register, handleSubmit, reset } = useForm();
-  const [loading, setLoading] = useState(false);
 
-  const onSubmit = async (data) => {
+  // Function to handle image upload to ImgBB
+  const handleImgBBUpload = async (data) => {
     try {
       setLoading(true);
 
+      // Create FormData and append the selected image to it
       const formData = new FormData();
       formData.append("image", data.image[0]);
 
@@ -27,27 +23,17 @@ const UploadImage = () => {
         }
       );
 
-      const imageData = {
-        logoUrl: response.data.data.url,
-      };
-
-      const result = await updateWebsiteImage(imageData);
-
-      if (result.success) {
-        setRefetch((prevRefetch) => !prevRefetch);
-        toast.success(result.message);
-        reset();
-      }
+      const imageURL = response.data.data.url;
+      onUploadSuccess(imageURL);
+      reset();
     } catch (error) {
       console.error("Error uploading image:", error);
-    } finally {
-      setLoading(false);
     }
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <div className="mt-4">
+      <form onSubmit={handleSubmit(handleImgBBUpload)}>
         <div>
           <input
             className="file-input file-input-bordered w-full"
@@ -60,7 +46,7 @@ const UploadImage = () => {
         <button
           type="submit"
           disabled={loading}
-          className="px-4 py-2 bg-slate-300 hover:bg-slate-400 mt-2 rounded"
+          className="px-4 py-2 bg-slate-300 hover:bg-slate-400 mt-3 rounded"
         >
           {loading ? "Uploading..." : "Submit"}
         </button>
@@ -69,4 +55,4 @@ const UploadImage = () => {
   );
 };
 
-export default UploadImage;
+export default CustomImageUploadForm;

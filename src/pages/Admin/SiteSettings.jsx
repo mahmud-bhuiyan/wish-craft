@@ -8,7 +8,7 @@ import CustomTextarea from "../../components/CustomComponents/CustomTextarea";
 import CustomFormButton from "../../components/CustomComponents/CustomFormButton";
 import CustomSelect from "../../components/CustomComponents/CustomSelect";
 import CustomHelmet from "../../components/CustomComponents/CustomHelmet";
-import UploadImage from "../../components/UploadImage";
+import DisplayWebsiteDetails from "../../components/Admin/Settings/DisplayWebsiteDetails";
 
 const SiteSettings = () => {
   // Accessing the website information context
@@ -98,6 +98,7 @@ const SiteSettings = () => {
       <CustomHelmet pageName={"Settings"} />
       <div className="max-w-screen-xl pt-6 px-4 w-full mx-auto">
         <div className="lg:flex gap-6 overflow-hidden dark:bg-gray-800">
+          {/* left div */}
           <div className="lg:w-7/12 bg-white shadow-lg rounded">
             <h2 className="p-2 font-bold text-2xl ml-5 font-mono">Settings</h2>
             <hr />
@@ -157,40 +158,9 @@ const SiteSettings = () => {
               />
             </form>
           </div>
-          <div className="lg:w-5/12 my-4 lg:m-0 bg-white shadow-lg rounded ">
-            <h2 className="p-2 font-bold text-2xl ml-5 font-mono text-center">
-              Website Info&apos;s
-            </h2>
-            <hr />
-            <div className="px-6 pb-6 pt-4">
-              <div className="flex flex-col items-center -mx-2">
-                <img
-                  className="object-cover w-24 h-24 mx-2 rounded-full"
-                  src={websiteInfo.logoUrl}
-                  alt="logo"
-                />
-                <h4 className="mx-2 mt-4 font-medium text-gray-800 text-2xl">
-                  {websiteInfo.name}
-                </h4>
-                <p className="mx-2 mt-4 text-lg font-medium text-gray-600">
-                  {websiteInfo.title}
-                </p>
-                <p className="mx-2 mt-4 text-sm font-medium text-gray-600 text-center">
-                  {websiteInfo.description}
-                </p>
 
-                <div className="mt-6 divider mx-4"></div>
-                
-                {/* image upload  */}
-                <div className="shadow-md p-4 rounded-md">
-                  <h3 className="font-bold text-xl font-mono underline text-center">
-                    Upload Website Logo
-                  </h3>
-                  <UploadImage />
-                </div>
-              </div>
-            </div>
-          </div>
+          {/* right div */}
+          <DisplayWebsiteDetails />
         </div>
       </div>
     </>
