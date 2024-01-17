@@ -32,6 +32,7 @@ const NavbarDropdown = ({
           <button onClick={handleLogOut}>Sign Out</button>
         </div>
       </div>
+      <Link to="/profile">My Profile</Link>
     </div>
   );
 };

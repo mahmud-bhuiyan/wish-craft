@@ -85,8 +85,6 @@ const FeaturesContextProvider = ({ children }) => {
   }, [user, refetch, searchTerm, sortBy, sortOrder, activeSorting]);
 
   const handleSort = async (field, order) => {
-    console.log(field);
-    console.log(order);
     try {
       setSortBy(field);
       setSortOrder(order);

@@ -15,6 +15,7 @@ import AdminRoutes from "./AdminRoutes";
 import FeatureRequests from "../pages/Admin/FeatureRequests";
 import AllUsers from "../pages/Admin/AllUsers";
 import SiteSettings from "../pages/Admin/SiteSettings";
+import Profile from "../pages/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -38,7 +39,14 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-
+      {
+        path: "/profile",
+        element: (
+          <PrivateRoute>
+            <Profile />
+          </PrivateRoute>
+        ),
+      },
       {
         path: "/users/profile",
         element: (
