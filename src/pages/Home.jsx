@@ -1,11 +1,11 @@
 import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
-import { FaQuestion } from "react-icons/fa6";
-import { MdDone, MdSearch } from "react-icons/md";
+import { MdSearch } from "react-icons/md";
 import { FeaturesContext } from "../context/FeaturesContextProvider";
 import FeatureRequestItem from "../components/Feature/FeatureRequestItem";
 import Loader from "../components/Loader";
 import { WebsiteContext } from "../context/WebsiteContextProvider";
+import SortingButtons from "../components/SortingButtons";
 
 const Home = () => {
   const {
@@ -21,18 +21,6 @@ const Home = () => {
 
   const { websiteInfo } = useContext(WebsiteContext);
 
-  // An array of sorting options
-  const sortingOptions = [
-    { field: "createdAt", order: "desc", label: "Newest" },
-    { field: "createdAt", order: "asc", label: "Oldest" },
-    { field: "likes", order: "desc", label: "Likes (Higher to Lower)" },
-    { field: "likes", order: "asc", label: "Likes (Lower to Higher)" },
-    { field: "comments", order: "desc", label: "Comments (Higher to Lower)" },
-    { field: "comments", order: "asc", label: "Comments (Lower to Higher)" },
-    { field: "title", order: "asc", label: "A-Z" },
-    { field: "title", order: "desc", label: "Z-A" },
-  ];
-
   return (
     <div>
       <Helmet>
@@ -46,24 +34,11 @@ const Home = () => {
             <div className="lg:w-1/3 lg:order-first p-4 border-2 m-3 rounded-lg">
               <h3 className="uppercase font-bold lg:text-xl">Sort By</h3>
               {/* Sorting buttons with dynamic options */}
-              {sortingOptions.map((option) => (
-                <button
-                  key={option.label}
-                  className={`flex justify-center gap-2 align-middle p-2 bg-slate-100 rounded mr-2 mt-2 lg:w-full hover:bg-slate-200 text-gray-600 font-semibold ${
-                    sortBy === option.field && sortOrder === option.order
-                      ? "bg-green-200/50 hover:bg-green-200"
-                      : ""
-                  }`}
-                  onClick={() => handleSort(option.field, option.order)}
-                >
-                  {option.label}{" "}
-                  {sortBy === option.field && sortOrder === option.order ? (
-                    <MdDone className="text-xl mt-1 bg-green-300 rounded text-[#332532]" />
-                  ) : (
-                    <FaQuestion className="text-xl p-1 mt-1 bg-green-300 rounded text-[#332532]" />
-                  )}
-                </button>
-              ))}
+              <SortingButtons
+                sortBy={sortBy}
+                sortOrder={sortOrder}
+                handleSort={handleSort}
+              />
             </div>
 
             {/* Content for the right div */}
