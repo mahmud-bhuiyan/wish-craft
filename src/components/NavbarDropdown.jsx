@@ -6,7 +6,7 @@ import { UserContext } from "../context/UserContextProvider";
 
 const NavbarDropdownItem = ({ to, icon, label, onClick }) => {
   return (
-    <div className="block w-full py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform hover:bg-gray-200 text-center cursor-pointer">
+    <div className="block w-full py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform hover:bg-gray-100 rounded text-center cursor-pointer">
       {to ? (
         <Link to={to} className="flex gap-2 justify-center items-center">
           {icon}
@@ -39,28 +39,33 @@ const NavbarDropdown = ({
         display: isProfileDropdownOpen ? "block" : "none",
       }}
       onClick={() => setProfileDropdownOpen(false)}
-      className="absolute right-0 z-20 w-40 mb-2 py-2 origin-top-right bg-white rounded-md shadow-xl"
+      className="absolute right-0 mt-11 w-40 mb-2 origin-top-right bg-white rounded shadow-xl"
     >
       <NavbarDropdownItem
         to="/users/profile"
-        icon={<FaUserCog className="text-xl pt-1" />}
+        icon={<FaUserCog className="text-lg" />}
         label="Your profile"
       />
+      <hr className="border-gray-200 dark:border-gray-700 " />
       <NavbarDropdownItem
         to="/profile"
-        icon={<FaRegUser className="text-xl pt-1" />}
+        icon={<FaRegUser className="text-lg" />}
         label="My Profile"
       />
+      <hr className="border-gray-200 dark:border-gray-700 " />
       {userDetails?.role === "admin" && (
-        <NavbarDropdownItem
-          to="/admin/feature-requests"
-          icon={<MdAdminPanelSettings className="text-2xl pt-1" />}
-          label="Settings"
-        />
+        <>
+          <NavbarDropdownItem
+            to="/admin/feature-requests"
+            icon={<MdAdminPanelSettings className="text-xl" />}
+            label="Settings"
+          />
+          <hr className="border-gray-200 dark:border-gray-700 " />
+        </>
       )}
       <NavbarDropdownItem
         onClick={handleLogOut}
-        icon={<MdOutlineLogout className="text-xl mt-1" />}
+        icon={<MdOutlineLogout className="text-lg" />}
         label="Sign Out"
       />
     </div>

@@ -15,28 +15,57 @@ const SortingButtons = ({ sortBy, sortOrder, handleSort }) => {
   ];
 
   return (
-    <div className="flex flex-wrap">
-      {sortingOptions.map((option) => (
-        <button
-          key={option.label}
-          className={`flex flex-col justify-center items-center gap-2 p-2 bg-slate-100 rounded mr-2 mt-2 lg:w-full hover:bg-slate-200 text-gray-600 font-semibold ${
-            sortBy === option.field && sortOrder === option.order
-              ? "bg-green-200/50 hover:bg-green-200"
-              : ""
-          }`}
-          onClick={() => handleSort(option.field, option.order)}
+    <>
+      {/* Regular Buttons (hidden on small screens) */}
+      <div className="flex flex-wrap sm:flex-col">
+        <div className="hidden sm:flex flex-wrap">
+          {sortingOptions.map((option) => (
+            <button
+              key={option.label}
+              className={`flex flex-col justify-center items-center gap-2 p-2 bg-slate-100 rounded mr-2 mt-2 lg:w-full hover:bg-slate-200 text-gray-600 font-semibold ${
+                sortBy === option.field && sortOrder === option.order
+                  ? "bg-green-200/50 hover:bg-green-200"
+                  : ""
+              }`}
+              onClick={() => handleSort(option.field, option.order)}
+            >
+              <div className="flex items-center">
+                <span>{option.label}</span>
+                {sortBy === option.field && sortOrder === option.order ? (
+                  <MdDone className="text-xl ml-2 mt-1 bg-green-300 rounded text-[#332532]" />
+                ) : (
+                  <FaQuestion className="text-xl ml-2 p-1 bg-green-300 rounded text-[#332532]" />
+                )}
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Dropdown (visible on small screens) */}
+      <div className="sm:hidden relative mt-2">
+        <select
+          className="block appearance-none w-full bg-slate-100 border border-gray-300 text-gray-600 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          onChange={(e) => {
+            const [field, order] = e.target.value.split("-");
+            handleSort(field, order);
+          }}
         >
-          <div className="flex items-center">
-            <span>{option.label}</span>
-            {sortBy === option.field && sortOrder === option.order ? (
-              <MdDone className="text-xl ml-2 mt-1 bg-green-300 rounded text-[#332532]" />
-            ) : (
-              <FaQuestion className="text-xl ml-2 p-1 bg-green-300 rounded text-[#332532]" />
-            )}
-          </div>
-        </button>
-      ))}
-    </div>
+          {sortingOptions.map((option) => (
+            <option
+              key={option.label}
+              value={`${option.field}-${option.order}`}
+            >
+              {option.label}
+            </option>
+          ))}
+        </select>
+        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-600">
+          {/* You can use your icons here if needed */}
+          <MdDone className="text-xl p-1 bg-green-300 rounded text-[#332532]" />
+        </div>
+      </div>
+    </>
   );
 };
 

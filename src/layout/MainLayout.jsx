@@ -1,6 +1,6 @@
 import { Outlet, useLocation } from "react-router-dom";
 import Footer from "../components/Footer";
-import Nav from "../components/Nav";
+import Navbar from "../components/Navbar";
 import HeroSection from "../components/HeroSection";
 
 const MainLayout = () => {
@@ -9,7 +9,7 @@ const MainLayout = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Nav />
+      <Navbar />
 
       {noNavigation ? null : <HeroSection />}
 

@@ -7,7 +7,7 @@ import { userLogout } from "../services/apis/User";
 import NavbarDropdown from "./NavbarDropdown";
 import { WebsiteContext } from "../context/WebsiteContextProvider";
 
-const Nav = () => {
+const Navbar = () => {
   const [isProfileDropdownOpen, setProfileDropdownOpen] = useState(false);
 
   const dropdownRef = useRef(null);
@@ -75,8 +75,6 @@ const Nav = () => {
                   className="relative z-10 block p-1 sm:px-2 bg-[#241A24] border-2 hover:border-slate-500 rounded-md text-[#A99FA8] hover:text-white"
                 >
                   <div className="flex items-center gap-2">
-                    {/* Displaying the first name */}
-                    <h3 className="text-sm">{firstName}</h3>
                     <div className="w-8 h-8 overflow-hidden border-2 border-gray-400 rounded-full">
                       {user && user.photoURL ? (
                         <img
@@ -92,6 +90,19 @@ const Nav = () => {
                         />
                       )}
                     </div>
+                    {/* Displaying the first name */}
+                    <h3 className="text-sm">{firstName}</h3>
+                    <svg
+                      className="w-3 h-3 mx-1"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M12 15.713L18.01 9.70299L16.597 8.28799L12 12.888L7.40399 8.28799L5.98999 9.70199L12 15.713Z"
+                        fill="currentColor"
+                      ></path>
+                    </svg>
                   </div>
                 </button>
               </>
@@ -123,4 +134,4 @@ const Nav = () => {
   );
 };
 
-export default Nav;
+export default Navbar;
