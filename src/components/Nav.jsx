@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { BiLogIn } from "react-icons/bi";
 import { toast } from "react-toastify";
 import { AuthContext } from "../context/AuthContextProvider";
-import { UserContext } from "../context/UserContextProvider";
 import { userLogout } from "../services/apis/User";
 import NavbarDropdown from "./NavbarDropdown";
 import { WebsiteContext } from "../context/WebsiteContextProvider";
@@ -13,7 +12,6 @@ const Nav = () => {
 
   const dropdownRef = useRef(null);
   const { user, logoutUser } = useContext(AuthContext);
-  const { userDetails, isLoading } = useContext(UserContext);
   const { websiteInfo } = useContext(WebsiteContext);
 
   // Extracting the first name from the user's display name
@@ -69,23 +67,6 @@ const Nav = () => {
           </Link>
 
           <div className="relative flex gap-4">
-            {isLoading ? (
-              <></>
-            ) : (
-              <>
-                {userDetails?.role === "admin" && (
-                  <>
-                    <Link
-                      to="/admin/feature-requests"
-                      className="btn border-2 border-gray-400 hover:border-slate-500 rounded-md text-[#A99FA8] hover:text-black bg-[#241A24]"
-                    >
-                      Admin Panel
-                    </Link>
-                  </>
-                )}
-              </>
-            )}
-
             {user ? (
               <>
                 {/* Dropdown toggle button */}

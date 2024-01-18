@@ -1,15 +1,16 @@
-import { DNA } from "react-loader-spinner";
+import { Hourglass } from "react-loader-spinner";
 
 const Loader = () => {
   return (
     <div className="w-full min-h-screen flex items-center justify-center">
-      <DNA
+      <Hourglass
         visible={true}
         height="80"
         width="80"
-        ariaLabel="dna-loading"
+        ariaLabel="hourglass-loading"
         wrapperStyle={{}}
-        wrapperClass="dna-wrapper"
+        wrapperClass=""
+        colors={["#306cce", "#72a1ed"]}
       />
     </div>
   );

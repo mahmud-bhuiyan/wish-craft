@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Breadcrumbs = ({ pageTitle, fromPage, fromURL }) => {
   return (
-    <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between align-middle">
+    <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between align-middle">
       <h2 className="text-xl md:text-2xl font-bold text-black dark:text-white">
         {pageTitle}
       </h2>

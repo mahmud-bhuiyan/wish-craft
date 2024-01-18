@@ -26,7 +26,7 @@ export const UserContextProvider = ({ children }) => {
           } finally {
             setIsLoading(false);
           }
-        }, 500);
+        }, 1000);
 
         return () => clearTimeout(timeoutId);
       } else {
