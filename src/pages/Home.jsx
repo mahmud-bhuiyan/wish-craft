@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
-import { MdSearch } from "react-icons/md";
+import { FaQuestion } from "react-icons/fa6";
+import { MdDone, MdSearch } from "react-icons/md";
 import { FeaturesContext } from "../context/FeaturesContextProvider";
 import FeatureRequestItem from "../components/Feature/FeatureRequestItem";
 import Loader from "../components/Loader";
@@ -14,6 +15,8 @@ const Home = () => {
     searchResults,
     setSearchTerm,
     handleSort,
+    sortBy,
+    sortOrder,
   } = useContext(FeaturesContext);
 
   const { websiteInfo } = useContext(WebsiteContext);
@@ -46,10 +49,19 @@ const Home = () => {
               {sortingOptions.map((option) => (
                 <button
                   key={option.label}
-                  className="px-4 py-2 bg-slate-100 rounded mr-2 mt-2 lg:w-full hover:bg-slate-200 text-gray-600 font-semibold"
+                  className={`flex justify-center gap-2 align-middle p-2 bg-slate-100 rounded mr-2 mt-2 lg:w-full hover:bg-slate-200 text-gray-600 font-semibold ${
+                    sortBy === option.field && sortOrder === option.order
+                      ? "bg-green-200/50 hover:bg-green-200"
+                      : ""
+                  }`}
                   onClick={() => handleSort(option.field, option.order)}
                 >
-                  {option.label}
+                  {option.label}{" "}
+                  {sortBy === option.field && sortOrder === option.order ? (
+                    <MdDone className="text-xl mt-1 bg-green-300 rounded text-[#332532]" />
+                  ) : (
+                    <FaQuestion className="text-xl p-1 mt-1 bg-green-300 rounded text-[#332532]" />
+                  )}
                 </button>
               ))}
             </div>

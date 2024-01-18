@@ -105,6 +105,8 @@ const FeaturesContextProvider = ({ children }) => {
     searchResults,
     setSearchResults,
     handleSort,
+    sortBy,
+    sortOrder,
   };
 
   return (
