@@ -24,12 +24,11 @@ const DisplayWebsiteDetails = () => {
             {name}
           </h4>
           <p className="mx-2 mt-4 text-lg font-medium text-gray-600">{title}</p>
-          <p className="mx-2 mt-4 text-sm font-medium text-gray-600 text-center">
+          <p className="mx-2 my-4 text-sm font-medium text-gray-600 text-center">
             {description}
           </p>
 
           {/* website logo upload  */}
-          <div className="mt-6 divider mx-4"></div>
           <WebsiteLogoUpload />
         </div>
       </div>

@@ -32,8 +32,8 @@ const WebsiteLogoUpload = () => {
   };
 
   return (
-    <div className="shadow-md p-4 rounded-md">
-      <h3 className="font-bold text-xl font-mono underline text-center">
+    <div className="px-4 rounded-md w-full">
+      <h3 className="font-bold text-xl font-mono underline text-center my-4">
         Upload Website Logo
       </h3>
       <CustomImageUploadForm

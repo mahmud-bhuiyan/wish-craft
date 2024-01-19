@@ -25,7 +25,7 @@ const Sidebar = () => {
     {
       to: "/admin/feature-requests",
       icon: <MdOutlineFeaturedVideo className="text-lg" />,
-      text: "Requests",
+      text: "Dashboard",
     },
     {
       to: "/admin/users",

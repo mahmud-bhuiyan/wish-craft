@@ -9,6 +9,7 @@ import CustomFormButton from "../../components/CustomComponents/CustomFormButton
 import CustomSelect from "../../components/CustomComponents/CustomSelect";
 import CustomHelmet from "../../components/CustomComponents/CustomHelmet";
 import DisplayWebsiteDetails from "../../components/Admin/Settings/DisplayWebsiteDetails";
+import Breadcrumbs from "../../components/Breadcrumbs";
 
 const SiteSettings = () => {
   // Accessing the website information context
@@ -97,10 +98,17 @@ const SiteSettings = () => {
     <>
       <CustomHelmet pageName={"Settings"} />
       <div className="max-w-screen-xl pt-6 px-4 w-full mx-auto">
+        <Breadcrumbs
+          fromPage={"Dashboard"}
+          pageTitle={"Settings"}
+          fromURL={"/admin/feature-requests"}
+        />
         <div className="lg:flex gap-6 overflow-hidden dark:bg-gray-800">
           {/* left div */}
           <div className="lg:w-7/12 bg-white shadow-lg rounded">
-            <h2 className="p-2 font-bold text-2xl ml-5 font-mono">Settings</h2>
+            <h2 className="p-2 font-bold text-2xl ml-5 font-mono">
+              Update Information
+            </h2>
             <hr />
             {/* Form for updating website information */}
             <form

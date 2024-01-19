@@ -15,7 +15,7 @@ const Profile = () => {
   return (
     <div className="mx-auto min-h-screen max-w-7xl mt-16 p-4">
       <div className="mx-auto">
-        {/* Breadcrumb Start */}
+        {/* Breadcrumb */}
         <Breadcrumbs fromPage={"Home"} pageTitle={"Profile"} fromURL={"/"} />
 
         {/* Profile Section Start */}
