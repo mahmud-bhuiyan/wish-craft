@@ -6,6 +6,7 @@ import FeatureRequestItem from "../components/Feature/FeatureRequestItem";
 import Loader from "../components/Loader";
 import { WebsiteContext } from "../context/WebsiteContextProvider";
 import SortingButtons from "../components/SortingButtons";
+import Pagination from "../components/Pagination";
 
 const Home = () => {
   const {
@@ -17,6 +18,13 @@ const Home = () => {
     handleSort,
     sortBy,
     sortOrder,
+    currentPage,
+    itemsPerPage,
+    totalPages,
+    hasMoreNext,
+    hasMorePrev,
+    handlePageChange,
+    handleItemsPerPageChange,
   } = useContext(FeaturesContext);
 
   const { websiteInfo } = useContext(WebsiteContext);
@@ -43,17 +51,34 @@ const Home = () => {
 
             {/* Content for the right div */}
             <div className="flex-1">
-              {/* Search bar with icon */}
-              <div className="relative m-3">
-                <MdSearch className="absolute left-3 top-2.5 text-gray-500 text-2xl" />
-                <input
-                  type="text"
-                  placeholder="Search by keywords..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="p-2 pl-10 border rounded w-full"
-                />
+              {/* Search bar with icon and items per page dropdown */}
+              <div className="sm:flex justify-between items-center m-3">
+                <div className="relative sm:w-3/5">
+                  <MdSearch className="absolute left-3 top-2.5 text-gray-500 text-2xl" />
+                  <input
+                    type="text"
+                    placeholder="Search by keywords..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="p-2 pl-10 border rounded w-full"
+                  />
+                </div>
+                <div className="flex items-center w-auto mt-3 sm:mt-0 justify-end">
+                  <label className="mr-2">Show requests:</label>
+                  <select
+                    value={itemsPerPage}
+                    onChange={(e) =>
+                      handleItemsPerPageChange(parseInt(e.target.value))
+                    }
+                    className="border rounded p-2"
+                  >
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                  </select>
+                </div>
               </div>
+
+              {/* Feature items */}
               <div className="p-4 border-2 m-3 rounded-lg">
                 {loading ? (
                   <Loader />
@@ -68,6 +93,15 @@ const Home = () => {
                     <FeatureRequestItem key={feature._id} feature={feature} />
                   ))
                 )}
+
+                {/* Pagination controls */}
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  hasMorePrev={hasMorePrev}
+                  hasMoreNext={hasMoreNext}
+                  onPageChange={handlePageChange}
+                />
               </div>
             </div>
           </div>

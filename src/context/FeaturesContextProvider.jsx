@@ -22,6 +22,13 @@ const FeaturesContextProvider = ({ children }) => {
   const [sortBy, setSortBy] = useState("");
   const [sortOrder, setSortOrder] = useState("");
 
+  // State variables for pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
+  const [totalPages, setTotalPages] = useState(1);
+  const [hasMoreNext, setHasMoreNext] = useState(false);
+  const [hasMorePrev, setHasMorePrev] = useState(false);
+
   // Get the activeSorting value from websiteInfo
   const activeSorting = websiteInfo?.sortingOrder;
 
@@ -51,7 +58,12 @@ const FeaturesContextProvider = ({ children }) => {
           response = await searchRequest(searchTerm);
         } else if (sortBy) {
           // If there is sortBy, call the API with sorted data
-          response = await getAllRequest(sortBy, sortOrder);
+          response = await getAllRequest(
+            sortBy,
+            sortOrder,
+            currentPage,
+            itemsPerPage
+          );
         }
 
         // Update loading status
@@ -65,6 +77,10 @@ const FeaturesContextProvider = ({ children }) => {
           if (response.searchResults) {
             setSearchResults(response.searchResults);
           }
+          // Set pagination information
+          setTotalPages(response.pageInfo.totalPages);
+          setHasMoreNext(response.pageInfo.hasMoreNext);
+          setHasMorePrev(response.pageInfo.hasMorePrev);
         }
       } catch (error) {
         // Log any errors that occur during the API calls
@@ -82,12 +98,43 @@ const FeaturesContextProvider = ({ children }) => {
 
     // Clean up interval when the component is unmounted
     return () => clearInterval(intervalId);
-  }, [user, refetch, searchTerm, sortBy, sortOrder, activeSorting]);
+  }, [
+    user,
+    refetch,
+    searchTerm,
+    sortBy,
+    sortOrder,
+    activeSorting,
+    currentPage,
+    itemsPerPage,
+  ]);
+
+  const handlePageChange = async (newPage) => {
+    try {
+      if (newPage >= 1 && newPage <= totalPages) {
+        setCurrentPage(newPage);
+        setRefetch((prevRefetch) => !prevRefetch);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleItemsPerPageChange = async (newItemsPerPage) => {
+    try {
+      setItemsPerPage(newItemsPerPage);
+      setCurrentPage(1);
+      setRefetch((prevRefetch) => !prevRefetch);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleSort = async (field, order) => {
     try {
       setSortBy(field);
       setSortOrder(order);
+      setCurrentPage(1);
       setRefetch((prevRefetch) => !prevRefetch);
     } catch (error) {
       console.error(error);
@@ -107,6 +154,13 @@ const FeaturesContextProvider = ({ children }) => {
     handleSort,
     sortBy,
     sortOrder,
+    currentPage,
+    itemsPerPage,
+    totalPages,
+    hasMoreNext,
+    hasMorePrev,
+    handlePageChange,
+    handleItemsPerPageChange,
   };
 
   return (
