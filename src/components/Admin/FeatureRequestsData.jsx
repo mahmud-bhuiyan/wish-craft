@@ -7,9 +7,11 @@ import {
   deleteFeatureRequest,
   updateFeatureStatus,
 } from "../../services/apis/Feature";
+import CustomDateFormat from "../../utils/CustomDateFormat";
 
 const FeatureRequestsData = ({ feature, index, setRefetch }) => {
-  const { _id, title, description, createdBy, status } = feature;
+  const { _id, createdAt, title, description, createdBy, status } = feature;
+
   const [newStatus, setNewStatus] = useState(status);
   const [localLoading, setLocalLoading] = useState(false);
 
@@ -81,6 +83,11 @@ const FeatureRequestsData = ({ feature, index, setRefetch }) => {
     <tr key={_id}>
       <td className="py-1.5 px-2 text-sm font-normal text-gray-800">
         {index + 1}
+      </td>
+      <td className="py-1.5 px-2 text-sm font-normal text-gray-800">
+        {CustomDateFormat(createdAt, {
+          showTimeOff: true,
+        })}
       </td>
       <td className="py-1.5 px-2 text-sm font-normal text-gray-800">{title}</td>
       <td className="py-1.5 px-2 text-sm font-normal text-gray-800">

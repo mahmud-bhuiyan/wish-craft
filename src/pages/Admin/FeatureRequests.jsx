@@ -21,12 +21,13 @@ const FeatureRequests = () => {
     handleItemsPerPageChange,
   } = useContext(FeaturesContext);
 
-  const [sortColumn, setSortColumn] = useState("title");
-  const [sortOrder, setSortOrder] = useState("asc");
+  const [sortColumn, setSortColumn] = useState("createdAt");
+  const [sortOrder, setSortOrder] = useState("desc");
 
   // Table column names
   const columns = [
     "#",
+    "Created At",
     "Title",
     "Description",
     "Request By",
@@ -46,13 +47,22 @@ const FeatureRequests = () => {
 
   const sortedFeatures = () => {
     return features.slice().sort((a, b) => {
-      const valueA = a[sortColumn].toLowerCase();
-      const valueB = b[sortColumn].toLowerCase();
+      if (sortColumn === "createdAt") {
+        const valueA = a[sortColumn];
+        const valueB = b[sortColumn];
 
-      if (sortOrder === "asc") {
-        return valueA.localeCompare(valueB, undefined, { sensitivity: "base" });
-      } else {
-        return valueB.localeCompare(valueA, undefined, { sensitivity: "base" });
+        if (typeof valueA === "string") {
+          // Case-insensitive string comparison
+          return valueA.localeCompare(valueB, undefined, {
+            sensitivity: "base",
+          });
+        } else if (valueA instanceof Date) {
+          // Date comparison using timestamps
+          return new Date(valueA).getTime() - new Date(valueB).getTime();
+        } else {
+          // Default sorting for other data types
+          return valueA < valueB ? -1 : valueA > valueB ? 1 : 0;
+        }
       }
     });
   };
@@ -107,12 +117,7 @@ const FeatureRequests = () => {
                     columns={columns}
                     sortColumn={sortColumn}
                     sortOrder={sortOrder}
-                    sortableColumns={[
-                      "title",
-                      "description",
-                      "requestBy",
-                      "status",
-                    ]}
+                    sortableColumns={["title", "description", "status"]}
                     onSort={handleSort}
                   />
                   {/* Table body */}
