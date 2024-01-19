@@ -32,7 +32,7 @@ const WebsiteLogoUpload = () => {
   };
 
   return (
-    <div className="px-4 rounded-md w-full">
+    <div className="p-4 rounded-md w-full">
       <h3 className="font-bold text-xl font-mono underline text-center my-4">
         Upload Website Logo
       </h3>

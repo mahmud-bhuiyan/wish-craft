@@ -105,7 +105,7 @@ const SiteSettings = () => {
         />
         <div className="lg:flex gap-6 overflow-hidden dark:bg-gray-800">
           {/* left div */}
-          <div className="lg:w-7/12 bg-white shadow-lg rounded">
+          <div className="lg:w-7/12 bg-white shadow-lg rounded pt-2 pb-8">
             <h2 className="p-2 font-bold text-2xl ml-5 font-mono">
               Update Information
             </h2>
