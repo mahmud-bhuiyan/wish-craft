@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContextProvider";
 import getInitials from "../../utils/getInitials";
 
-const AvatarWithText = ({ userData }) => {
+const AvatarWithText = ({ userData, off }) => {
   const { user } = useContext(AuthContext);
   const { name, photoURL } = userData;
 
@@ -19,7 +19,12 @@ const AvatarWithText = ({ userData }) => {
           {getInitials(name)}
         </div>
       )}
-      <div className="text-gray-700 cursor-pointer text-sm capitalize">
+
+      <div
+        className={`${
+          off ? "hidden sm:flex md:flex" : ""
+        } text-gray-700 cursor-pointer text-sm capitalize`}
+      >
         {name || user.displayName}
       </div>
     </div>

@@ -1,3 +1,5 @@
+import { GrFormNext, GrFormPrevious } from "react-icons/gr";
+
 const Pagination = ({
   currentPage,
   totalPages,
@@ -12,7 +14,7 @@ const Pagination = ({
         disabled={!hasMorePrev}
         className="flex items-center px-3 py-1 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-600 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200"
       >
-        Previous
+        <GrFormPrevious />
       </button>
 
       {[...Array(totalPages).keys()].map((pageNumber) => (
@@ -34,7 +36,7 @@ const Pagination = ({
         disabled={!hasMoreNext}
         className="flex items-center px-3 py-1 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-600 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200"
       >
-        Next
+        <GrFormNext />
       </button>
     </div>
   );

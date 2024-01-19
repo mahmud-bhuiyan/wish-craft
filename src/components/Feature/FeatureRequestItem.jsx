@@ -18,7 +18,7 @@ const FeatureRequestItem = ({ feature }) => {
   } = feature;
 
   return (
-    <div className="px-4 py-2 bg-white rounded-lg drop-shadow-md mb-4">
+    <div className="px-2 sm:px-4 py-2 bg-white rounded-lg drop-shadow-md mb-4">
       <div className="flex items-center justify-between gap-2 py-1">
         <h3
           className="px-2 py-1.5 text-sm font-semibold transition-colors duration-300 transform rounded cursor-pointer uppercase"
@@ -37,7 +37,7 @@ const FeatureRequestItem = ({ feature }) => {
       </div>
 
       <Link to={`/feature-requests/${_id}`}>
-        <h4 className="mt-1 text-xl font-semibold text-gray-700 hover:text-gray-600 hover:underline whitespace-normal break-words">
+        <h4 className="mt-1 text-lg sm:text-xl font-semibold text-gray-700 hover:text-gray-600 hover:underline whitespace-normal break-words">
           {title}
         </h4>
         <p className="mt-1 text-gray-600 whitespace-normal break-words">
@@ -55,7 +55,7 @@ const FeatureRequestItem = ({ feature }) => {
           </Link>
         </div>
 
-        <AvatarWithText userData={createdBy} />
+        <AvatarWithText userData={createdBy} off={"off"} />
       </div>
     </div>
   );

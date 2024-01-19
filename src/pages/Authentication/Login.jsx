@@ -98,7 +98,7 @@ const Login = () => {
         style={{ backgroundImage: 'url("https://picsum.photos/1920/1080")' }}
       >
         <div className="h-screen flex justify-center items-center">
-          <div className="bg-white mx-4 p-8 rounded shadow-md w-full md:w-1/2 lg:w-1/3">
+          <div className="bg-white mx-2 sm:mx-4 px-4 sm:px-8 py-8 rounded shadow-md w-full md:w-1/2 lg:w-1/3">
             <div className="text-center">
               <div className="flex justify-center mx-auto">
                 {/* Logo */}

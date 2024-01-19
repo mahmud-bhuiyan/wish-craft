@@ -60,10 +60,10 @@ const SingleFeaturePage = () => {
     <>
       <CustomHelmet pageName={"Feature Request"} />
       <div className="max-w-screen-xl mx-auto">
-        <div className="mx-2 my-4">
+        <div className="mx-1 sm:mx-2 my-4">
           <div className="lg:flex bg-white rounded-lg p-1">
             {/* Left div: Back to all posts link */}
-            <div className="lg:w-1/3 hidden lg:flex lg:order-first p-4 border-2 m-3 rounded-lg">
+            <div className="lg:w-1/3 hidden lg:flex lg:order-first p-2 sm:p-4 border-2 m-2 sm:m-3 rounded-lg">
               <Link
                 to="/"
                 className="w-full h-10 bg-[#F0F0F0] rounded p-2 flex gap-2 justify-center items-center"
@@ -74,7 +74,7 @@ const SingleFeaturePage = () => {
             </div>
 
             {/* Right div: Feature details */}
-            <div className="flex-1 p-4 border-2 m-3 rounded-lg">
+            <div className="flex-1 p-2 sm:p-4 border-2 m-2 sm:m-3 rounded-lg">
               {/* Back to all posts link for smaller screens */}
               <Link
                 to="/"

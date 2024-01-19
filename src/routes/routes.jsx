@@ -7,7 +7,6 @@ import Login from "../pages/Authentication/Login";
 import Register from "../pages/Authentication/Register";
 import PublicRoute from "./PublicRoute";
 import PrivateRoute from "./PrivateRoute";
-import UserProfilePage from "../pages/UserProfilePage";
 import CreateFeatureRequest from "../components/Feature/CreateFeatureRequest";
 import SingleFeaturePage from "../components/Feature/SingleFeaturePage";
 import AdminLayout from "../layout/AdminLayout";
@@ -45,14 +44,6 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Profile />
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "/users/profile",
-        element: (
-          <PrivateRoute>
-            <UserProfilePage />
           </PrivateRoute>
         ),
       },

@@ -80,36 +80,6 @@ export const userLogout = async () => {
 };
 
 // =============================================
-//                   update user
-// =============================================
-export const updateUser = async (updatedUserData) => {
-  try {
-    const response = await axiosSecureInstance.patch(
-      "/users/update",
-      updatedUserData
-    );
-    return response.data;
-  } catch (error) {
-    handleApiError(error);
-  }
-};
-
-// =============================================
-//                 update password
-// =============================================
-export const passwordUpdate = async (passwordData) => {
-  try {
-    const response = await axiosSecureInstance.patch(
-      "/users/updatePassword",
-      passwordData
-    );
-    return response.data;
-  } catch (error) {
-    handleApiError(error);
-  }
-};
-
-// =============================================
 //                  user details
 // =============================================
 export const getUserProfile = async () => {

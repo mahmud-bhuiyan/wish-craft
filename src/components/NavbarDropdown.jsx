@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { FaRegUser, FaUserCog } from "react-icons/fa";
+import { FaRegUser } from "react-icons/fa";
 import { MdAdminPanelSettings, MdOutlineLogout } from "react-icons/md";
 import { UserContext } from "../context/UserContextProvider";
 
@@ -41,11 +41,6 @@ const NavbarDropdown = ({
       onClick={() => setProfileDropdownOpen(false)}
       className="absolute right-0 mt-11 w-40 mb-2 origin-top-right bg-white rounded shadow-xl"
     >
-      <NavbarDropdownItem
-        to="/users/profile"
-        icon={<FaUserCog className="text-lg" />}
-        label="Your profile"
-      />
       <hr className="border-gray-200 dark:border-gray-700 " />
       <NavbarDropdownItem
         to="/profile"

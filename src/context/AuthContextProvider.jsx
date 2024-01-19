@@ -7,7 +7,6 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
-  updatePassword,
   updateProfile,
 } from "firebase/auth";
 import app from "../services/firebase/firebase.config";
@@ -41,11 +40,6 @@ const AuthContextProvider = ({ children }) => {
     });
   };
 
-  // update users password
-  const updateUserPassword = (password) => {
-    return updatePassword(auth.currentUser, password);
-  };
-
   // login user
   const loginUser = (email, password) => {
     setLoading(true);
@@ -74,7 +68,6 @@ const AuthContextProvider = ({ children }) => {
     loading,
     loginUser,
     logoutUser,
-    updateUserPassword,
     updateUserProfile,
     user,
   };

@@ -65,23 +65,23 @@ const CreateFeatureRequest = () => {
   };
 
   return (
-    <div className="mx-2 my-8">
-      <div className="container mx-auto max-w-3xl bg-white shadow-lg rounded-lg p-4">
+    <div className="mx-1 sm:mx-2 my-4 sm:my-8">
+      <div className="container mx-auto max-w-3xl bg-white shadow-lg rounded-lg p-2 sm:p-4">
         <CustomHelmet pageName={"Create Request"} />
 
-        <div className="p-4 border-2 rounded-lg">
+        <div className="p-2 sm:p-4 border-2 rounded-lg">
           <div className="sm:flex justify-between pb-2 sm:pb-0">
             {/* Heading and "See All Posts" link */}
-            <h2 className="font-semibold text-2xl mb-2 ml-1">
+            <h2 className="font-semibold text-xl sm:text-2xl mb-2 ml-1">
               Create Feature Request
             </h2>
 
             <Link
               to="/"
               onClick={() => setRefetch((prevRefresh) => !prevRefresh)}
-              className="bg-[#F0F0F0] rounded p-2 flex gap-2 justify-center items-center"
+              className="bg-[#F0F0F0] rounded p-1 sm:p-2 flex gap-2 justify-center items-center"
             >
-              <IoReturnUpBackSharp className="text-2xl" />
+              <IoReturnUpBackSharp className="text-xl sm:text-2xl" />
               SEE ALL POSTS
             </Link>
           </div>
@@ -113,7 +113,7 @@ const CreateFeatureRequest = () => {
             {/* Submit button with custom loading state */}
             <CustomFormButton
               buttonText={"REQUEST FEATURE"}
-              loadingText={"REQUESTING NEW FEATURE..."}
+              loadingText={"REQUESTING"}
               loading={formSubmit}
               color={"custom"}
             />

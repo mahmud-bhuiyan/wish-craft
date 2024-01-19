@@ -36,7 +36,7 @@ const DeleteComment = ({ commentUser, featureId, commentId, setRefresh }) => {
           disabled={isDeleting}
           className={`${
             isDeleting ? "text-red-400" : "text-slate-500"
-          } hover:text-red-400 text-sm cursor-pointer pt-2 pl-2 font-semibold`}
+          } hover:text-red-400 text-sm cursor-pointer sm:pt-2 pl-2 font-semibold`}
         >
           {isDeleting ? "Deleting..." : "Delete"}
         </button>
