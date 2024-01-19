@@ -13,6 +13,7 @@ const FeaturesContextProvider = ({ children }) => {
   const [features, setFeatures] = useState([]);
   const [loading, setLoading] = useState(true);
   const [refetch, setRefetch] = useState(false);
+  const [statuses, setStatuses] = useState([]);
 
   // State variables for handling search functionality
   const [searchTerm, setSearchTerm] = useState("");
@@ -83,6 +84,7 @@ const FeaturesContextProvider = ({ children }) => {
           setTotalPages(response.pageInfo.totalPages);
           setHasMoreNext(response.pageInfo.hasMoreNext);
           setHasMorePrev(response.pageInfo.hasMorePrev);
+          setStatuses(response.allItemsStatuses);
         }
       } catch (error) {
         // Log any errors that occur during the API calls
@@ -164,6 +166,7 @@ const FeaturesContextProvider = ({ children }) => {
     hasMorePrev,
     handlePageChange,
     handleItemsPerPageChange,
+    statuses,
   };
 
   return (
