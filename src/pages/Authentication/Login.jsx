@@ -2,12 +2,11 @@ import { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { toast } from "react-toastify";
-import CustomAuthForm from "../components/Auth/CustomAuthForm";
-import SocialLogin from "../components/Auth/SocialLogin";
-import { AuthContext } from "../context/AuthContextProvider";
-import { userLogin, userLogout } from "../services/apis/User";
-import handleError from "../utils/handleError";
-import { WebsiteContext } from "../context/WebsiteContextProvider";
+import CustomAuthForm from "../../components/Auth/CustomAuthForm";
+import SocialLogin from "../../components/Auth/SocialLogin";
+import { AuthContext } from "../../context/AuthContextProvider";
+import { userLogin, userLogout } from "../../services/apis/User";
+import { WebsiteContext } from "../../context/WebsiteContextProvider";
 
 const Login = () => {
   const { loginUser } = useContext(AuthContext);
@@ -35,18 +34,16 @@ const Login = () => {
       setFormSubmit(true);
 
       // Step 1: Login user to MongoDB
-      const response = await loginUserUsingMongoDB(userData);
+      const response = await userLogin(userData);
 
       // Check if MongoDB login was successful
       if (response.user.email) {
         // Step 2: login user to Firebase authentication
-        const firebaseResponse = await loginUserUsingFirebase(
-          userData.email,
-          userData.password
-        );
+
+        const result = await loginUser(userData.email, userData.password);
 
         // Error handling if user does not match between MongoDB and Firebase
-        if (response.user.email !== firebaseResponse.user.email) {
+        if (response.user.email !== result.user.email) {
           // Logout user and navigate to the login page
           await userLogout();
           navigate("/auth/login");
@@ -63,29 +60,6 @@ const Login = () => {
     } finally {
       // Set form submission in progress flag to false
       setFormSubmit(false);
-    }
-  };
-
-  // Function to login user to MongoDB
-  const loginUserUsingMongoDB = async (userData) => {
-    try {
-      // Perform MongoDB login User here
-      const response = await userLogin(userData);
-      return response;
-    } catch (error) {
-      throw new Error(`${handleError(error)}`);
-    }
-  };
-
-  // Function to login user to Firebase authentication
-  const loginUserUsingFirebase = async (email, password) => {
-    try {
-      // Perform Firebase login here
-      const result = await loginUser(email, password);
-      return result;
-    } catch (error) {
-      console.log(`Firebase login error: ${handleError(error)}`);
-      throw new Error(`${handleError(error)}`);
     }
   };
 
