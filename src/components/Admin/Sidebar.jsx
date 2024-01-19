@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { FiSettings } from "react-icons/fi";
 import { HiHome } from "react-icons/hi";
 import { MdOutlineFeaturedVideo, MdOutlineLogout } from "react-icons/md";
+import { VscGitPullRequestDraft } from "react-icons/vsc";
 import { TbUsers } from "react-icons/tb";
 import { UserContext } from "../../context/UserContextProvider";
 import { demoAdmin } from "../../assets/images/images";
@@ -23,17 +24,22 @@ const Sidebar = () => {
   const sidebarLinks = [
     { to: "/", icon: <HiHome className="text-lg" />, text: "Homepage" },
     {
-      to: "/admin/feature-requests",
+      to: "/dashboard",
       icon: <MdOutlineFeaturedVideo className="text-lg" />,
       text: "Dashboard",
     },
     {
-      to: "/admin/users",
+      to: "/dashboard/feature-requests",
+      icon: <VscGitPullRequestDraft className="text-lg" />,
+      text: "Requests",
+    },
+    {
+      to: "/dashboard/users",
       icon: <TbUsers className="text-lg" />,
       text: "Users",
     },
     {
-      to: "/admin/settings",
+      to: "/dashboard/settings",
       icon: <FiSettings className="text-lg" />,
       text: "Settings",
     },

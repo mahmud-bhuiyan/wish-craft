@@ -6,11 +6,11 @@ const Pagination = ({
   onPageChange,
 }) => {
   return (
-    <div className="flex justify-center">
+    <div className="flex">
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={!hasMorePrev}
-        className="flex items-center px-3 py-1.5 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-600 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200"
+        className="flex items-center px-3 py-1 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-600 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200"
       >
         Previous
       </button>
@@ -21,8 +21,8 @@ const Pagination = ({
           onClick={() => onPageChange(pageNumber + 1)}
           className={`items-center ${
             currentPage === pageNumber + 1
-              ? "px-3 py-1.5 mx-1 text-white bg-blue-600 rounded"
-              : "hidden px-3 py-1.5 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md sm:flex dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-600 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200"
+              ? "px-3 py-1 mx-1 text-white bg-blue-600 rounded"
+              : "hidden px-3 py-1 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md sm:flex dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-600 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200"
           }`}
         >
           {pageNumber + 1}
@@ -32,7 +32,7 @@ const Pagination = ({
       <button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={!hasMoreNext}
-        className="flex items-center px-3 py-1.5 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-600 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200"
+        className="flex items-center px-3 py-1 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md dark:bg-gray-800 dark:text-gray-200 hover:bg-blue-600 dark:hover:bg-blue-500 hover:text-white dark:hover:text-gray-200"
       >
         Next
       </button>

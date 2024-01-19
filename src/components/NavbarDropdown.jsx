@@ -56,7 +56,7 @@ const NavbarDropdown = ({
       {userDetails?.role === "admin" && (
         <>
           <NavbarDropdownItem
-            to="/admin/feature-requests"
+            to="/dashboard"
             icon={<MdAdminPanelSettings className="text-xl" />}
             label="Settings"
           />

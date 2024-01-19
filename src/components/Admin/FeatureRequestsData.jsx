@@ -79,21 +79,21 @@ const FeatureRequestsData = ({ feature, index, setRefetch }) => {
 
   return (
     <tr key={_id}>
-      <td className="py-2 px-4 text-sm font-normal text-gray-800">
+      <td className="py-1.5 px-2 text-sm font-normal text-gray-800">
         {index + 1}
       </td>
-      <td className="py-2 px-4 text-sm font-normal text-gray-800">{title}</td>
-      <td className="py-2 px-4 text-sm font-normal text-gray-800">
+      <td className="py-1.5 px-2 text-sm font-normal text-gray-800">{title}</td>
+      <td className="py-1.5 px-2 text-sm font-normal text-gray-800">
         {description}
       </td>
-      <td className="py-2 px-4 text-sm font-normal text-gray-800">
+      <td className="py-1.5 px-2 text-sm font-normal text-gray-800">
         {createdBy?.name}
       </td>
-      <td className="py-2 px-4 text-sm font-normal text-gray-800 uppercase flex justify-center">
+      <td className="py-1.5 px-2 text-sm font-normal text-gray-800 uppercase flex justify-center">
         <select
           value={newStatus}
           onChange={handleStatusChange}
-          className="body-large mb-0 flex h-10 w-3/4 rounded-md border border-input bg-[#F6F2F7] text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-[#78767A] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-[#C8C5CA] disabled:cursor-not-allowed disabled:opacity-50 text-center"
+          className="body-large mb-0 flex h-9 w-3/4 rounded-md border border-input bg-[#F6F2F7] text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-[#78767A] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-[#C8C5CA] disabled:cursor-not-allowed disabled:opacity-50 text-center"
           style={getStatusColor(newStatus)}
         >
           <option

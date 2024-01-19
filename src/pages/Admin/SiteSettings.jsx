@@ -97,11 +97,11 @@ const SiteSettings = () => {
   return (
     <>
       <CustomHelmet pageName={"Settings"} />
-      <div className="max-w-screen-xl pt-6 px-4 w-full mx-auto">
+      <div className="p-4 w-full mx-auto">
         <Breadcrumbs
           fromPage={"Dashboard"}
           pageTitle={"Settings"}
-          fromURL={"/admin/feature-requests"}
+          fromURL={"/dashboard"}
         />
         <div className="lg:flex gap-6 overflow-hidden dark:bg-gray-800">
           {/* left div */}

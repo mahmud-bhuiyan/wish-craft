@@ -25,6 +25,7 @@ const FeaturesContextProvider = ({ children }) => {
   // State variables for pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);
+  const [totalItems, setTotalItems] = useState("");
   const [totalPages, setTotalPages] = useState(1);
   const [hasMoreNext, setHasMoreNext] = useState(false);
   const [hasMorePrev, setHasMorePrev] = useState(false);
@@ -78,6 +79,7 @@ const FeaturesContextProvider = ({ children }) => {
             setSearchResults(response.searchResults);
           }
           // Set pagination information
+          setTotalItems(response.pageInfo.totalItems);
           setTotalPages(response.pageInfo.totalPages);
           setHasMoreNext(response.pageInfo.hasMoreNext);
           setHasMorePrev(response.pageInfo.hasMorePrev);
@@ -156,6 +158,7 @@ const FeaturesContextProvider = ({ children }) => {
     sortOrder,
     currentPage,
     itemsPerPage,
+    totalItems,
     totalPages,
     hasMoreNext,
     hasMorePrev,

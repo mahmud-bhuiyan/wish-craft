@@ -16,6 +16,7 @@ import FeatureRequests from "../pages/Admin/FeatureRequests";
 import AllUsers from "../pages/Admin/AllUsers";
 import SiteSettings from "../pages/Admin/SiteSettings";
 import Profile from "../pages/Profile";
+import Dashboard from "../pages/Admin/Dashboard";
 
 export const router = createBrowserRouter([
   {
@@ -77,7 +78,7 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: "/admin",
+    path: "/dashboard",
     element: (
       <AdminRoutes>
         <AdminLayout />
@@ -85,6 +86,10 @@ export const router = createBrowserRouter([
     ),
     errorElement: <ErrorPage />,
     children: [
+      {
+        path: "/dashboard",
+        element: <Dashboard />,
+      },
       {
         path: "feature-requests",
         element: <FeatureRequests />,

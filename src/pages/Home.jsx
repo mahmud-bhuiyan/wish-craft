@@ -95,13 +95,15 @@ const Home = () => {
                 )}
 
                 {/* Pagination controls */}
-                <Pagination
-                  currentPage={currentPage}
-                  totalPages={totalPages}
-                  hasMorePrev={hasMorePrev}
-                  hasMoreNext={hasMoreNext}
-                  onPageChange={handlePageChange}
-                />
+                <div className="flex justify-center">
+                  <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    hasMorePrev={hasMorePrev}
+                    hasMoreNext={hasMoreNext}
+                    onPageChange={handlePageChange}
+                  />
+                </div>
               </div>
             </div>
           </div>

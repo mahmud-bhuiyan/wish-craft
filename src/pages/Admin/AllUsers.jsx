@@ -28,7 +28,6 @@ const AllUsers = () => {
   return (
     <>
       <CustomHelmet pageName={"All Users"} />
-      {/* <div className="max-w-screen-xl p-4 my-4 w-full mx-auto"> */}
       <div className="p-4 w-full mx-auto">
         <TableTotalDataCount
           title="Total"
