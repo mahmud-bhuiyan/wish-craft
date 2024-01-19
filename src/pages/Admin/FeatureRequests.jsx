@@ -54,6 +54,7 @@ const FeatureRequests = () => {
               tableName={"Requests"}
             />
           </div>
+
           <div className="flex items-center w-auto mt-3 sm:mt-0 justify-end">
             <label className="mr-2">Show</label>
             <select

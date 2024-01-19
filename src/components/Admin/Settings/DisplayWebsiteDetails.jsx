@@ -13,7 +13,7 @@ const DisplayWebsiteDetails = () => {
         Website Info&apos;s
       </h2>
       <hr />
-      <div className="px-6 pb-6 pt-4">
+      <div className="px-6 pb-4 pt-4">
         <div className="flex flex-col items-center -mx-2">
           <img
             className="object-cover w-24 h-24 mx-2 rounded-full"

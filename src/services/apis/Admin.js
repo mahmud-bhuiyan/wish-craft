@@ -2,7 +2,7 @@ import { axiosSecureInstance } from "../../utils/axios";
 import handleApiError from "../../utils/handleApiError";
 
 // =============================================
-//                 get all Request
+//                 get all users
 // =============================================
 export const getAllUsers = async () => {
   try {

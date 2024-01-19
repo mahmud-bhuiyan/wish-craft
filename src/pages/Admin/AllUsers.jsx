@@ -5,6 +5,7 @@ import AllUsersData from "../../components/Admin/AllUsersData";
 import CustomHelmet from "../../components/CustomComponents/CustomHelmet";
 import CustomTableHeader from "../../components/Admin/CustomTableHeader";
 import TableTotalDataCount from "../../components/Admin/TableTotalDataCount";
+import Breadcrumbs from "../../components/Breadcrumbs";
 
 const AllUsers = () => {
   const { allUsers, setAllUsers } = useContext(UserContext);
@@ -29,11 +30,19 @@ const AllUsers = () => {
     <>
       <CustomHelmet pageName={"All Users"} />
       <div className="p-4 w-full mx-auto">
-        <TableTotalDataCount
-          title="Total"
-          count={allUsers.length}
-          tableName={"users"}
+        <Breadcrumbs
+          fromPage={"Dashboard"}
+          pageTitle={"Users"}
+          fromURL={"/dashboard"}
         />
+
+        <div className="flex justify-center items-center mb-2.5 bg-white py-2 rounded-lg">
+          <TableTotalDataCount
+            title="Total"
+            count={allUsers.length}
+            tableName={"users"}
+          />
+        </div>
 
         <div className="flex flex-col mt-4">
           <div className="overflow-x-auto">

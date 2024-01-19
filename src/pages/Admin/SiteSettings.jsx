@@ -111,10 +111,7 @@ const SiteSettings = () => {
             </h2>
             <hr />
             {/* Form for updating website information */}
-            <form
-              onSubmit={handleSubmit(handleFormSubmit)}
-              className="px-6 pb-6"
-            >
+            <form onSubmit={handleSubmit(handleFormSubmit)} className="px-6">
               {/* Custom input field for website name */}
               <CustomInputField
                 label="Website Name"
