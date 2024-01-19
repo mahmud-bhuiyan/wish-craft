@@ -4,9 +4,11 @@ import handleApiError from "../../utils/handleApiError";
 // =============================================
 //                 get all users
 // =============================================
-export const getAllUsers = async () => {
+export const getAllUsers = async (page, limit) => {
   try {
-    const response = await axiosSecureInstance.get("/admins/");
+    const response = await axiosSecureInstance.get("/admins/", {
+      params: { page, limit },
+    });
     return response.data;
   } catch (error) {
     handleApiError(error);
