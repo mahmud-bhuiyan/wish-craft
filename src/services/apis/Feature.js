@@ -16,10 +16,10 @@ export const createRequest = async (data) => {
 // =============================================
 //                 get all Request
 // =============================================
-export const getAllRequest = async (sortBy, sortOrder, page, limit) => {
+export const getAllRequest = async (sortBy, sortOrder, page, limit, status) => {
   try {
     const response = await axiosNonSecureInstance.get("/features/", {
-      params: { sortBy, sortOrder, page, limit },
+      params: { sortBy, sortOrder, page, limit, status },
     });
     return response.data;
   } catch (error) {

@@ -1,17 +1,17 @@
-import { FaQuestion } from "react-icons/fa6";
 import { MdDone } from "react-icons/md";
+import { FaQuestion } from "react-icons/fa6";
 
 const SortingButtons = ({ sortBy, sortOrder, handleSort }) => {
   // An array of sorting options
   const sortingOptions = [
     { field: "createdAt", order: "desc", label: "Newest" },
     { field: "createdAt", order: "asc", label: "Oldest" },
+    { field: "title", order: "asc", label: "A-Z" },
+    { field: "title", order: "desc", label: "Z-A" },
     { field: "likes", order: "desc", label: "Likes (High to Low)" },
     { field: "likes", order: "asc", label: "Likes (Low to High)" },
     { field: "comments", order: "desc", label: "Comments (High to Low)" },
     { field: "comments", order: "asc", label: "Comments (Low to High)" },
-    { field: "title", order: "asc", label: "A-Z" },
-    { field: "title", order: "desc", label: "Z-A" },
   ];
 
   return (
@@ -22,12 +22,12 @@ const SortingButtons = ({ sortBy, sortOrder, handleSort }) => {
           {sortingOptions.map((option) => (
             <button
               key={option.label}
-              className={`flex flex-col justify-center items-center gap-2 p-2 bg-slate-100 rounded mr-2 mt-2 lg:w-full hover:bg-slate-200 text-gray-600 font-semibold ${
+              onClick={() => handleSort(option.field, option.order)}
+              className={`flex flex-col justify-center items-center min-w-24 lg:min-w-full max-w-64 lg:max-w-full gap-2 p-2 bg-slate-100 rounded mr-2 mt-2 hover:bg-green-300 text-gray-600 font-semibold ${
                 sortBy === option.field && sortOrder === option.order
-                  ? "bg-green-200/50 hover:bg-green-200"
+                  ? "bg-green-200 text-[#332532]"
                   : ""
               }`}
-              onClick={() => handleSort(option.field, option.order)}
             >
               <div className="flex items-center">
                 <span>{option.label}</span>
@@ -61,7 +61,6 @@ const SortingButtons = ({ sortBy, sortOrder, handleSort }) => {
           ))}
         </select>
         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-600">
-          {/* You can use your icons here if needed */}
           <MdDone className="text-xl p-1 bg-green-300 rounded text-[#332532]" />
         </div>
       </div>

@@ -7,6 +7,7 @@ import Loader from "../components/Loader";
 import { WebsiteContext } from "../context/WebsiteContextProvider";
 import SortingButtons from "../components/SortingButtons";
 import Pagination from "../components/Pagination";
+import FilterButton from "../components/FilterButton";
 
 const Home = () => {
   const {
@@ -25,6 +26,8 @@ const Home = () => {
     hasMorePrev,
     handlePageChange,
     handleItemsPerPageChange,
+    handleFilter,
+    selectedStatus,
   } = useContext(FeaturesContext);
 
   const { websiteInfo } = useContext(WebsiteContext);
@@ -39,14 +42,25 @@ const Home = () => {
         <div className="mx-2 my-4">
           <div className="lg:flex bg-white rounded-lg p-1">
             {/* Content for the left div */}
-            <div className="lg:w-1/3 lg:order-first p-4 border-2 m-3 rounded-lg">
-              <h3 className="uppercase font-bold lg:text-xl">Sort By</h3>
-              {/* Sorting buttons with dynamic options */}
-              <SortingButtons
-                sortBy={sortBy}
-                sortOrder={sortOrder}
-                handleSort={handleSort}
-              />
+            <div className="lg:w-1/3 lg:order-first">
+              <div className="p-4 border-2 m-3 rounded-lg">
+                <h3 className="uppercase font-bold lg:text-xl">
+                  FILTER BY STATUS
+                </h3>
+                <FilterButton
+                  handleFilter={handleFilter}
+                  selectedStatus={selectedStatus}
+                />
+              </div>
+              <div className="p-4 border-2 m-3 rounded-lg">
+                <h3 className="uppercase font-bold lg:text-xl">Sort By</h3>
+                {/* Sorting buttons with dynamic options */}
+                <SortingButtons
+                  sortBy={sortBy}
+                  sortOrder={sortOrder}
+                  handleSort={handleSort}
+                />
+              </div>
             </div>
 
             {/* Content for the right div */}

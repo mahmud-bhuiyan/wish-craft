@@ -31,6 +31,9 @@ const FeaturesContextProvider = ({ children }) => {
   const [hasMoreNext, setHasMoreNext] = useState(false);
   const [hasMorePrev, setHasMorePrev] = useState(false);
 
+  // State variable for handling status filtering
+  const [selectedStatus, setSelectedStatus] = useState("");
+
   // Get the activeSorting value from websiteInfo
   const activeSorting = websiteInfo?.sortingOrder;
 
@@ -48,7 +51,7 @@ const FeaturesContextProvider = ({ children }) => {
     }
   }, [activeSorting]);
 
-  // Effect hook to fetch data based on user, refetch, search, sortBy, and sortOrder
+  // Effect hook to fetch data based on user, refetch, search, sortBy, sortOrder, and selectedStatus
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -57,14 +60,29 @@ const FeaturesContextProvider = ({ children }) => {
         // Checking if there is a search term to determine which API call to make
         if (searchTerm) {
           // If there is a search term, call the search API
-          response = await searchRequest(searchTerm, currentPage, itemsPerPage);
+          response = await searchRequest(
+            searchTerm,
+            currentPage,
+            itemsPerPage,
+            selectedStatus
+          );
         } else if (sortBy) {
           // If there is sortBy, call the API with sorted data
           response = await getAllRequest(
             sortBy,
             sortOrder,
             currentPage,
-            itemsPerPage
+            itemsPerPage,
+            selectedStatus
+          );
+        } else if (selectedStatus) {
+          // If there is a selected status, call the API with status filtering
+          response = await getAllRequest(
+            null,
+            null,
+            currentPage,
+            itemsPerPage,
+            selectedStatus
           );
         }
 
@@ -108,7 +126,7 @@ const FeaturesContextProvider = ({ children }) => {
     searchTerm,
     sortBy,
     sortOrder,
-    activeSorting,
+    selectedStatus,
     currentPage,
     itemsPerPage,
   ]);
@@ -145,6 +163,16 @@ const FeaturesContextProvider = ({ children }) => {
     }
   };
 
+  const handleFilter = async (status) => {
+    try {
+      setSelectedStatus(status);
+      setCurrentPage(1);
+      setRefetch((prevRefetch) => !prevRefetch);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const featuresData = {
     features,
     setFeatures,
@@ -167,6 +195,8 @@ const FeaturesContextProvider = ({ children }) => {
     handlePageChange,
     handleItemsPerPageChange,
     statuses,
+    handleFilter,
+    selectedStatus,
   };
 
   return (
