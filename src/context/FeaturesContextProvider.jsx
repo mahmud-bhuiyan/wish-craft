@@ -55,7 +55,7 @@ const FeaturesContextProvider = ({ children }) => {
         // Checking if there is a search term to determine which API call to make
         if (searchTerm) {
           // If there is a search term, call the search API
-          response = await searchRequest(searchTerm);
+          response = await searchRequest(searchTerm, currentPage, itemsPerPage);
         } else if (sortBy) {
           // If there is sortBy, call the API with sorted data
           response = await getAllRequest(

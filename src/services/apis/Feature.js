@@ -133,10 +133,13 @@ export const deleteFeatureComment = async (featureId, commentId) => {
 // =============================================
 //            search Feature Requests
 // =============================================
-export const searchRequest = async (searchTerm) => {
+export const searchRequest = async (searchTerm, page, limit) => {
   try {
     const response = await axiosNonSecureInstance.get(
-      `/features/search/${searchTerm}`
+      `/features/search/${searchTerm}`,
+      {
+        params: { page, limit },
+      }
     );
     return response.data;
   } catch (error) {
