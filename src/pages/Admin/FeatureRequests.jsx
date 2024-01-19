@@ -1,11 +1,11 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { FeaturesContext } from "../../context/FeaturesContextProvider";
 import FeatureRequestsData from "../../components/Admin/FeatureRequestsData";
 import CustomHelmet from "../../components/CustomComponents/CustomHelmet";
-import CustomTableHeader from "../../components/Admin/CustomTableHeader";
 import TableTotalDataCount from "../../components/Admin/TableTotalDataCount";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import Pagination from "../../components/Pagination";
+import CustomTableHeader from "../../components/Admin/CustomTableHeader";
 
 const FeatureRequests = () => {
   const {
@@ -21,6 +21,9 @@ const FeatureRequests = () => {
     handleItemsPerPageChange,
   } = useContext(FeaturesContext);
 
+  const [sortColumn, setSortColumn] = useState("title");
+  const [sortOrder, setSortOrder] = useState("asc");
+
   // Table column names
   const columns = [
     "#",
@@ -30,6 +33,29 @@ const FeatureRequests = () => {
     "Status",
     "Action",
   ];
+
+  // Handle column header click event for sorting
+  const handleSort = (column) => {
+    if (column === sortColumn) {
+      setSortOrder((prevOrder) => (prevOrder === "asc" ? "desc" : "asc"));
+    } else {
+      setSortColumn(column);
+      setSortOrder("asc");
+    }
+  };
+
+  const sortedFeatures = () => {
+    return features.slice().sort((a, b) => {
+      const valueA = a[sortColumn].toLowerCase();
+      const valueB = b[sortColumn].toLowerCase();
+
+      if (sortOrder === "asc") {
+        return valueA.localeCompare(valueB, undefined, { sensitivity: "base" });
+      } else {
+        return valueB.localeCompare(valueA, undefined, { sensitivity: "base" });
+      }
+    });
+  };
 
   return (
     <>
@@ -76,12 +102,22 @@ const FeatureRequests = () => {
             <div className="inline-block min-w-full align-middle">
               <div className="border border-gray-200 md:rounded-lg">
                 <table className="min-w-full divide-y divide-gray-200 text-center">
-                  {/* Table header */}
-                  <CustomTableHeader columns={columns} />
-
+                  {/* Using the CustomTableHeader component */}
+                  <CustomTableHeader
+                    columns={columns}
+                    sortColumn={sortColumn}
+                    sortOrder={sortOrder}
+                    sortableColumns={[
+                      "title",
+                      "description",
+                      "requestBy",
+                      "status",
+                    ]}
+                    onSort={handleSort}
+                  />
                   {/* Table body */}
                   <tbody className="bg-white divide-y divide-gray-200">
-                    {features.map((feature, index) => (
+                    {sortedFeatures().map((feature, index) => (
                       <FeatureRequestsData
                         index={index}
                         key={feature._id}

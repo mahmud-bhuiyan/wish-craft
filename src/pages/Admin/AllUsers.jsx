@@ -6,9 +6,11 @@ import CustomHelmet from "../../components/CustomComponents/CustomHelmet";
 import TableTotalDataCount from "../../components/Admin/TableTotalDataCount";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import Pagination from "../../components/Pagination";
+import CustomTableHeader from "../../components/Admin/CustomTableHeader";
+import Loader from "../../components/Loader";
 
 const AllUsers = () => {
-  const { allUsers, setAllUsers } = useContext(UserContext);
+  const { allUsers, setAllUsers, isLoading } = useContext(UserContext);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [totalUsers, setTotalUsers] = useState(0);
@@ -27,7 +29,7 @@ const AllUsers = () => {
     };
 
     fetchUsers();
-  }, [setAllUsers, setCurrentPage, itemsPerPage, currentPage]);
+  }, [setAllUsers, currentPage, itemsPerPage]);
 
   // Calculate total pages for pagination
   const totalPages = Math.ceil(totalUsers / itemsPerPage);
@@ -35,9 +37,7 @@ const AllUsers = () => {
   const hasMoreNext = currentPage < totalPages;
 
   // Handle page change event
-  const handlePageChange = (newPage) => {
-    setCurrentPage(newPage);
-  };
+  const handlePageChange = (newPage) => setCurrentPage(newPage);
 
   // Handle items per page change event
   const handleDataPerPageChange = (newItemsPerPage) => {
@@ -45,36 +45,43 @@ const AllUsers = () => {
     setCurrentPage(1);
   };
 
+  // Column headers for the table
+  const columns = ["#", "Name", "Email", "Role", "Action"];
+
   // Handle column header click event for sorting
   const handleSort = (column) => {
     const sortableColumns = ["name", "email", "role"];
 
     if (sortableColumns.includes(column)) {
-      if (column === sortColumn) {
-        // Toggle sorting order if the same column is clicked
-        setSortOrder((prevOrder) => (prevOrder === "asc" ? "desc" : "asc"));
-      } else {
-        // Set the new sorting column and reset sorting order
-        setSortColumn(column);
-        setSortOrder("asc");
-      }
+      setSortOrder((prevOrder) =>
+        column === sortColumn ? (prevOrder === "asc" ? "desc" : "asc") : "asc"
+      );
+      setSortColumn(column);
+
+      // Sort the allUsers array based on the selected column and order
+      const sortedUsers = allUsers.slice().sort((a, b) => {
+        const valueA = a[column].toLowerCase();
+        const valueB = b[column].toLowerCase();
+
+        if (sortOrder === "asc") {
+          return valueA.localeCompare(valueB, undefined, {
+            sensitivity: "base",
+          });
+        } else {
+          return valueB.localeCompare(valueA, undefined, {
+            sensitivity: "base",
+          });
+        }
+      });
+
+      // Update the state with the sorted user array
+      setAllUsers(sortedUsers);
     }
   };
 
-  // Sort the users based on the selected column and sorting order
-  const sortedUsers = [...allUsers].sort((a, b) => {
-    const aValue = a[sortColumn].toLowerCase();
-    const bValue = b[sortColumn].toLowerCase();
-
-    if (sortOrder === "asc") {
-      return aValue.localeCompare(bValue);
-    } else {
-      return bValue.localeCompare(aValue);
-    }
-  });
-
-  // Column headers for the table
-  const columns = ["#", "Name", "Email", "Role", "Action"];
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <>
@@ -121,30 +128,19 @@ const AllUsers = () => {
             <div className="inline-block min-w-full align-middle">
               <div className="overflow-hidden border border-gray-200 md:rounded-lg">
                 <table className="min-w-full divide-y divide-gray-200 text-center">
-                  {/* Table header */}
-                  <thead className="bg-gray-200">
-                    <tr>
-                      {columns.map((column, index) => (
-                        <th
-                          key={index}
-                          scope="col"
-                          className="px-2 py-2.5 font-semibold text-gray-500 cursor-pointer"
-                          onClick={() => handleSort(column.toLowerCase())}
-                        >
-                          {column}
-                          {sortColumn === column.toLowerCase() && (
-                            <span className="ml-1">
-                              {sortOrder === "asc" ? "↑" : "↓"}
-                            </span>
-                          )}
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
+                  {/* Using the CustomTableHeader component */}
+                  <CustomTableHeader
+                    columns={columns}
+                    sortColumn={sortColumn}
+                    sortOrder={sortOrder}
+                    sortableColumns={["name", "email", "role"]}
+                    onSort={handleSort}
+                  />
+                  {/* Table body */}
                   <tbody className="bg-white divide-y divide-gray-200">
                     {/* User data rows */}
-                    {sortedUsers.map((user, index) => (
-                      <AllUsersData index={index} key={user._id} user={user} />
+                    {allUsers.map((user, index) => (
+                      <AllUsersData key={user._id} user={user} index={index} />
                     ))}
                   </tbody>
                 </table>
