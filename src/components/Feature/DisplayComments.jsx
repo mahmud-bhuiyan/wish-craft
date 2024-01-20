@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import AvatarWithText from "./AvatarWithText";
 import CustomDateFormat from "../../utils/CustomDateFormat";
 import EditCommentForm from "./EditCommentForm"; // Assuming you have a separate component for editing comments
 import DeleteComment from "./DeleteComment";
+import { AuthContext } from "../../context/AuthContextProvider";
 
 const DisplayComments = ({ feature, comments, setRefresh }) => {
   const [editingCommentId, setEditingCommentId] = useState(null);
@@ -15,6 +16,8 @@ const DisplayComments = ({ feature, comments, setRefresh }) => {
     setEditingCommentId(null);
   };
 
+  const { user } = useContext(AuthContext);
+
   return (
     <div>
       <h3 className="font-semibold mt-4 mb-2">Comments</h3>
@@ -25,6 +28,7 @@ const DisplayComments = ({ feature, comments, setRefresh }) => {
           {comments.data.map((comment) => (
             <li key={comment._id} className="py-3">
               <AvatarWithText userData={comment.commentsBy} />
+
               {editingCommentId === comment._id ? (
                 <EditCommentForm
                   featureId={feature._id}
@@ -41,12 +45,14 @@ const DisplayComments = ({ feature, comments, setRefresh }) => {
                         timeInWords: true,
                       })}
                     </p>
-                    <button
-                      className="ml-4 text-blue-500 hover:underline sm:pt-2"
-                      onClick={() => handleEditComment(comment._id)}
-                    >
-                      Edit
-                    </button>
+                    {user.email === comment.commentsBy.email ? (
+                      <button
+                        className="ml-4 text-blue-500 hover:underline sm:pt-2"
+                        onClick={() => handleEditComment(comment._id)}
+                      >
+                        Edit
+                      </button>
+                    ) : null}
                     <DeleteComment
                       feature={feature}
                       commentUser={comment.commentsBy}
