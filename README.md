@@ -8,7 +8,6 @@ Welcome to the Feature Request Board Documentation. This guide is designed for u
 
 ## Table of Contents
 
-- [Introduction](#introduction)
 - [Installation](#installation)
   - [Prerequisites](#prerequisites)
   - [Clone the Frontend Repository](#clone-the-frontend-repository)
@@ -36,7 +35,6 @@ Welcome to the Feature Request Board Documentation. This guide is designed for u
   - [Server](#server)
   - [Used Packages](#used-packages)
 - [Conclusion](#conclusion)
-
 
 ## Installation
 
@@ -80,7 +78,7 @@ VITE_MESSAGINGSENDERID=your_firebase_messaging_sender_id
 VITE_APPID=your_firebase_app_id
 VITE_API_URL=your_api_url
 VITE_IMAGE_UPLOAD_TOKEN=your_image_upload_token
-
+```
 
 Access the application in a web browser at `http://localhost:5173/`.
 
@@ -111,6 +109,7 @@ Create a `.env` file in the root of your project and configure the following env
 MONGO_URL=your_MONGO_URL
 JWT_SECRET_KEY=your_JWT_SECRET_KEY
 DB_NAME=your_DB_NAME
+```
 
 ## Accessing the Feature Request Board
 
@@ -204,5 +203,7 @@ Users who submit feature requests will receive notifications on changes to the s
 The Feature Request Board is a collaborative space for users and developers to shape the future of application development.
 
 For any additional questions or support, contact [bh.mahmud@gmail.com].
+
+```
 
 ```
