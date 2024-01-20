@@ -181,6 +181,7 @@ const SingleFeaturePage = () => {
                   editedFeature={editedFeature}
                   onSave={handleSave}
                   onCancel={handleCancel}
+                  setRefresh={setRefresh}
                 />
               ) : (
                 <>

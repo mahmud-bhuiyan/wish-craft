@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 const EditFeature = ({ editedFeature, onSave, onCancel }) => {
   const { register, handleSubmit, setValue } = useForm();
@@ -11,7 +12,14 @@ const EditFeature = ({ editedFeature, onSave, onCancel }) => {
   }, [editedFeature, setValue]);
 
   const onSubmit = (data) => {
-    onSave(data);
+    if (
+      data.title === editedFeature?.title &&
+      data.description === editedFeature?.description
+    ) {
+      toast.info("No changes to update");
+    } else {
+      onSave(data);
+    }
   };
 
   return (

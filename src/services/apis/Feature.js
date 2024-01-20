@@ -68,7 +68,6 @@ export const deleteFeatureRequestById = async (featureId) => {
 //          update Feature request by user
 // =============================================
 export const updateFeatureRequestById = async (featureId, data) => {
-  console.log(featureId, data);
   try {
     const response = await axiosSecureInstance.patch(
       `/features/${featureId}/update`,
@@ -138,6 +137,24 @@ export const addFeatureComment = async (featureId, data) => {
     const response = await axiosSecureInstance.patch(
       `/features/${featureId}/comments`,
       data
+    );
+
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+// =============================================
+//             edit Comment By Id
+// =============================================
+export const editCommentById = async (featureId, commentId, data) => {
+  try {
+    const response = await axiosSecureInstance.patch(
+      `/features/${featureId}/comments/${commentId}`,
+      {
+        data,
+      }
     );
 
     return response.data;
