@@ -6,36 +6,6 @@
 
 Welcome to the Feature Request Board Documentation. This guide is designed for users, developers, and stakeholders to understand and participate in the feature request process. The feature request board is a centralized space to collect, evaluate, and prioritize new features or improvements suggested by the community.
 
-## Table of Contents
-
-- [Installation](#installation)
-  - [Prerequisites](#prerequisites)
-  - [Clone the Frontend Repository](#clone-the-frontend-repository)
-  - [Install dependencies](#install-dependencies)
-  - [Start the server](#start-the-server)
-  - [Environment Variables](#environment-variables)
-  - [Clone the Backend Repository](#clone-the-backend-repository)
-  - [Install dependencies](#install-dependencies-1)
-  - [Start the server](#start-the-server-1)
-  - [Environment Variables](#environment-variables-1)
-- [Accessing the Feature Request Board](#accessing-the-feature-request-board)
-  - [For Full Access To Feature Details](#for-full-access-to-feature-details)
-- [Feature Request Board Section](#feature-request-board-section)
-- [Submitting a Feature Request](#submitting-a-feature-request)
-  - [Steps](#steps)
-- [Review Process](#review-process)
-- [Feature Request Statuses](#feature-request-statuses)
-- [Voting on Feature Requests](#voting-on-feature-requests)
-- [Commenting on Feature Requests](#commenting-on-feature-requests)
-- [Admin Panel](#admin-panel)
-- [Profile Page](#profile-page)
-- [Notifications](#notifications)
-- [Libraries Used](#libraries-used)
-  - [Frontend](#frontend)
-  - [Server](#server)
-  - [Used Packages](#used-packages)
-- [Conclusion](#conclusion)
-
 ## Installation
 
 Follow these steps to set up and run the Feature Request Board locally:
@@ -204,6 +174,4 @@ The Feature Request Board is a collaborative space for users and developers to s
 
 For any additional questions or support, contact [bh.mahmud@gmail.com].
 
-```
-
-```
+Many Thanks to `SJ Innovation` and `Project MearnifyU Team` For Your Support!
