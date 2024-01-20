@@ -66,6 +66,7 @@ const SingleFeaturePage = () => {
             <div className="lg:w-1/3 hidden lg:flex lg:order-first p-2 sm:p-4 border-2 m-2 sm:m-3 rounded-lg">
               <Link
                 to="/"
+                onClick={() => setRefetch((prevRefresh) => !prevRefresh)}
                 className="w-full h-10 bg-[#F0F0F0] rounded p-2 flex gap-2 justify-center items-center"
               >
                 <IoReturnUpBackSharp className="text-2xl" />

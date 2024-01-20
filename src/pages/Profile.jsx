@@ -3,6 +3,7 @@ import { demoAdmin, userPageBg } from "../assets/images/images";
 import { UserContext } from "../context/UserContextProvider";
 import Breadcrumbs from "../components/Breadcrumbs";
 import Loader from "../components/Loader";
+import CustomHelmet from "../components/CustomComponents/CustomHelmet";
 
 const Profile = () => {
   const { userDetails, isLoading } = useContext(UserContext);
@@ -15,6 +16,7 @@ const Profile = () => {
   return (
     <div className="mx-auto min-h-screen max-w-7xl mt-16 p-4">
       <div className="mx-auto">
+        <CustomHelmet pageName={"Profile"} />
         {/* Breadcrumb */}
         <Breadcrumbs fromPage={"Home"} pageTitle={"Profile"} fromURL={"/"} />
 

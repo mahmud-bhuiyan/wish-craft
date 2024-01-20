@@ -44,7 +44,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <CustomHelmet pageName={"Settings"} />
+      <CustomHelmet pageName={"Dashboard"} />
       {/* Main content container */}
       <div className="px-4 pt-10 w-full mx-auto">
         <h3 className="text-3xl my-2 font-bold text-center font-mono">

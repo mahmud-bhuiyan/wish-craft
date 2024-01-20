@@ -6,18 +6,124 @@
 
 Welcome to the Feature Request Board Documentation. This guide is designed for users, developers, and stakeholders to understand and participate in the feature request process. The feature request board is a centralized space to collect, evaluate, and prioritize new features or improvements suggested by the community.
 
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Installation](#installation)
+  - [Prerequisites](#prerequisites)
+  - [Clone the Frontend Repository](#clone-the-frontend-repository)
+  - [Install dependencies](#install-dependencies)
+  - [Start the server](#start-the-server)
+  - [Environment Variables](#environment-variables)
+  - [Clone the Backend Repository](#clone-the-backend-repository)
+  - [Install dependencies](#install-dependencies-1)
+  - [Start the server](#start-the-server-1)
+  - [Environment Variables](#environment-variables-1)
+- [Accessing the Feature Request Board](#accessing-the-feature-request-board)
+  - [For Full Access To Feature Details](#for-full-access-to-feature-details)
+- [Feature Request Board Section](#feature-request-board-section)
+- [Submitting a Feature Request](#submitting-a-feature-request)
+  - [Steps](#steps)
+- [Review Process](#review-process)
+- [Feature Request Statuses](#feature-request-statuses)
+- [Voting on Feature Requests](#voting-on-feature-requests)
+- [Commenting on Feature Requests](#commenting-on-feature-requests)
+- [Admin Panel](#admin-panel)
+- [Profile Page](#profile-page)
+- [Notifications](#notifications)
+- [Libraries Used](#libraries-used)
+  - [Frontend](#frontend)
+  - [Server](#server)
+  - [Used Packages](#used-packages)
+- [Conclusion](#conclusion)
+
+
+## Installation
+
+Follow these steps to set up and run the Feature Request Board locally:
+
+### Prerequisites
+
+Make sure you have the following installed on your machine:
+
+- [Node.js](https://nodejs.org/)
+
+### Clone the Frontend Repository
+
+```bash
+git clone https://github.com/mahmud-bhuiyan/SJI-feature-request-board.git
+```
+
+### Install dependencies
+
+```bash
+cd SJI-feature-request-board
+npm install
+```
+
+### Start the server
+
+```bash
+npm run dev
+```
+
+## Environment Variables
+
+Create a `.env` file in the root of your project and configure the following environment variables:
+
+````env
+VITE_APIKEY=your_firebase_api_key
+VITE_AUTHDOMAIN=your_firebase_auth_domain
+VITE_PROJECTID=your_firebase_project_id
+VITE_STORAGEBUCKET=your_firebase_storage_bucket
+VITE_MESSAGINGSENDERID=your_firebase_messaging_sender_id
+VITE_APPID=your_firebase_app_id
+VITE_API_URL=your_api_url
+VITE_IMAGE_UPLOAD_TOKEN=your_image_upload_token
+
+
+Access the application in a web browser at `http://localhost:5173/`.
+
+### Clone the Backend Repository
+
+```bash
+git clone https://github.com/mahmud-bhuiyan/SJI-feature-request-board-api.git
+````
+
+### Install dependencies
+
+```bash
+cd SJI-feature-request-board-api
+npm install
+```
+
+### Start the server
+
+```bash
+npm start
+```
+
+## Environment Variables
+
+Create a `.env` file in the root of your project and configure the following environment variables:
+
+```env
+MONGO_URL=your_MONGO_URL
+JWT_SECRET_KEY=your_JWT_SECRET_KEY
+DB_NAME=your_DB_NAME
+
 ## Accessing the Feature Request Board
 
-To access the Feature Request Board, visit [Feature Request Board](https://mahmud-feature-request-board.vercel.app). Follow these instructions:
-
-## Viewing Feature Details
-
-Unauthenticated users can view the list of feature requests and individual feature details. But can not vote/like and comment.
+To access the Feature Request Board, visit [Feature Request Board Live Link](https://mahmud-feature-request-board.vercel.app). Follow these instructions:
 
 ## For Full Access To Feature Details
 
 1. Create your account / Log in to your account.
 2. Navigate to the Feature Request Board section.
+
+## Feature Request Board Section
+
+Unauthenticated users can view the list of feature requests and individual feature details. They can also like/unlike feature requests, but cannot comment. There is sorting, filtering, searching, and pagination option for better experience.
 
 ## Submitting a Feature Request
 
@@ -43,24 +149,60 @@ Understanding the status of a feature request is crucial. Here are the common st
 - **Pending**: The request is under consideration and open for discussion.
 - **Under Review**: The product team is actively evaluating the request.
 - **Planned**: The feature request has been approved and added to the product roadmap.
-- **Deleted**: The request is not currently planned for implementation, with reasons provided.
+- **Deleted**: The request is not currently planned for implementation.
 - **In Progress**: The feature is being developed.
 - **Complete**: The feature has been developed and incorporated into the product.
 
 ## Voting on Feature Requests
 
-Users can vote/like on feature requests to express their interest and support. The number of votes helps prioritize features. Unauthenticated users are limited to viewing feature details.
+Users can like/unlike feature requests to express their interest and support. The number of likes helps prioritize features. Unauthenticated users are limited to viewing feature details.
 
 ## Commenting on Feature Requests
 
-Authenticated users can comment on feature requests to provide additional insights, feedback, or clarification. Unauthenticated users are limited to viewing feature details.
+Authenticated users can comment on feature requests to provide additional insights, feedback, or clarification. Users can also delete and update their own comments. Unauthenticated users are limited to viewing feature details.
+
+## Admin Panel
+
+The admin panel provides additional functionality for administrators:
+
+- **Dashboard/Current Activity:** View current activity of users.
+- **Dashboard/Features:** See all feature requests, update their current status and delete requests.
+- **Dashboard/Users:** Make users admin and delete users.
+- **Dashboard/Settings:** Control full website functionality, modify important data, set default sorting option and change the website logo.
+
+## Profile Page
+
+Every user can view their user information from the profile page. This includes details such as username, email and photo.
 
 ## Notifications
 
 Users who submit feature requests will receive notifications on changes to the status of their requests.
+
+## Libraries Used
+
+### Frontend
+
+- **React**
+- **React Router**
+- **Tailwind**
+- **Daisy UI**
+
+### Server
+
+- **Node**
+- **Express**
+- **MongoDB**
+
+### Used Packages
+
+- **Axios**
+- **React Hook Form**
+- **React Icons**
 
 ## Conclusion
 
 The Feature Request Board is a collaborative space for users and developers to shape the future of application development.
 
 For any additional questions or support, contact [bh.mahmud@gmail.com].
+
+```
