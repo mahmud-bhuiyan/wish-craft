@@ -69,7 +69,7 @@ npm run dev
 
 Create a `.env` file in the root of your project and configure the following environment variables:
 
-````env
+```env
 VITE_APIKEY=your_firebase_api_key
 VITE_AUTHDOMAIN=your_firebase_auth_domain
 VITE_PROJECTID=your_firebase_project_id
@@ -86,7 +86,7 @@ Access the application in a web browser at `http://localhost:5173/`.
 
 ```bash
 git clone https://github.com/mahmud-bhuiyan/SJI-feature-request-board-api.git
-````
+```
 
 ### Install dependencies
 
@@ -164,7 +164,7 @@ Authenticated users can comment on feature requests to provide additional insigh
 
 The admin panel provides additional functionality for administrators:
 
-- **Dashboard/Current Activity:** View current activity of users.
+- **Dashboard:** View current activity of users.
 - **Dashboard/Features:** See all feature requests, update their current status and delete requests.
 - **Dashboard/Users:** Make users admin and delete users.
 - **Dashboard/Settings:** Control full website functionality, modify important data, set default sorting option and change the website logo.
