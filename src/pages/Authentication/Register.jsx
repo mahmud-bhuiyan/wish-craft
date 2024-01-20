@@ -118,7 +118,11 @@ const Register = () => {
                   />
                 </Link>
               </div>
-
+              <div className="bg-sky-300 mt-4 mx-16 rounded p-2">
+                <h1 className="font-bold">Admin</h1>
+                <h3>Email : admin@gmail.com</h3>
+                <h3>Password : 123456</h3>
+              </div>
               <p className="mt-3 text-gray-500 dark:text-gray-300 capitalize">
                 Create your WishCraft account
               </p>

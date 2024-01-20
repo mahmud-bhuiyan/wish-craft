@@ -120,6 +120,12 @@ const Login = () => {
                 {/* Social Login */}
                 <SocialLogin />
 
+                <div className="text-center bg-sky-300 mt-4 mx-16 rounded p-2">
+                  <h1 className="font-bold">Admin</h1>
+                  <h3>Email : admin@gmail.com</h3>
+                  <h3>Password : 123456</h3>
+                </div>
+
                 <div className="mt-4 mb-8 border-b text-center max-w-sm mx-auto">
                   <div className="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2">
                     Or sign In with
