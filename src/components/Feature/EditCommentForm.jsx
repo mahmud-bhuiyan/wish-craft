@@ -37,13 +37,13 @@ const EditCommentForm = ({ featureId, comment, onCancel, setRefresh }) => {
       <div className="flex mt-2">
         <button
           type="submit"
-          className="px-2 rounded py-1 bg-blue-500 hover:bg-blue-600  mr-2"
+          className="px-6 rounded py-1 bg-green-500 hover:bg-green-600 text-white"
         >
           Save
         </button>
         <button
           type="button"
-          className="px-2 rounded py-1 bg-gray-500 hover:bg-gray-600 "
+          className="px-6 rounded py-1 bg-red-500 hover:bg-red-600 text-white ml-2"
           onClick={() => {
             onCancel();
             setValue("editedComment", comment.comment);
