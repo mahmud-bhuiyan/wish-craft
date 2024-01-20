@@ -65,7 +65,25 @@ export const deleteFeatureRequestById = async (featureId) => {
 };
 
 // =============================================
-//            update Feature Status
+//          update Feature request by user
+// =============================================
+export const updateFeatureRequestById = async (featureId, data) => {
+  console.log(featureId, data);
+  try {
+    const response = await axiosSecureInstance.patch(
+      `/features/${featureId}/update`,
+      {
+        data,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+// =============================================
+//    update Feature request Status by Admin
 // =============================================
 export const updateFeatureStatus = async (featureId, status) => {
   try {

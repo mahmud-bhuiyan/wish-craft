@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { IoReturnUpBackSharp } from "react-icons/io5";
 import { MdDelete, MdOutlineDateRange } from "react-icons/md";
+import { LuClipboardEdit } from "react-icons/lu";
 import Loader from "../Loader";
 import AvatarWithText from "./AvatarWithText";
 import LikeButton from "./LikeButton";
@@ -12,33 +13,29 @@ import { FeaturesContext } from "../../context/FeaturesContextProvider";
 import {
   deleteFeatureRequestById,
   getSingleFeatureRequest,
+  updateFeatureRequestById,
 } from "../../services/apis/Feature";
 import CustomHelmet from "../CustomComponents/CustomHelmet";
 import { getStatusColor } from "../../utils/getStatusColor";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../context/AuthContextProvider";
+import EditFeature from "./EditFeature";
 
 const SingleFeaturePage = () => {
-  // Retrieve feature id from URL params
   const { id } = useParams();
-
-  // React Router hook for navigation
   const navigate = useNavigate();
-
-  // State to hold the feature data and trigger refresh
   const [feature, setFeature] = useState(null);
   const [refresh, setRefresh] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [editedFeature, setEditedFeature] = useState(null);
 
-  // Access to FeaturesContext for global state management
   const { setRefetch } = useContext(FeaturesContext);
   const { user } = useContext(AuthContext);
 
-  // Fetch feature data on component mount or refresh
   useEffect(() => {
     const fetchFeature = async () => {
       try {
-        // Fetch feature data based on the id
         const featureData = await getSingleFeatureRequest(id);
         setFeature(featureData.feature);
       } catch (error) {
@@ -46,7 +43,6 @@ const SingleFeaturePage = () => {
       }
     };
 
-    // Trigger the fetch on mount or when refresh state changes
     fetchFeature();
   }, [id, refresh]);
 
@@ -75,7 +71,33 @@ const SingleFeaturePage = () => {
     });
   };
 
-  // If feature data is still loading, display a loader
+  const handleEdit = () => {
+    setIsEditMode(true);
+    setEditedFeature({
+      title: feature.title,
+      description: feature.description,
+    });
+  };
+
+  const handleSave = async (data) => {
+    try {
+      const result = await updateFeatureRequestById(id, data);
+
+      if (result.success) {
+        toast.success(result.message);
+        setRefetch((prevRefetch) => !prevRefetch);
+        setIsEditMode(false);
+        setRefresh((prevRefresh) => !prevRefresh);
+      }
+    } catch (error) {
+      console.error("Error updating feature:", error);
+    }
+  };
+
+  const handleCancel = () => {
+    setIsEditMode(false);
+  };
+
   if (!feature) {
     return <Loader />;
   }
@@ -93,11 +115,12 @@ const SingleFeaturePage = () => {
 
   return (
     <>
-      <CustomHelmet pageName={"Feature Request"} />
+      <CustomHelmet
+        pageName={isEditMode ? "Edit Feature Request" : "Feature Request"}
+      />
       <div className="max-w-screen-xl mx-auto">
         <div className="mx-1 sm:mx-2 my-4">
           <div className="lg:flex bg-white rounded-lg p-1">
-            {/* Left div: Back to all posts link */}
             <div className="lg:w-1/3 hidden lg:flex lg:order-first p-2 sm:p-4 border-2 m-2 sm:m-3 rounded-lg">
               <Link
                 to="/"
@@ -109,9 +132,7 @@ const SingleFeaturePage = () => {
               </Link>
             </div>
 
-            {/* Right div: Feature details */}
             <div className="flex-1 p-2 sm:p-4 border-2 m-2 sm:m-3 rounded-lg">
-              {/* Back to all posts link for smaller screens */}
               <Link
                 to="/"
                 onClick={() => setRefetch((prevRefresh) => !prevRefresh)}
@@ -122,8 +143,7 @@ const SingleFeaturePage = () => {
               </Link>
 
               <div className="flex justify-between">
-                {/* Feature title and status */}
-                <div className="mb-4 lg:px-3">
+                <div className="mb-4 lg:px-3 w-3/4">
                   <span className="text-xl font-semibold whitespace-normal break-words mr-2">
                     {title}
                   </span>
@@ -135,53 +155,59 @@ const SingleFeaturePage = () => {
                   </span>
                 </div>
                 {user?.email === createdBy?.email ? (
-                  <div>
+                  <div className="w-auto">
+                    <div
+                      className="tooltip-top tooltip mx-1"
+                      data-tip="Edit"
+                      onClick={handleEdit}
+                    >
+                      <LuClipboardEdit className="text-2xl text-blue-500 cursor-pointer" />
+                    </div>
                     <div
                       className="tooltip-top tooltip"
                       data-tip="Delete"
-                      onClick={() => handleDelete("delete")}
+                      onClick={handleDelete}
                     >
                       <MdDelete className="text-2xl text-red-500 cursor-pointer" />
                     </div>
-                    {/* Additional content to display if emails match */}
                   </div>
                 ) : null}
               </div>
 
-              {/* Display creator's avatar and text */}
               <AvatarWithText userData={createdBy} />
 
-              {/* Feature description */}
-              <p className="text-gray-700 my-5 whitespace-normal break-words">
-                {description}
-              </p>
-
-              {/* Display creation date */}
-              <p className="flex align-middle gap-2 text-sm my-2">
-                <MdOutlineDateRange className="text-xl" />
-                {CustomDateFormat(createdAt, {
-                  showTimeOff: true,
-                })}
-              </p>
-
-              {/* Like button */}
-              <div className="flex gap-2">
-                <LikeButton id={_id} likes={likes} />
-              </div>
-
-              {/* Component to add a new comment */}
-              <AddFeatureComment
-                id={_id}
-                setRefresh={setRefresh}
-                setFeature={setFeature}
-              />
-
-              {/* Display Comments */}
-              <DisplayComments
-                feature={feature}
-                comments={comments}
-                setRefresh={setRefresh}
-              />
+              {isEditMode ? (
+                <EditFeature
+                  editedFeature={editedFeature}
+                  onSave={handleSave}
+                  onCancel={handleCancel}
+                />
+              ) : (
+                <>
+                  <p className="text-gray-700 my-5 whitespace-normal break-words">
+                    {description}
+                  </p>
+                  <p className="flex align-middle gap-2 text-sm my-2">
+                    <MdOutlineDateRange className="text-xl" />
+                    {CustomDateFormat(createdAt, {
+                      showTimeOff: true,
+                    })}
+                  </p>
+                  <div className="flex gap-2">
+                    <LikeButton id={_id} likes={likes} />
+                  </div>
+                  <AddFeatureComment
+                    id={_id}
+                    setRefresh={setRefresh}
+                    setFeature={setFeature}
+                  />
+                  <DisplayComments
+                    feature={feature}
+                    comments={comments}
+                    setRefresh={setRefresh}
+                  />
+                </>
+              )}
             </div>
           </div>
         </div>
