@@ -53,6 +53,18 @@ export const deleteFeatureRequest = async (featureId) => {
 };
 
 // =============================================
+//         delete Feature Request By Id
+// =============================================
+export const deleteFeatureRequestById = async (featureId) => {
+  try {
+    const response = await axiosSecureInstance.delete(`/features/${featureId}`);
+    return response.data;
+  } catch (error) {
+    handleApiError(error);
+  }
+};
+
+// =============================================
 //            update Feature Status
 // =============================================
 export const updateFeatureStatus = async (featureId, status) => {
