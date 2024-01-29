@@ -173,5 +173,3 @@ DB_NAME=your_DB_NAME
 The Feature Request Board is a collaborative space for users and developers to shape the future of application development.
 
 For any additional questions or support, contact [bh.mahmud@gmail.com].
-
-Many Thanks to `SJ Innovation` and `Project MearnifyU Team` For Your Support!
